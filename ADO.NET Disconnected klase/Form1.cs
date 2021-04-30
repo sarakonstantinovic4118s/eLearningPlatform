@@ -12,6 +12,7 @@ namespace ADO.NET_Disconnected_klase
 {
     public partial class Form1 : Form
     {
+        //OVO JE MOJ KOMENTAR OGY--
         DataTable kupci, fakture, faktureStavke;
         DataSet fakturisanje;
 
@@ -98,6 +99,11 @@ namespace ADO.NET_Disconnected_klase
             txtFakturaID.Text = "";
             txtNazivStavkeFakture.Text = "";
             txtCenaStavke.Text = "";
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         public Form1()
