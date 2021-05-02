@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OnjohLZkBQmifE/L4ndilykv9+ZpyuS9dnW/KpclVNab/sggUAC5RPX1jEDOcP62J/UmL0oSbUjl11n+R2gcSQ==",
+  "dgSpecHash": "Rflfixufj6mxrw3Hu/PBsqqHC5h3z3eLsfGv/CZ/wbjZp3C2XbfZwOLA+2ffKUTExFE3lOYbw462lrfczwJcQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Stefan\\Desktop\\eLearning\\eLearning.csproj",
+  "projectFilePath": "C:\\Users\\Stefan\\Desktop\\projekat\\eLearningPlatform\\eLearning.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Stefan\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\Stefan\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",

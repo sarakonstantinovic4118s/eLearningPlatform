@@ -22,8 +22,9 @@ namespace eLearning.Services
 
         public List<Korisnik> Read()
         {
-            korisnici.Find(k => true);
-            throw new NotImplementedException();
+            // selektovanje svih korisnika
+            var k = korisnici.Find(k => true);
+            return k.ToList();
         }
 
         public Korisnik Insert(Korisnik k)
