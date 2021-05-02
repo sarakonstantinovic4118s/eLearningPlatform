@@ -1,0 +1,17 @@
+﻿@model KorisnikRegViewModel
+@{
+    ViewBag.Title = "Registracija";
+}
+
+<h1>Registracija</h1>
+<form method="post" asp-controller="Korisnik" asp-action="Registracija">
+    <label asp-for="korisnickoIme"></label>
+    <input asp-for="korisnickoIme" /><br />
+    <label asp-for="email"></label>
+    <input asp-for="email" /><br />
+    <label asp-for="password"></label>
+    <input asp-for="password" /><br />
+    <label asp-for="confirmPassword"></label>
+    <input asp-for="confirmPassword" /><br />
+    <input type="submit" value="Registruj se"/>
+</form>
