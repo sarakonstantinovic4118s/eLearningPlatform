@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\eLearning.csproj": {}
+    "C:\\Users\\todor\\OneDrive\\Desktop\\eLearningPlatform\\eLearning.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\eLearning.csproj": {
+    "C:\\Users\\todor\\OneDrive\\Desktop\\eLearningPlatform\\eLearning.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\eLearning.csproj",
+        "projectUniqueName": "C:\\Users\\todor\\OneDrive\\Desktop\\eLearningPlatform\\eLearning.csproj",
         "projectName": "eLearning",
-        "projectPath": "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\eLearning.csproj",
-        "packagesPath": "C:\\Users\\Ogy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\obj\\",
+        "projectPath": "C:\\Users\\todor\\OneDrive\\Desktop\\eLearningPlatform\\eLearning.csproj",
+        "packagesPath": "C:\\Users\\todor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\todor\\OneDrive\\Desktop\\eLearningPlatform\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ogy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\todor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
