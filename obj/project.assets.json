@@ -7845,29 +7845,25 @@
     "net5.0": [
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.5",
       "Microsoft.AspNetCore.Mvc.TagHelpers >= 2.2.0",
+      "Microsoft.AspNetCore.Razor.Runtime >= 2.2.0",
       "MongoDB.Driver >= 2.12.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Stefan\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Ogy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Stefan\\Desktop\\projekat\\eLearningPlatform\\eLearning.csproj",
+      "projectUniqueName": "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\eLearning.csproj",
       "projectName": "eLearning",
-      "projectPath": "C:\\Users\\Stefan\\Desktop\\projekat\\eLearningPlatform\\eLearning.csproj",
-      "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Stefan\\Desktop\\projekat\\eLearningPlatform\\obj\\",
+      "projectPath": "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\eLearning.csproj",
+      "packagesPath": "C:\\Users\\Ogy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ogy\\Desktop\\New folder\\eLearningPlatform\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Ogy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -7897,6 +7893,10 @@
             "version": "[5.0.5, )"
           },
           "Microsoft.AspNetCore.Mvc.TagHelpers": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.AspNetCore.Razor.Runtime": {
             "target": "Package",
             "version": "[2.2.0, )"
           },

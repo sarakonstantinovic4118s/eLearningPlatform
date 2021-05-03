@@ -33,6 +33,15 @@ namespace eLearning.Controllers
             return View(korisnik);
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Registracija(KorisnikRegViewModel korisnikVM)
         {

@@ -35,6 +35,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "5.0.5",
           "Microsoft.AspNetCore.Mvc.TagHelpers": "2.2.0",
+          "Microsoft.AspNetCore.Razor.Runtime": "2.2.0",
           "MongoDB.Driver": "2.12.2",
           "Microsoft.AspNetCore.Antiforgery.Reference": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "5.0.0.0",

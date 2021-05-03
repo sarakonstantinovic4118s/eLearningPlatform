@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  background: url("../images/slika_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  flex-wrap: wrap;
+}
+
+nav .logo {
+  width: 300px;
+}
+
+nav .content {
+  width: 300px;
+}
+
+/* USER */
+nav .user {
+  position: relative;
+  width: 250px;
+  padding: 10px;
+  margin: 20px 0 0 -50px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.user i {
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+  right: 0;
+  color: #fff;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
+
+.user p {
+  color: #fff;
+}
+
+.user p span {
+  color: rgb(0, 162, 255);
+}
+
+/*NOT LOGGED USER */
+.logo a span {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 70px;
+  color: #1ea0ff;
+}
+.logo a {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 40px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.main {
+  position: relative;
+  top: 50%;
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+
+.main-left,
+.main-right {
+  width: 50%;
+  height: 100%;
+}
+
+.main-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-right {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.main-left h1 {
+  font-size: 3.2em;
+  color: #fff;
+}
+.main-left a {
+  padding-top: 1.5em;
+  margin-left: -1.6em;
+  color: #fff;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  margin-top: 2em;
+}
+
+.content a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 40px;
+  margin: 2px 10px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  transition: 0.5s;
+  flex-wrap: nowrap;
+}
+
+.content a:hover {
+  color: #333;
+  background-color: #fff;
+}
+
+.main-right img {
+  width: 400px;
+  height: 300px;
+}
+
+@media only screen and (max-width: 725px) {
+  .main {
+    top: 10%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .main-right {
+    margin-top: 10%;
+  }
+}
