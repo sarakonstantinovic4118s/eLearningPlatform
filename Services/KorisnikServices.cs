@@ -23,7 +23,16 @@ namespace eLearning.Services
         public List<Korisnik> Read()
         {
             // selektovanje svih korisnika
+
             var k = korisnici.Find(k => true);
+            return k.ToList();
+        }
+        public List<Korisnik> Read(Korisnik korisnik)
+        {
+            // selektovanje svih korisnika
+
+            //var k = korisnici.Find(k => true);
+            var k = korisnici.Find(x => x.korisnickoIme == korisnik.korisnickoIme).ToList();
             return k.ToList();
         }
 
