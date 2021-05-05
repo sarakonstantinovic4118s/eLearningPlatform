@@ -29,7 +29,14 @@ namespace eLearning.Services
 
         public Korisnik Insert(Korisnik k)
         {
+            // dodavanje novog korisnika
             korisnici.InsertOne(k);
+            return k;
+        }
+
+        public Korisnik Find(string Id)
+        {
+            var k = korisnici.Find(k => k.userID == Id).SingleOrDefault();
             return k;
         }
     }

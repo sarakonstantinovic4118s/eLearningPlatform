@@ -2,12 +2,37 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/css/style.css">
-    @RenderSection("skripte",required: false)
+    <link rel="stylesheet" href="~/css/main.css">
+    @RenderSection("skripte", required: false)
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    @RenderBody()
+    <div class="main_container">
+        <nav class="main-nav">
+            <div class="logo">
+                <a asp-controller="Learning" asp-action="Index"><span>e</span>Learning</a>
+            </div>
+            <div class="right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                <div class="right_wrap">
+                    <div class="profile_desc"><span class="wlc">Welcome</span> @User.Claims.First(c => c.Type == "username").Value</div>
+                    <img class="profile_picture" src="~/images/profile.png" />
+                </div>
+                }
+                else
+                {
+                <div class="button_wrap">
+                    <div class="btn"><a asp-controller="Learning" asp-action="Login">Login</a></div>
+                    <div class="btn btn-white"><a asp-controller="Learning" asp-action="Register">Register</a></div>
+                </div>
+                }
+            </div>
+        </nav>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
 </body>
 </html>
