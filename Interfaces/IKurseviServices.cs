@@ -11,5 +11,7 @@ namespace eLearning.Interfaces
         List<Kursevi> Read();
 
         Kursevi Find(string id);
+
+        Kursevi join();
     }
 }

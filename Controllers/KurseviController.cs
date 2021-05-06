@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace eLearning.Controllers
 {
@@ -14,39 +15,44 @@ namespace eLearning.Controllers
 
         // instanciranje servisa (svih funkcija koje su navedene u IKorisnikServices i implementirane u KorisnikServices) za kontrolu korisnika
         private readonly IKurseviServices _kurseviServices;
+        private readonly IKategorijeServices _kategorijeServices;
         // 
-        public KurseviController(IKurseviServices kurseviServices)
+        public KurseviController(IKurseviServices kurseviServices, IKategorijeServices kategorijeServices)
         {
             _kurseviServices = kurseviServices;
+            _kategorijeServices = kategorijeServices;
         }
 
+       
+      
         // GET: KurseviController
-     
+
         public IActionResult Courses()
         {
-
-            List<Kursevi> list = new List<Kursevi>();
-            list = _kurseviServices.Read();
           
-           return View(list);
+
+
+            List<Kursevi> listKurseva = new List<Kursevi>();
+            listKurseva = _kurseviServices.Read();
+
+            List<Kategorije> listKategorija = new List<Kategorije>();
+            listKategorija = _kategorijeServices.Read();
+
+           var viewmodel = new KursKategorijaViewModel
+            {
+                kategorijes = listKategorija,
+                kursevis = listKurseva
+            };
+           return View(viewmodel);
         }
         [HttpGet]
      
         public ActionResult<Kursevi> CourseDetails(string id) => View(_kurseviServices.Find(id));
-        
 
-       
-       
 
-        // GET: KurseviController/Details/5
-        public IActionResult Details()
-        {
-     
 
-            return View();
-        }
+  
 
-        
 
 
 

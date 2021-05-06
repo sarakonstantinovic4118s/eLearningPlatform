@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace eLearning.Interfaces
 {
-    public interface IkategorijeServices
+    public interface IKategorijeServices
     {
        public List<Kategorije> Read();
     }

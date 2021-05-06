@@ -1,4 +1,4 @@
-﻿@model eLearning.ViewModels.KursKategorijaViewModel
+﻿@model List<Kursevi>
 
 @{
     ViewBag.Title = "E-learning";
@@ -15,19 +15,14 @@
 <div class="main-container">
     <div class="courses-category">
         <h2>Kategorije</h2>
-        @foreach(var item in Model.kategorijes)
-        {
-
-
-        <a href="#">@item.imekategorije</a>
+        <a href="#">Programiranje</a>
         <a href="#">Biologija</a>
         <a href="#">Srpski</a>
         <a href="#">Web programiranje</a>
         <a href="#">Informatika</a>
-        }
     </div>
     <div class="course-container">
-        @foreach (var item in Model.kursevis)
+        @foreach (var item in Model)
         {
             <div class="course-card">
                 <img class="course-img" src="@item.slika" alt="">

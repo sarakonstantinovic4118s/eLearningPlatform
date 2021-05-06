@@ -14,8 +14,6 @@ namespace eLearning.Models
 
         public string imekategorije { get; set; }
 
-        public Kursevi kursevi { get; set; }
-
-        public byte kursID { get; set; }
+       
     }
 }

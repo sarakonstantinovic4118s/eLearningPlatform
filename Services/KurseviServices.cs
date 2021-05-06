@@ -1,6 +1,7 @@
 ﻿using eLearning.Interfaces;
 using eLearning.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,12 @@ namespace eLearning.Services
         public Kursevi Find(string id) =>
           kursevi.Find(sub => sub.kursID == id).SingleOrDefault();
 
-       
+       public Kursevi join()
+        {
+            var joni = kursevi.Aggregate()
+             .Lookup("Kategorije", " kategorijaID", "kategorijaID", "KurseviKategorije");
+            return ((Kursevi)joni);
+        }
     }
 
 

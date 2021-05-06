@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace eLearning.Services
 {
-    public class KategorijeServices : IkategorijeServices
+    public class KategorijeServices : IKategorijeServices
     {
 
         private readonly IMongoCollection<Kategorije> kategorije;
@@ -24,7 +24,7 @@ namespace eLearning.Services
 
         public List<Kategorije> Read()
         {
-            // selektovanje svih kurseva
+            // selektovanje svih kategorija
             var k = kategorije.Find(k => true);
             return k.ToList();
         }
