@@ -19,14 +19,28 @@ namespace eLearning.Controllers
         {
             _kurseviServices = kurseviServices;
         }
+
         // GET: KurseviController
-        public ActionResult Courses()
+     
+        public IActionResult Courses()
         {
-            return View();
+
+            List<Kursevi> list = new List<Kursevi>();
+            list = _kurseviServices.Read();
+          
+           return View(list);
         }
+           
+
+
+
+
+          
+
+       
 
         // GET: KurseviController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }

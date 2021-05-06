@@ -17,12 +17,12 @@ namespace eLearning.Services
         {
             var client = new MongoClient(podesavanja.ConnectionString);
             var database = client.GetDatabase(podesavanja.DatabaseName);
-            this.kursevi = database.GetCollection<Kursevi>("kursevi");
+            this.kursevi = database.GetCollection<Kursevi>("Kursevi");
         }
 
         public List<Kursevi> Read()
         {
-            // selektovanje svih korisnika
+            // selektovanje svih kurseva
             var k = kursevi.Find(k => true);
             return k.ToList();
         }
