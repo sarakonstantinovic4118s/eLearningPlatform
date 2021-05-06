@@ -25,6 +25,11 @@ namespace eLearning.Controllers
             return View();
         }
 
+        public ActionResult CourseDetails()
+        {
+            return View();
+        }
+
         // GET: KurseviController/Details/5
         public ActionResult Details(int id)
         {
