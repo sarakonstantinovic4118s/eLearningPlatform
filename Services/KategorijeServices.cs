@@ -6,34 +6,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace eLearning.Services
 {
-    public class KurseviServices : IKurseviServices
+    public class KategorijeServices : IkategorijeServices
     {
-        private readonly IMongoCollection<Kursevi> kursevi;
 
-        public KurseviServices(IDatabaseSettings podesavanja)
+        private readonly IMongoCollection<Kategorije> kategorije;
+
+        public KategorijeServices(IDatabaseSettings podesavanja)
         {
             var client = new MongoClient(podesavanja.ConnectionString);
             var database = client.GetDatabase(podesavanja.DatabaseName);
-            this.kursevi = database.GetCollection<Kursevi>("Kursevi");
+            this.kategorije = database.GetCollection<Kategorije>("Kategorije");
         }
 
 
 
-        public List<Kursevi> Read()
+        public List<Kategorije> Read()
         {
             // selektovanje svih kurseva
-            var k = kursevi.Find(k => true);
+            var k = kategorije.Find(k => true);
             return k.ToList();
         }
-
-        public Kursevi Find(string id) =>
-          kursevi.Find(sub => sub.kursID == id).SingleOrDefault();
-
-       
     }
-
-
 }
