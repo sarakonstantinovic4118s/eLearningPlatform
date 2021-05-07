@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using System.Web.Helpers;
+using eLearning.Services;
 
 namespace eLearning.Controllers
 {
@@ -24,7 +24,7 @@ namespace eLearning.Controllers
             _korisnikServices = korisnikServices;
         }
 
-        // Pocetna stranica (login je na pocetnoj)
+        // Pocetna stranica
         public IActionResult Index()
         {
             return View();
@@ -33,9 +33,7 @@ namespace eLearning.Controllers
         [HttpGet]
         public IActionResult Registracija()
         {
-            // instanciranje modela koji se koristi u formi unutar View
-            KorisnikRegViewModel korisnik = new();
-            return View(korisnik);
+            return View();
         }
 
         [HttpGet]
@@ -47,20 +45,21 @@ namespace eLearning.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Logovanje(KorisnikLoginViewModel korisnikVM)
+        public IActionResult Login(KorisnikLoginViewModel korisnikVM)
         {
-            Korisnik k = new()
-            {
-                korisnickoIme = korisnikVM.korisnickoIme,
-                password = korisnikVM.password
-            };
-            if (ModelState.IsValid)
-            {
-                List<Korisnik> result = _korisnikServices.Read(k);
+            if (!ModelState.IsValid)
+                return View(korisnikVM);
 
+            Korisnik korisnik = _korisnikServices.Find(korisnikVM.korisnickoIme);
+
+            if (korisnik == null || korisnik.password != Security.Hash256(korisnikVM.password))
+            {
+                // poruka o neuspesnoj prijavi
+                ModelState.AddModelError(string.Empty, "Invalid login attempt");
+                return View(korisnikVM);
             }
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -70,38 +69,18 @@ namespace eLearning.Controllers
             return View();
         }
 
-        public string hashPass(string password)
-        {
-
-            // generate a 128-bit salt using a secure PRNG
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
-            Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
-
-            // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-            return hashed;
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public IActionResult Registracija(KorisnikRegViewModel korisnikVM)
         {
-            
+            // provera da li je korisnik vec registrovan
+
             Korisnik k = new()
             {
                 korisnickoIme = korisnikVM.korisnickoIme,
                 email = korisnikVM.email,
-                password = Crypto.HashPassword(korisnikVM.password),
+                password = Security.Hash256(korisnikVM.password),
                 tip = 1
             };
             _korisnikServices.Insert(k);

@@ -9,7 +9,7 @@ namespace eLearning.Interfaces
     public interface IKorisnikServices
     {
         List<Korisnik> Read();
-        List<Korisnik> Read(Korisnik korisnik);
+        Korisnik Find(string korisnickoIme);
         Korisnik Insert(Korisnik k);
     }
 }

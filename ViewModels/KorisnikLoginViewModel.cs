@@ -10,10 +10,12 @@ namespace eLearning.ViewModels
     public class KorisnikLoginViewModel
     {
         [DisplayName("User name")]
+        [Required]
         public string korisnickoIme { get; set; }
 
         [DisplayName("Password")]
         [DataType(DataType.Password)]
+        [Required]
         public string password { get; set; }
     }
 }
