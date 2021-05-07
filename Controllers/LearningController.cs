@@ -4,11 +4,13 @@ using eLearning.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using eLearning.Services;
 
 namespace eLearning.Controllers
 {
@@ -22,7 +24,7 @@ namespace eLearning.Controllers
             _korisnikServices = korisnikServices;
         }
 
-        // Pocetna stranica (login je na pocetnoj)
+        // Pocetna stranica
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -37,30 +39,54 @@ namespace eLearning.Controllers
         [HttpGet]
         public IActionResult Registracija()
         {
-            // instanciranje modela koji se koristi u formi unutar View
-            KorisnikRegViewModel korisnik = new();
-            return View(korisnik);
+            return View();
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(KorisnikLoginViewModel korisnikVM)
+        {
+            if (!ModelState.IsValid)
+                return View(korisnikVM);
+
+            Korisnik korisnik = _korisnikServices.Find(korisnikVM.korisnickoIme);
+
+            if (korisnik == null || korisnik.password != Security.Hash256(korisnikVM.password))
+            {
+                // poruka o neuspesnoj prijavi
+                ModelState.AddModelError(string.Empty, "Invalid login attempt");
+                return View(korisnikVM);
+            }
+
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Registracija(KorisnikRegViewModel korisnikVM)
         {
+            // provera da li je korisnik vec registrovan
+
             Korisnik k = new()
             {
                 korisnickoIme = korisnikVM.korisnickoIme,
                 email = korisnikVM.email,
-                password = korisnikVM.password,
+                password = Security.Hash256(korisnikVM.password),
                 tip = 1
             };
             _korisnikServices.Insert(k);

@@ -1,24 +1,44 @@
-﻿
-@{
-    ViewBag.Title = "E-learning";
-}
+﻿@model KorisnikLoginViewModel
+@{ ViewBag.Title = "E-learning"; }
 
 @section skripte{
     <link rel="stylesheet" href="~/css/login.css">
 }
-<div class="reg-wrap">
-    <div class="login-wrap">
-        <div class="login">
-            <h1>Login</h1>
-            <form>
-                <label>Username</label>
-                <input type="text" />
-                <label>Password</label>
-                <input type="text" />
-                <label><input type="checkbox"> Remember me</label>
-                <input class="signInBtn" type="submit" value="Sign In" />
-            </form>
-            <a asp-controller="Learning" asp-action="Register">Don't have an account?</a>
+
+@*<form>
+    <i class="fas fa-user fa-3x" id="user-icon"></i>
+    <label>Username</label>
+    <input type="text" id="user-name" name="username">
+    <label>Password</label>
+    <input type="password" name="password">
+    <button>Login</button>
+
+    <a href="#">Don't have an account?</a>
+</form>*@
+
+
+<form asp-controller="Learning" asp-action="Login" method="post">
+    <i class="fas fa-user fa-3x" id="user-icon"></i>
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="korisnickoIme"></label>
+        <div class="col-md-10">
+            <input asp-for="korisnickoIme" />
+            <span asp-validation-for="korisnickoIme"></span>
         </div>
     </div>
-</div>s
+    <div>
+        <label asp-for="password"></label>
+        <div class="col-md-10">
+            <input asp-for="password" />
+            <span asp-validation-for="password"></span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </div>
+
+    <a href="/Learning/Register">Don't have an account?</a>
+</form>

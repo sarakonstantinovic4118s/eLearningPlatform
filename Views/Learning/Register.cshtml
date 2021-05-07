@@ -1,28 +1,49 @@
-﻿
-@{
-    ViewBag.Title = "E-learning";
-}
+﻿@model KorisnikRegViewModel
+
+@{ ViewBag.Title = "E-learning"; }
 @section skripte{
     <link rel="stylesheet" href="~/css/register.css">
 }
 
-<div class="reg-wrap">
-    <div class="register-container">
-        <form>
-            <i class="fas fa-user fa-3x" id="user-icon"></i>
-            <label>Username</label>
-            <input type="text" id="user-name" name="user-name">
-            <span class="focus-input"></span>
-            <label>Email</label>
-            <input type="email" name="email">
-            <label>Password</label>
-            <input type="password" name="password">
-            <label>Confirm password</label>
-            <input type="password" name="confirm-password">
-            <button>Register</button>
-        </form>
-        <div class="register-banner">
-            <img src="https://www.kofa.de/fileadmin/Dateiliste/Bilder/Sonstige/E-Learning_gr.jpg" alt="register-slika">
+<div class="register-container">
+    <form asp-controller="Learning" asp-action="Registracija" method="post">
+        <i class="fas fa-user fa-3x" id="user-icon"></i>
+        <div >
+            <label asp-for="korisnickoIme" ></label>
+            <div class="col-md-10">
+                <input asp-for="korisnickoIme"  />
+                <span asp-validation-for="korisnickoIme" ></span>
+            </div>
         </div>
+        <div >
+            <label asp-for="email" ></label>
+            <div class="col-md-10">
+                <input asp-for="email" />
+                <span asp-validation-for="email"></span>
+            </div>
+        </div>
+        <div>
+            <label asp-for="password"></label>
+            <div class="col-md-10">
+                <input asp-for="password"  />
+                <span asp-validation-for="password" ></span>
+            </div>
+        </div>
+        <div >
+            <label asp-for="confirmPassword"></label>
+            <div class="col-md-10">
+                <input asp-for="confirmPassword"  />
+                <span asp-validation-for="confirmPassword"></span>
+            </div>
+        </div>
+        <div >
+            <div >
+                <button type="submit">Register</button>
+            </div>
+        </div>
+    </form>
+    <div class="register-banner">
+        <img src="https://www.kofa.de/fileadmin/Dateiliste/Bilder/Sonstige/E-Learning_gr.jpg" alt="register-slika">
     </div>
 </div>
+
