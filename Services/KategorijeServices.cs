@@ -1,6 +1,7 @@
 ﻿using eLearning.Interfaces;
 using eLearning.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,13 @@ namespace eLearning.Services
             var k = kategorije.Find(k => true);
             return k.ToList();
         }
+
+        public Kategorije Find(string id) =>
+         kategorije.Find(sub => sub.kategorijaID == id).SingleOrDefault();
+
+
+      
+
     }
-}
+    }
+

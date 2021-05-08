@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -8,12 +9,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace eLearning.Models
 {
-
+ 
     public class Kursevi 
     {
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+     
         public string kursID { get; set; }
       
         public string imekursa { get; set; }
@@ -23,8 +25,10 @@ namespace eLearning.Models
         public string link { get; set; }
         public string slika { get; set; }
         public decimal nivoKursa { get; set; }
-        public Kategorije kategorije { get; set; }
+    
+        public string  kategorijaID { get; set; }
+     
 
-        public string KategorijaID { get; set; }
+
     }
 }

@@ -12,6 +12,8 @@ namespace eLearning.Interfaces
 
         Kursevi Find(string id);
 
-        Kursevi join();
+        List<Kursevi> findCourses(string kategorijaID);
+
+
     }
 }

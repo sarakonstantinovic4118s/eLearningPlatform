@@ -33,11 +33,10 @@ namespace eLearning.Services
         public Kursevi Find(string id) =>
           kursevi.Find(sub => sub.kursID == id).SingleOrDefault();
 
-       public Kursevi join()
+      public List<Kursevi> findCourses(string kategorijaID)
         {
-            var joni = kursevi.Aggregate()
-             .Lookup("Kategorije", " kategorijaID", "kategorijaID", "KurseviKategorije");
-            return ((Kursevi)joni);
+            var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
+            return k.ToList();
         }
     }
 

@@ -29,9 +29,6 @@ namespace eLearning.Controllers
 
         public IActionResult Courses()
         {
-          
-
-
             List<Kursevi> listKurseva = new List<Kursevi>();
             listKurseva = _kurseviServices.Read();
 
@@ -45,22 +42,49 @@ namespace eLearning.Controllers
             };
            return View(viewmodel);
         }
-        [HttpGet]
-     
-        public ActionResult<Kursevi> CourseDetails(string id) => View(_kurseviServices.Find(id));
-
-
-
-  
-
-
-
-
           
 
-       
+
+        [HttpGet]
+
+        public ActionResult<Kursevi> CourseDetails(string id) {
+            var findKurs = _kurseviServices.Find(id);
+           return View(findKurs);
+        }
+     
+        public ActionResult<Kategorije> CategoryDetails(string id) {
+            var findKategoriju = _kategorijeServices.Find(id);
+            List<Kategorije> listKategorija = new List<Kategorije>();
+            listKategorija = _kategorijeServices.Read();
+
+            var viewmodel = new KursKategorijaViewModel
+            {
+                kategorijes = listKategorija,
+               kategorijeSingle = findKategoriju,
+           
+            };
+
+            ViewBag.kursevi = _kurseviServices.findCourses(id);
+            
+            return View(viewmodel);
+        }
+
+        // search
+        //[HttpGet("{firstName}/{lastName}/{address}")]
+        //public string GetQuery(string id, string firstName, string lastName, string address)
+        //{
+        //    return $"{firstName}:{lastName}:{address}";
+        //}
 
 
-        
+
+
+
+
+
+
+
+
+
     }
 }

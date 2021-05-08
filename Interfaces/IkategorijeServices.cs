@@ -8,5 +8,9 @@ namespace eLearning.Interfaces
     public interface IKategorijeServices
     {
        public List<Kategorije> Read();
+
+       Kategorije Find(string id);
+
+       
     }
 }
