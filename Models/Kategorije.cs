@@ -14,9 +14,6 @@ namespace eLearning.Models
 
         public string imekategorije { get; set; }
 
-        public static implicit operator List<object>(Kategorije v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

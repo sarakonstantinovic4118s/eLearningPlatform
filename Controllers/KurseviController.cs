@@ -63,7 +63,7 @@ namespace eLearning.Controllers
                kategorijeSingle = findKategoriju,
            
             };
-
+            // nalazi kurseve koji imaju odredjen id kategorije
             ViewBag.kursevi = _kurseviServices.findCourses(id);
             
             return View(viewmodel);

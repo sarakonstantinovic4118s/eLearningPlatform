@@ -33,6 +33,7 @@ namespace eLearning.Services
         public Kursevi Find(string id) =>
           kursevi.Find(sub => sub.kursID == id).SingleOrDefault();
 
+        //trazi sve kurseve koji imaju odredjen id kategorije
       public List<Kursevi> findCourses(string kategorijaID)
         {
             var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
