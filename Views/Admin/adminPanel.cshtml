@@ -1,0 +1,395 @@
+﻿@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+<input type="checkbox" id="sidebar-toggle">
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3 class="brand">
+            Panel
+        </h3>
+        <label for="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </label>
+    </div>
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar-menu">
+        <ul>
+            <li data-item="home">
+                <a href="#">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li data-item="schools">
+                <a href="#">
+                    <i class="fas fa-school"></i>
+                    <span>Schools</span>
+                </a>
+            </li>
+            <li data-item="courses">
+                <a href="#">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li data-item="users">
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li data-item="insert">
+                <a href="#">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Insert</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-content">
+    <header>
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="search" placeholder="Search..">
+        </div>
+        <div class="social-icons">
+            <i class="far fa-bell"></i>
+            <div></div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="dash-title">E-learning</h2>
+
+        <!-- INSERT FORMS -->
+        <div class="forms-container hidden">
+            <div class="form-options">
+                <a href="#" data-insert="school">
+                    <i class="fas fa-school"></i>
+                    <span>Schools</span>
+                </a>
+                <a href="#" data-insert="course">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" data-insert="user">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </div>
+            <!-- INSERT FORM SCHOOLS -->
+            <div class="insert-form school hide">
+                <form>
+                    <input type="text" placeholder="School name">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- INSERT FORM COURSES -->
+            <div class="insert-form course hide">
+                <form>
+                    <input type="text" placeholder="Course name">
+                    <textarea rows="4" cols="50" placeholder="Description..."></textarea>
+                    <input type="text" placeholder="Category">
+                    <input type="text" placeholder="Link">
+                    <input type="text" placeholder="Image URL">
+                    <input type="text" placeholder="Level">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <div class="insert-form user hide">
+                <form>
+                    <input type="text" placeholder="Username">
+                    <input type="text" placeholder="Password">
+                    <input type="email" placeholder="Email">
+                    <input type="text" placeholder="User type">
+                    <button>Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- USERS -->
+        <div class="table-scroll users hidden">
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-img">
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                </div>
+                <div class="user-about">
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <div class="user-options">
+                            <a href="#">EDIT</a>
+                            <a href="#">DELETE</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- SCHOOLS -->
+        <div class="table-scroll schools hidden">
+            <table class="data-review">
+                <tr>
+                    <th>School name</th>
+                    <th>Options</th>
+                </tr>
+                <tr>
+                    <td>School 1</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 2</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 3</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 4</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 5</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 6</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 3</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 4</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 5</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 6</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- COURSES -->
+        <div class="table-scroll courses hidden">
+            <table class="data-review">
+                <tr>
+                    <th>Course name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Link</th>
+                    <th>Image</th>
+                    <th>Course level</th>
+                </tr>
+                <tr>
+                    <td>Course 1</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, dolorem!</td>
+                    <td>Programming</td>
+                    <td>https://www.youtube.com/</td>
+                    <td class="course-img">
+                        <img src="https://blog.logrocket.com/wp-content/uploads/2020/06/CSS-3.png" alt="">
+                    </td>
+                    <td>Beginer</td>
+                    <td class="options">
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Course 2</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, dolorem!</td>
+                    <td>Programming</td>
+
+                    <td>https://www.youtube.com/</td>
+                    <td class="course-img">
+                        <img src="https://blog.logrocket.com/wp-content/uploads/2020/06/CSS-3.png" alt="">
+                    </td>
+                    <td>Beginer</td>
+                    <td class="options">
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Course 3</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, dolorem!</td>
+                    <td>Programming</td>
+                    <td>https://www.youtube.com/</td>
+                    <td class="course-img">
+                        <img src="https://blog.logrocket.com/wp-content/uploads/2020/06/CSS-3.png" alt="">
+                    </td>
+                    <td>Beginer</td>
+                    <td class="options">
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Course 4</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, dolorem!</td>
+                    <td>Programming</td>
+                    <td>https://www.youtube.com/</td>
+                    <td class="course-img">
+                        <img src="https://blog.logrocket.com/wp-content/uploads/2020/06/CSS-3.png" alt="">
+                    </td>
+                    <td>Beginer</td>
+                    <td class="options">
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</div>
+<script src="~/js/admin-panel.js"></script>

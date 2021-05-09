@@ -1,0 +1,402 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+:root {
+  --main-color: #027581;
+  --color-dark: #1d2231;
+  --text-grey: #8390a2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+.sidebar {
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: var(--main-color);
+  color: #fff;
+  transition: width 0.5s;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 1rem;
+}
+
+.sidebar-menu {
+  padding: 1rem;
+}
+.sidebar li {
+  margin-bottom: 1.5rem;
+}
+.sidebar a {
+  color: #fff;
+}
+.sidebar li a i {
+  padding-right: 0.7rem;
+  font-size: 1.3rem;
+}
+#sidebar-toggle {
+  display: none;
+}
+.sidebar-header label i {
+  cursor: pointer;
+}
+
+#sidebar-toggle:checked ~ .sidebar {
+  width: 60px;
+}
+
+#sidebar-toggle:checked ~ .sidebar .sidebar-header h3 i:last-child,
+#sidebar-toggle:checked ~ .sidebar li span:last-child,
+#sidebar-toggle:checked ~ .sidebar .brand {
+  display: none;
+}
+#sidebar-toggle:checked ~ .sidebar .sidebar-header,
+#sidebar-toggle:checked ~ .sidebar li {
+  display: flex;
+  justify-content: center;
+}
+
+#sidebar-toggle:checked ~ .main-content {
+  margin-left: 60px;
+}
+#sidebar-toggle:checked ~ .main-content header {
+  left: 60px;
+  /* width: calc(100% - 60px); */
+}
+
+/* MAIN */
+.main-content {
+  position: relative;
+  margin-left: 240px;
+  transition: margin-left 0.5s;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 240px;
+  z-index: 100;
+  width: calc(100% - 240px);
+  background-color: #fff;
+  height: 60px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  transition: left 0.5s;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+}
+
+.social-icons i,
+.social-icons div {
+  margin-left: 1.2rem;
+}
+
+.social-icons div {
+  height: 38px;
+  width: 38px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png");
+  border-radius: 50%;
+}
+
+.search-wrapper input {
+  border: 0;
+  outline: 0;
+  padding: 1rem;
+  height: 38px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 60px;
+  background: #f1f5f9;
+  min-height: 90vh;
+}
+
+.dash-title {
+  color: var(--color-dark);
+  margin: 1rem 0;
+  padding-left: 1rem;
+}
+
+/* MAIN DATA TABLE */
+
+.table-scroll {
+  width: 95%;
+  height: 700px;
+  overflow: scroll;
+  margin: 0 auto;
+}
+
+/* INSERT FORMS */
+.hide {
+  display: none;
+}
+.forms-container {
+  width: 90%;
+  background-color: #037580;
+  margin: 1em auto;
+  border-radius: 7px;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+.form-options a {
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.insert-form {
+  width: 50%;
+  margin: 1em auto;
+  height: auto;
+  background-color: cadetblue;
+  border-radius: 7px;
+}
+
+.insert-form form {
+  width: 50%;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.insert-form form button {
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+  border-radius: 7px;
+  color: #fff;
+  background-color: rgb(0, 187, 78);
+  outline: none;
+  border: 0;
+}
+.insert-form form textarea {
+  padding-left: 5px;
+  outline: none;
+  border: 0;
+  border-radius: 7px;
+}
+
+/* USERS */
+
+.users {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+  padding: 1em;
+  background-color: cadetblue;
+}
+
+.user-card {
+  /* width: 300px; */
+  height: auto;
+  padding: 1em;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.user-img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-img img {
+  width: 120px;
+  height: 120px;
+  padding: 0.5em;
+  /* object-fit: contain; */
+}
+
+.user-about {
+  width: 100%;
+}
+
+.user-options {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-options a {
+  color: #fff;
+  padding: 0.5em 1em;
+  margin: 0 5px;
+  border-radius: 10px;
+}
+
+.user-options a:nth-child(1) {
+  background-color: green;
+}
+.user-options a:nth-child(2) {
+  background-color: rgb(179, 3, 3);
+}
+
+.user-about form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.user-about form input,
+.insert-form form input {
+  width: 80%;
+  height: 2em;
+  margin: 0.6em 0;
+  padding: 1em;
+  outline: 0;
+  border: 0;
+  border-radius: 7px;
+  border-bottom: 1px solid #ccc;
+}
+
+.hidden {
+  display: none;
+}
+
+.data-review {
+  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: cadetblue;
+  border-radius: 5px;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5);
+}
+
+.data-review tr th {
+  text-align: left;
+  color: #fff;
+  text-transform: uppercase;
+}
+.data-review tr td {
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0 10px;
+}
+.data-review tr {
+  /* background-color: red; */
+  padding: 2rem 0;
+}
+
+/* SCHOOL TABLE */
+.course-img img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.edit-btn,
+.delete-btn {
+  background-color: green;
+  padding: 7px 12px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+.delete-btn {
+  background-color: rgb(219, 39, 39);
+}
+
+@media only screen and (max-width: 890px) {
+  .insert-form {
+    width: 90%;
+  }
+  .insert-form.course form textarea {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar .sidebar-header h3 i:last-child,
+  .sidebar li span:last-child,
+  .sidebar .brand {
+    display: none;
+  }
+  .sidebar .sidebar-header,
+  .sidebar li {
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+  .main-content header {
+    left: 60px;
+    width: calc(100% - 60px);
+  }
+  #sidebar-toggle:checked ~ .sidebar {
+    width: 240px;
+  }
+
+  #sidebar-toggle:checked ~ .sidebar .sidebar-header h3 i:last-child,
+  #sidebar-toggle:checked ~ .sidebar li span:last-child {
+    display: inline;
+  }
+  #sidebar-toggle:checked ~ .sidebar .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #sidebar-toggle:checked ~ .sidebar li {
+    display: block;
+  }
+
+  #sidebar-toggle:checked ~ .main-content {
+    margin-left: 60px;
+  }
+
+  #sidebar-toggle:checked ~ .main-content header {
+    left: 60px;
+  }
+}
