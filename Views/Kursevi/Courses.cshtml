@@ -1,0 +1,42 @@
+﻿@model eLearning.ViewModels.KursKategorijaViewModel
+
+@{
+    ViewBag.Title = "E-learning";
+}
+
+@section skripte{
+    <link rel="stylesheet" href="~/css/courses.css">
+}
+
+<form action="" class="search-form">
+    <input class="search" type="text" placeholder="Type here...">
+    <button>Search</button>
+</form>
+<div class="main-container">
+    <div class="courses-category">
+        <h2>Kategorije</h2>
+        <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
+        @foreach (var item in Model.kategorijes)
+        {
+            <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
+        }
+
+    </div>
+
+    <div class="course-container">
+        @foreach (var item in Model.kursevis)
+        {
+            <div class="course-card">
+                <img class="course-img" src="@item.slika" alt="">
+                <div class="course-content">
+                    <a class="course-title"> @item.imekursa</a>
+                    <p class="course-about">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ut?
+                    </p>
+                    <a class="course-enrol"  asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
+                </div>
+            </div>
+        }
+           
+        </div>
+</div>
