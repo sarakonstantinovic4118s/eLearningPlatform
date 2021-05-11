@@ -23,8 +23,6 @@ namespace eLearning.Controllers
             _kategorijeServices = kategorijeServices;
         }
 
-       
-      
         // GET: KurseviController
 
         public IActionResult Courses()
@@ -43,7 +41,6 @@ namespace eLearning.Controllers
            return View(viewmodel);
         }
           
-
 
         [HttpGet]
 

@@ -9,11 +9,14 @@ namespace eLearning.Interfaces
     public interface IKurseviServices
     {
         List<Kursevi> Read();
+        Kursevi Insert(Kursevi kurs);
 
         Kursevi Find(string id);
 
+        void UpdateCourse(Kursevi kurs);
+
+        void DeleteCourse(string id);
+
         List<Kursevi> findCourses(string kategorijaID);
-
-
     }
 }

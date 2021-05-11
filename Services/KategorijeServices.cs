@@ -21,21 +21,25 @@ namespace eLearning.Services
             this.kategorije = database.GetCollection<Kategorije>("Kategorije");
         }
 
-
-
+        //READ
         public List<Kategorije> Read()
         {
             // selektovanje svih kategorija
             var k = kategorije.Find(k => true);
             return k.ToList();
         }
+        //INSERT
+        public Kategorije Insert(Kategorije kategorija)
+        {
+            kategorije.InsertOne(kategorija);
+            return kategorija;
+        }
 
-        public Kategorije Find(string id) =>
-         kategorije.Find(sub => sub.kategorijaID == id).SingleOrDefault();
+        public Kategorije Find(string id) => kategorije.Find(sub => sub.kategorijaID == id).SingleOrDefault();
 
 
       
 
     }
-    }
+}
 

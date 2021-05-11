@@ -14,6 +14,7 @@ namespace eLearning.Services
     {
         private readonly IMongoCollection<Kursevi> kursevi;
 
+       // KONEKCIJA
         public KurseviServices(IDatabaseSettings podesavanja)
         {
             var client = new MongoClient(podesavanja.ConnectionString);
@@ -21,24 +22,48 @@ namespace eLearning.Services
             this.kursevi = database.GetCollection<Kursevi>("Kursevi");
         }
 
-
-
+        //READ
         public List<Kursevi> Read()
         {
             // selektovanje svih kurseva
             var k = kursevi.Find(k => true);
             return k.ToList();
         }
-
+        //INSERT
+        public Kursevi Insert(Kursevi kurs)
+        {
+            kursevi.InsertOne(kurs);
+            return kurs;
+        }
+        //FIND
         public Kursevi Find(string id) =>
           kursevi.Find(sub => sub.kursID == id).SingleOrDefault();
 
-        //trazi sve kurseve koji imaju odredjen id kategorije
-      public List<Kursevi> findCourses(string kategorijaID)
+        //UPDATE
+        public void UpdateCourse(Kursevi kurs) =>
+                    kursevi.ReplaceOne(sub => sub.kursID == kurs.kursID, kurs);
+
+        //DELETE
+        public void DeleteCourse(string id)
         {
-            var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
-            return k.ToList();
+            kursevi.DeleteOne(sub => sub.kursID == id);
         }
+
+        //trazi sve kurseve koji imaju odredjen id kategorije
+        public List<Kursevi> findCourses(string kategorijaID)
+            {
+                var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
+                return k.ToList();
+            }
+        //UPDATE VERZIJA 2
+
+        //public Kursevi GetCourse(string id) => kursevi.Find(course => course.kursID == id).First();
+        //public Kursevi UpdateCourse(Kursevi kurs)
+        //{
+        //    GetCourse(kurs.kursID);
+        //    kursevi.ReplaceOne(c => c.kursID == kurs.kursID, kurs);
+        //    return kurs;
+        //}
     }
 
 

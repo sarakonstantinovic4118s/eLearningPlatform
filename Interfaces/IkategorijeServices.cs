@@ -9,8 +9,8 @@ namespace eLearning.Interfaces
     {
        public List<Kategorije> Read();
 
-       Kategorije Find(string id);
-
+        Kategorije Find(string id);
+        Kategorije Insert(Kategorije kategorija);
        
     }
 }
