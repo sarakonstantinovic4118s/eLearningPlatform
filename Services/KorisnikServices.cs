@@ -40,11 +40,5 @@ namespace eLearning.Services
             korisnici.InsertOne(k);
             return k;
         }
-
-        public Korisnik Find(string Id)
-        {
-            var k = korisnici.Find(k => k.userID == Id).SingleOrDefault();
-            return k;
-        }
     }
 }

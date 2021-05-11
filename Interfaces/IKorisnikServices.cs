@@ -11,6 +11,5 @@ namespace eLearning.Interfaces
         List<Korisnik> Read();
         Korisnik Find(string korisnickoIme);
         Korisnik Insert(Korisnik k);
-        Korisnik Find(string Id);
     }
 }

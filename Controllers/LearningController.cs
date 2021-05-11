@@ -65,6 +65,34 @@ namespace eLearning.Controllers
                 return View(korisnikVM);
             }
 
+            string role = "Korisnik";
+            if (korisnik.tip == 2)
+                role = "Admin";
+
+            List<Claim> userClaims = new()
+            {
+                new Claim("KorisnikID", korisnik.userID),
+                new Claim("username", korisnik.korisnickoIme),
+                new Claim(ClaimTypes.Role, role),
+            };
+
+            var userIdentity = new ClaimsIdentity(userClaims, "User Identity");
+            var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
+
+            HttpContext.SignInAsync(userPrincipal, new AuthenticationProperties
+            {
+                IsPersistent = korisnikVM.remember,
+                ExpiresUtc = DateTime.Now.AddHours(1)
+            });
+
+            // dodavanje auth cookie
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync();
             return RedirectToAction("Index");
         }
 

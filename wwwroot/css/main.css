@@ -24,10 +24,10 @@ a {
 }
 
 .main_container {
-    width: 67vw;
+    width: 95vw;
+    max-width: 1200px;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
 .main-nav {
@@ -35,7 +35,6 @@ a {
     justify-content: space-between;
     width: 100%;
     margin: 0px auto;
-    overflow: hidden;
     align-items: center;
     padding: 10px 0;
 }
@@ -93,6 +92,55 @@ nav .right {
     height: 40px;
     border: 4px solid #fff;
     border-radius: 2em;
+}
+
+.profile_picture:hover {
+    border-color: #479CFF;
+    cursor: pointer;
+}
+
+.profile_picture:hover + .profile_nav,
+.profile_nav:hover {
+    visibility: visible;
+}
+
+.profile_nav {
+    visibility: hidden;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    padding: 0;
+    margin: 0;
+    z-index: 99;
+    transition: 0.3s ease-out all;
+}
+
+.profile_nav li {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.profile_nav li a {
+    display: block;
+    background: #1F1F29;
+    color: #dbdbdb;
+    width: 130px;
+    padding: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-bottom: 2px solid #2d2d39;
+}
+
+.profile_nav li:last-child a {
+    border: none;
+}
+
+.profile_nav li a:hover {
+    color: #1ea0ff;
+    cursor: pointer;
 }
 
 .wlc {
@@ -154,9 +202,6 @@ nav .right {
     color: #fff;
 }
 
-.main-right {
-}
-
 .btn-wrap {
     margin-top: 30px;
     display: inline-flex;
@@ -192,7 +237,9 @@ nav .right {
     border-radius: 6px;
 }
 
-.login form input[type=text] {
+.login form input[type=text],
+.login form input[type=password],
+.login form input[type=email] {
     width: 100%;
     height: 40px;
     background: rgb(255 255 255 / 0.55);
@@ -241,4 +288,9 @@ nav .right {
 
 .login span {
     color: #cacaca;
+}
+
+.field-validation-error span,
+.error {
+    color: #ff4040;
 }
