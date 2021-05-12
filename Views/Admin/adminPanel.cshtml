@@ -175,8 +175,8 @@
                     <tr>
                         <td>@category.imekategorije</td>
                         <td>
-                            <a class="edit-btn category" href="#">EDIT</a>
-                            <a class="delete-btn" href="#">DELETE</a>
+                            <a class="edit-btn category" asp-controller="Admin" asp-action="editCategory" asp-route-id="@category.kategorijaID">EDIT</a>
+                            <a class="delete-btn" asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@category.kategorijaID">DELETE</a>
                         </td>
                     </tr>
                 }
@@ -198,8 +198,8 @@
                             <input type="email" placeholder="Email" value="@user.email">
                             <input type="text" placeholder="User type" value="@user.tip">
                             <div class="user-options">
-                                <a class="edit-btn user" href="#">EDIT</a>
-                                <a class="delete-btn user" href="#">DELETE</a>
+                                <a class="edit-btn user" asp-controller="Admin" asp-action="editUser" asp-route-id="@user.userID">EDIT</a>
+                                <a class="delete-btn user" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.userID">DELETE</a>
                             </div>
                         </form>
                     </div>

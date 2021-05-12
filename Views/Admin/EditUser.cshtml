@@ -1,0 +1,30 @@
+﻿@model eLearning.Models.Korisnik
+
+@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+
+<div class="edit-form user">
+    <i class="fas fa-times-circle closeBtn"></i>
+    <form sp-controller="Admin" asp-action="setEditUser" method="post">
+        @Html.HiddenFor(m => m.userID)
+
+        @Html.LabelFor(m => m.korisnickoIme)
+        @Html.TextBoxFor(m => m.korisnickoIme)
+
+        @Html.LabelFor(m => m.password)
+        @Html.TextBoxFor(m => m.password)
+
+        @Html.LabelFor(m => m.email)
+        @Html.TextBoxFor(m => m.email)
+
+        @Html.LabelFor(m => m.tip)
+        @Html.TextBoxFor(m => m.tip)
+
+        <button>Submit</button>
+    </form>
+</div>

@@ -37,9 +37,15 @@ namespace eLearning.Services
 
         public Kategorije Find(string id) => kategorije.Find(sub => sub.kategorijaID == id).SingleOrDefault();
 
-
-      
-
+        //DELETE
+        public void DeleteCategory(string id)
+        {
+            kategorije.DeleteOne(sub => sub.kategorijaID == id);
+        }
+        //UPDATE
+        public void UpdateCategory(Kategorije kategorija) => 
+                kategorije.ReplaceOne(sub => sub.kategorijaID == kategorija.kategorijaID, kategorija);
+        
     }
 }
 

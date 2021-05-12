@@ -55,15 +55,7 @@ namespace eLearning.Services
                 var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
                 return k.ToList();
             }
-        //UPDATE VERZIJA 2
-
-        //public Kursevi GetCourse(string id) => kursevi.Find(course => course.kursID == id).First();
-        //public Kursevi UpdateCourse(Kursevi kurs)
-        //{
-        //    GetCourse(kurs.kursID);
-        //    kursevi.ReplaceOne(c => c.kursID == kurs.kursID, kurs);
-        //    return kurs;
-        //}
+        
     }
 
 

@@ -24,12 +24,14 @@ namespace eLearning.Controllers
             _kategorijeServices = kategorijeServices;
         }
 
+
         public IActionResult adminPanel()
         {
             List<Korisnik> listKorisnik = new List<Korisnik>();
             List<Kategorije> listKategorije = new List<Kategorije>();
             List<Kursevi> listKursevi = new List<Kursevi>();
 
+            //READ
             listKorisnik = _korisnikServices.Read();
             listKategorije = _kategorijeServices.Read();
             listKursevi = _kurseviServices.Read();
@@ -44,43 +46,13 @@ namespace eLearning.Controllers
             return View(viewmodel);
         }
 
-        //GET EDIT KURS
+        //GET EDIT KURS/KATEGORIJA/KORISNIK
         [HttpGet]
-        public IActionResult editCourse(string id)
-        {
-            var findKurs = _kurseviServices.Find(id);
+        public ActionResult<Kursevi> editCourse(string id) => View(_kurseviServices.Find(id));
+        public ActionResult<Kategorije> editCategory(string id) => View(_kategorijeServices.Find(id));
+        public ActionResult<Korisnik> editUser(string id) => View(_korisnikServices.Find(id));
 
-            var viewmodel = new AdminViewModel
-            {
-                kursZaEdit = findKurs
-            };
-            return View(viewmodel);
-        }
-        //SET EDIT KURS
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult setEditCourse(Kursevi kurs)
-        {
-            _kurseviServices.UpdateCourse(kurs);
-            return RedirectToAction("adminPanel");
-        }
-
-        //UPDATE VERZIJA 2
-        //public IActionResult UpdateCourse(Kursevi kurs)
-        //{
-        //    return Ok(_kurseviServices.UpdateCourse(kurs));
-        //}
-
-        //DELETE COURSE
-        [HttpGet]
-        public IActionResult  DeleteCourse(string id)
-        {
-            _kurseviServices.DeleteCourse(id);
-            return RedirectToAction("adminPanel");
-        }
-
-
-        //DODAVANJE NOVE KATEGORIJE SA ADMIN PANELA
+        //CREATE CATEGORY
         public IActionResult insertCategory(AdminViewModel categoryVM)
         {
             Kategorije kategorija = new()
@@ -91,7 +63,23 @@ namespace eLearning.Controllers
             return RedirectToAction("adminPanel");
         }
 
-        //DODVANJE NOVOG KURSA SA ADMIN PANELA
+        //SET EDIT CATEGORY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult setEditCategory(Kategorije kategorija)
+        {
+            _kategorijeServices.UpdateCategory(kategorija);
+            return RedirectToAction("adminPanel");
+        }
+
+        //DELETE CATEGORY
+        public IActionResult DeleteCategory(string id)
+        {
+            _kategorijeServices.DeleteCategory(id);
+            return RedirectToAction("adminPanel");
+        }
+
+        //CREATE COURSE
         public IActionResult isnertCourse(AdminViewModel kursVM)
         {
 
@@ -108,7 +96,36 @@ namespace eLearning.Controllers
             return RedirectToAction("adminPanel");
         }
 
-       // DODVANJE NOVOG KORISNIKA SA ADMIN PANELA
+        //SET EDIT COURSE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult setEditCourse(Kursevi kurs, string id)
+        {
+            List<Kategorije> listKategorije = new List<Kategorije>();
+            listKategorije = _kategorijeServices.Read();
+
+            var kurs1 = _kurseviServices.Find(id);
+
+            var viewmodel = new AdminViewModel
+            {
+               kategorije = listKategorije,
+               kursZaEdit = kurs1
+            };
+
+            _kurseviServices.UpdateCourse(kurs);
+            return RedirectToAction("adminPanel",viewmodel);
+        }
+
+        //DELETE COURSE
+        [HttpGet]
+        public IActionResult DeleteCourse(string id)
+        {
+            _kurseviServices.DeleteCourse(id);
+            return RedirectToAction("adminPanel");
+        }
+
+
+        // CREATE USER
         public IActionResult insertKorisnik(AdminViewModel korisnikVM)
         {
             Korisnik k = new()
@@ -121,5 +138,22 @@ namespace eLearning.Controllers
             _korisnikServices.Insert(k);
             return RedirectToAction("adminPanel");
         }
+
+        //SET EDIT USER
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult setEditUser(Korisnik korisnik)
+        {
+            _korisnikServices.UpdateUser(korisnik);
+            return RedirectToAction("adminPanel");
+        }
+
+        //DELETE USER
+        public IActionResult DeleteUser(string id)
+        {
+            _korisnikServices.DeleteUser(id);
+            return RedirectToAction("adminPanel");
+        }
+
     }
 }

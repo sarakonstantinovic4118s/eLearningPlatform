@@ -10,6 +10,9 @@ namespace eLearning.Interfaces
        public List<Kategorije> Read();
 
         Kategorije Find(string id);
+
+        void UpdateCategory(Kategorije kategorija);
+        void DeleteCategory(string id);
         Kategorije Insert(Kategorije kategorija);
        
     }

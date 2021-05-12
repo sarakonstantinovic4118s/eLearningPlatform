@@ -7,20 +7,33 @@
     <link rel="stylesheet" href="~/css/admin-panel.css">
 }
 
-
 <!-- EDIT FORM COURSES -->
 <div class="edit-form course">
     <i class="fas fa-times-circle closeBtn"></i>
     <form asp-controller="Admin" asp-action="setEditCourse" method="post">
-        <input type="text" placeholder="Course name" value="@Model.kursZaEdit.imekursa">
-        <textarea rows="4" cols="50" placeholder="Description...">
-            @Model.kursZaEdit.detaljikursa
-        </textarea>
-        </textarea>
-        @*<input type="text" placeholder="Category" value="@Model.kursZaEdit.ka">*@
-        <input type="text" placeholder="Link" value="@Model.kursZaEdit.link">
-        <input type="text" placeholder="Image URL" value="@Model.kursZaEdit.slika">
-        <input type="text" placeholder="Level" value="@Model.kursZaEdit.nivoKursa">
-        <button>Submit</button>
-    </form>
+        @Html.HiddenFor(m => m.kursZaEdit.kursID)
+
+        @Html.LabelFor(m => m.kursZaEdit.imekursa)
+        @Html.TextAreaFor(m => m.kursZaEdit.imekursa)
+
+        @Html.LabelFor(m => m.kursZaEdit.detaljikursa)
+        @Html.TextAreaFor(m => m.kursZaEdit.detaljikursa)
+
+        @Html.LabelFor(m => m.kursZaEdit.link)
+        @Html.TextBoxFor(m => m.kursZaEdit.link)
+
+        @Html.LabelFor(m => m.kursZaEdit.slika)
+        @Html.TextBoxFor(m => m.kursZaEdit.slika)
+
+        @Html.LabelFor(m => m.kursZaEdit.nivoKursa)
+        @Html.TextBoxFor(m => m.kursZaEdit.nivoKursa)
+
+        <select>
+            @foreach (var kategorija in Model.kategorije)
+            {
+            <option> @kategorija.imekategorije</option>    
+            }
+        </select>
+                <button type="submit">Submit</button>
+</form>
 </div>
