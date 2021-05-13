@@ -37,7 +37,7 @@ namespace eLearning
             services.AddSingleton<IDatabaseSettings>(x => x.GetRequiredService<IOptions<DatabaseSettings>>().Value);
             services.AddSingleton<IKorisnikServices, KorisnikServices>();
             services.AddSingleton<IKurseviServices, KurseviServices>();
-            services.AddSingleton<ISchoolServices, SchoolServices>();
+            //services.AddSingleton<ISchoolServices, SchoolServices>();
 
             services.AddMvc();
             services.AddRazorPages().AddRazorRuntimeCompilation();

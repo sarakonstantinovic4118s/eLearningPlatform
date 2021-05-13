@@ -35,13 +35,43 @@ namespace eLearning.Controllers
             }
             return View();
         }
+        // Profil stranica
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string Id = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
+                Korisnik korisnik = _korisnikServices.FindUserById(Id);
+                ViewBag.korisnik = korisnik;
+
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+        // Promena password-a na profil stranici
+        [HttpPost]
+        public IActionResult ChangePassword(KorisnikProfileViewModel korisnik)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string Id = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
+                Korisnik k = new()
+                {
+                    password = Security.Hash256(korisnik.password),
+                };
+                _korisnikServices.Update(Id, k);
+                Logout();
+            }
+            return RedirectToAction("Profile");
+        }
 
         [HttpGet]
         public IActionResult Registracija()
         {
             return View();
         }
-
+        // Login stranica
         [HttpGet]
         public IActionResult Login()
         {
@@ -73,6 +103,7 @@ namespace eLearning.Controllers
             {
                 new Claim("KorisnikID", korisnik.userID),
                 new Claim("username", korisnik.korisnickoIme),
+                new Claim("email", korisnik.email),
                 new Claim(ClaimTypes.Role, role),
             };
 
@@ -130,7 +161,6 @@ namespace eLearning.Controllers
             ViewBag.ime = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
             return View();
         }
-
         [Authorize(Policy = "Admin")]
         public IActionResult Admin()
         {
@@ -140,7 +170,6 @@ namespace eLearning.Controllers
 
         /*public IActionResult Authenticate()
         {
-
             List<Claim> userClaims = new()
             {
                 new Claim("KorisnikID", "608ecb4f441e47bbb09e03d9"),
@@ -150,9 +179,7 @@ namespace eLearning.Controllers
             
             var userIdentity = new ClaimsIdentity(userClaims, "User Identity");
             var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
-
             HttpContext.SignInAsync(userPrincipal);
-
             return RedirectToAction("Index");
         }*/
     }
