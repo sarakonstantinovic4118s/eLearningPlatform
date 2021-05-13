@@ -27,12 +27,12 @@ namespace eLearning.Controllers
         // Pocetna stranica
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string Id = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
-                Korisnik korisnik = _korisnikServices.Find(Id);
-                ViewBag.korisnik = korisnik;
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    string Id = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
+            //    Korisnik korisnik = _korisnikServices.Find(Id);
+            //    ViewBag.korisnik = korisnik;
+            //}
             return View();
         }
 

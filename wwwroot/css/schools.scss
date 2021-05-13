@@ -10,12 +10,14 @@ $min: 800px;
     color: #fff;
     text-align: center;
     border-radius: 15px;
+    padding-bottom: 40px;
 
     h1 {
         display: inline-block;
         width: auto;
         text-align: center;
         margin: 100px 0;
+        margin-bottom: 60px;
         cursor: default;
         font-size: 2.2em;
 
@@ -42,6 +44,20 @@ $min: 800px;
         margin: 0 auto;
         margin-bottom: 20px;
         text-align: right;
+
+        input {
+            background: $pozadina2 + 10;
+            padding: 10px;
+            border: none;
+            color: #b9b9b9;
+        }
+
+        input[type=submit] {
+            background: $plava;
+            color: #fff;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
     }
 }
 
@@ -65,37 +81,198 @@ $min: 800px;
         border: 2px solid transparent;
         transition: 0.5s all;
         letter-spacing: 1px;
+        //display: block;
+        //line-height: 100px;
+        //text-align: center;
+        //font-size: 16px;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        height: 100px;
+        overflow: hidden;
+        cursor: pointer;
+        color: #b9b9b9;
 
-        a {
-            display: block;
-            vertical-align: middle;
-            width: 100%;
-            line-height: 100px;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            color: #b9b9b9;
+        img {
+            max-width: 70px;
+            transition: 0.5s all;
         }
 
         &:hover {
             border-color: $plava;
-            //box-shadow: 0 0 15px $pozadina2 + 50;
-        }
-
-        &:hover > a {
-            color: $plava;
-            font-weight: bold;
         }
     }
 }
 
-.school-courses {
+#school-courses {
     position: fixed;
+    display: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90vw;
-    max-width: 800px;
-    height: 80vh;
-    background: red;
+    max-width: 600px;
+    height: 60vh;
+    background: $pozadina1;
+    z-index: 90;
+    box-sizing: border-box;
+    padding: 40px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .school-course {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        grid-gap: 35px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        background: $pozadina2;
+        box-shadow: 5px 5px 15px $pozadina2 - 15;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: 0.5s all;
+        cursor: pointer;
+        overflow: hidden;
+
+        &:hover {
+            border-color: $plava;
+            color: $plava;
+            font-weight: bold;
+
+            .course-img {
+                filter: brightness(100%);
+            }
+        }
+
+        &:hover .course-name {
+            color: $plava;
+        }
+
+        .course-img {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90px;
+            height: 60px;
+            overflow: hidden;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            filter: brightness(50%);
+            transition: 1s ease-out;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .course-name {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        a {
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    h2 {
+        margin-bottom: 30px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: $plava;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+}
+#bg-wrap {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.44);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+
+    .close {
+        position: absolute;
+        display: block;
+        top: 60px;
+        right: 80px;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        opacity: .8;
+
+        .x {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            .x1 {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 6px;
+                transform: rotate(-45deg);
+                background: #fff;
+                border-radius: 6px;
+            }
+
+            .x2 {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 6px;
+                transform: rotate(45deg);
+                background: #fff;
+                border-radius: 6px;
+            }
+        }
+    }
+}
+
+.pages {
+    .num {
+        display: inline-block;
+        width: 30px;
+        line-height: 30px;
+        background: $pozadina2;
+        color: #a7a7a7;
+        border-radius: 4px;
+        margin-top: 40px;
+    }
+    .active {
+        background: $plava;
+        color: #fff;
+    }
+}
+
+.not-found {
+    background: $pozadina2;
+    padding: 20px 0;
 }
