@@ -26,13 +26,13 @@
         @foreach (var item in ViewBag.kursevi) { 
             <div class="course-card">
 
-                <img class="course-img" src="" alt="">
+                <img class="course-img" src="@item.slika" alt="">
                 <div class="course-content">
                     <a class="course-title"> @item.imekursa</a>
                     <p class="course-about">
                         @item.detaljikursa
                     </p>
-                    <a class="course-enrol">Details</a>
+                    <a class="course-enrol" asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
                 </div>
 
             </div>
