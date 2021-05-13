@@ -74,6 +74,7 @@ $min: 800px;
     }
 
     .school {
+        position: relative;
         background: $pozadina2;
         border-radius: 10px;
         box-sizing: border-box;
@@ -94,8 +95,9 @@ $min: 800px;
         color: #b9b9b9;
 
         img {
-            max-width: 70px;
+            width: 20%;
             transition: 0.5s all;
+            object-fit: contain;
         }
 
         &:hover {
@@ -266,9 +268,10 @@ $min: 800px;
         border-radius: 4px;
         margin-top: 40px;
     }
+
     .active {
-        background: $plava;
-        color: #fff;
+        background: $pozadina2 + 30;
+        color: #d3d3d3;
     }
 }
 

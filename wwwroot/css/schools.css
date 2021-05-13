@@ -54,6 +54,7 @@
     .schools {
       grid-template-columns: auto; } }
   .schools .school {
+    position: relative;
     background: #24242b;
     border-radius: 10px;
     box-sizing: border-box;
@@ -69,8 +70,9 @@
     cursor: pointer;
     color: #b9b9b9; }
     .schools .school img {
-      max-width: 70px;
-      transition: 0.5s all; }
+      width: 20%;
+      transition: 0.5s all;
+      object-fit: contain; }
     .schools .school:hover {
       border-color: #1ea0ff; }
 
@@ -203,8 +205,8 @@
   margin-top: 40px; }
 
 .pages .active {
-  background: #1ea0ff;
-  color: #fff; }
+  background: #424249;
+  color: #d3d3d3; }
 
 .not-found {
   background: #24242b;
