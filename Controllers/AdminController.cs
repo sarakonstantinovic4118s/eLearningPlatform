@@ -8,11 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-
+using eLearning.Services;
 
 namespace eLearning.Controllers
 {
-    [Authorize(Policy = "Admin", AuthenticationSchemes = "Admin")]
+    [Authorize(Policy = "Admin")]
     public class AdminController : Controller
     {
         private readonly IKorisnikServices _korisnikServices;
@@ -49,8 +49,7 @@ namespace eLearning.Controllers
         }
 
         //GET EDIT KURS/KATEGORIJA/KORISNIK
-        [HttpGet]
-        //public ActionResult<Kursevi> editCourse(string id) => View(_kurseviServices.Find(id));
+
         [HttpGet]
         public ActionResult<Kursevi> editCourse(string id, Kursevi kursevi)
         {
@@ -69,7 +68,7 @@ namespace eLearning.Controllers
             return View(viewmodel);
         }
         public ActionResult<Kategorije> editCategory(string id) => View(_kategorijeServices.Find(id));
-        public ActionResult<Korisnik> editUser(string id) => View(_korisnikServices.Find(id));
+        public ActionResult<Korisnik> editUser(string id) => View(_korisnikServices.FindID(id));
 
         //CREATE CATEGORY
         public IActionResult insertCategory(AdminViewModel categoryVM)
@@ -151,7 +150,7 @@ namespace eLearning.Controllers
             {
                 korisnickoIme = korisnikVM.username,
                 email = korisnikVM.email,
-                password = korisnikVM.password,
+                password = Security.Hash256(korisnikVM.password),
                 tip = 1
             };
             _korisnikServices.Insert(k);
@@ -163,6 +162,7 @@ namespace eLearning.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult setEditUser(Korisnik korisnik)
         {
+            korisnik.password = Security.Hash256(korisnik.password);
             _korisnikServices.UpdateUser(korisnik);
             return RedirectToAction("adminPanel");
         }

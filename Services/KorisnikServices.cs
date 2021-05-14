@@ -20,7 +20,7 @@ namespace eLearning.Services
             this.korisnici = database.GetCollection<Korisnik>("Korisnici");
         }
         //FIND
-        public Korisnik Find(string id) =>
+        public Korisnik FindID(string id) =>
             korisnici.Find(sub => sub.userID == id).SingleOrDefault();
 
         // selektovanje svih korisnika

@@ -18,5 +18,6 @@ namespace eLearning.Interfaces
         void DeleteCourse(string id);
 
         List<Kursevi> findCourses(string kategorijaID);
+        List<Kursevi> FindBySchool(string schoolID);
     }
 }

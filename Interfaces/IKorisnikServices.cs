@@ -9,7 +9,8 @@ namespace eLearning.Interfaces
     public interface IKorisnikServices
     {
         List<Korisnik> Read();
-        Korisnik Find(string id);
+        Korisnik Find(string korisnickoIme);
+        Korisnik FindID(string id);
 
         void UpdateUser(Korisnik korisnik);
         void DeleteUser(string id);
