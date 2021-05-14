@@ -9,12 +9,11 @@
 
 <!-- EDIT FORM CATEGORY -->
 <div class="edit-form course">
-    <i class="fas fa-times-circle closeBtn"></i>
     <form asp-controller="Admin" asp-action="setEditCategory" method="post">
         @Html.HiddenFor(m => m.kategorijaID)
 
-        @Html.LabelFor(m => m.imekategorije)
-        @Html.TextBoxFor(m => m.imekategorije)
+        <label>Ime kategorije</label>
+        <input type="text" asp-for="@Model.imekategorije">
 
         <button type="submit">Submit</button>
     </form>

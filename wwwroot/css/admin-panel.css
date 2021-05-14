@@ -15,6 +15,10 @@
     list-style: none;
 }
 
+body {
+    background-color: #3333;
+}
+
 .sidebar {
     height: 100%;
     width: 240px;
@@ -250,7 +254,6 @@ main {
         width: 120px;
         height: 120px;
         padding: 0.5em;
-        /* object-fit: contain; */
     }
 
 .user-about {
@@ -361,7 +364,7 @@ main {
 }
 
 /* EDIT OVERLAY */
-.edit-overlay {
+/*.edit-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -371,12 +374,18 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+}*/
 
 .edit-form {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     width: 40%;
-    background-color:#333;
+    background: rgb(68,183,213);
+    background: linear-gradient(331deg, rgba(68,183,213,1) 50%, rgba(0,80,128,1) 53%);
+    border-radius: 7px;
+    box-shadow: 5px 5px 7px #000;
 }
 
     .edit-form i {
@@ -387,13 +396,29 @@ main {
         font-size: 1.2em;
     }
 
+
+    .edit-form form label{
+        color:#fff;
+    }
+
+    .edit-form form textarea {
+        width:80%;
+    }
+    .edit-form form select,
+    .insert-form  select{
+        width: 60%;
+        height: 30px;
+        border-radius: 7px;
+        outline: 0;
+        margin: 1em 0;
+    }
+
     .edit-form form {
         display: flex;
         width: 100%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: rgba(255, 255, 255, 0.8);
         border-radius: 7px;
         padding: 1em;
     }

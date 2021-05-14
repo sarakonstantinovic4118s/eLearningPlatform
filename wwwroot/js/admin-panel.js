@@ -42,30 +42,30 @@ insertFormsContainer.addEventListener('click', displayForm);
 
 // EDIT FORM  SHOW
 // CATEGORY
-editCategoryContainer.addEventListener('click', function (e) {
-    showEditForm(e, 'category', editFormCategory);
-});
+//editCategoryContainer.addEventListener('click', function (e) {
+//    showEditForm(e, 'category', editFormCategory);
+//});
 // SCHOOL
-editSChoolContainer.addEventListener('click', function (e) {
-    showEditForm(e, 'school', editFormSchool);
-});
+//editSChoolContainer.addEventListener('click', function (e) {
+//    showEditForm(e, 'school', editFormSchool);
+//});
 // COURSE
-editCourseContainer.addEventListener('click', function (e) {
-    showEditForm(e, 'course', editFormCourse);
-});
+//editCourseContainer.addEventListener('click', function (e) {
+//    showEditForm(e, 'course', editFormCourse);
+//});
 // USER
-editUserContainer.addEventListener('click', function (e) {
-    showEditForm(e, 'user', editFormUser);
-});
+//editUserContainer.addEventListener('click', function (e) {
+//    showEditForm(e, 'user', editFormUser);
+//});
 
 closeBtn.forEach(el => el.addEventListener('click', closeOverlay));
 
-function showEditForm(e, type, formContainer) {
-    if (e.target.closest(`.edit-btn.${type}`)) {
-        overlay.classList.toggle('hide');
-        formContainer.classList.toggle('hide');
-    }
-}
+//function showEditForm(e, type, formContainer) {
+//    if (e.target.closest(`.edit-btn.${type}`)) {
+//        overlay.classList.toggle('hide');
+//        formContainer.classList.toggle('hide');
+//    }
+//}
 
 function helperCloseOverlay(formContainer) {
     if (!formContainer.classList.contains('hide')) {

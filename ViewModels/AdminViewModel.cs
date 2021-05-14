@@ -23,7 +23,7 @@ namespace eLearning.ViewModels
         public string link { get; set; }
         public string slika { get; set; }
         public decimal nivoKursa { get; set; }
-
+        public Kursevi kurs { get; internal set; }
 
         public Kursevi kursZaEdit { get; set; }
 
@@ -31,5 +31,6 @@ namespace eLearning.ViewModels
         public List<Kategorije> kategorije { get; set; }
         public string imeKategorije { get; set; }
         public string kategorijaID { get; set; }
+
     }
 }

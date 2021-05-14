@@ -48,7 +48,24 @@ namespace eLearning.Controllers
 
         //GET EDIT KURS/KATEGORIJA/KORISNIK
         [HttpGet]
-        public ActionResult<Kursevi> editCourse(string id) => View(_kurseviServices.Find(id));
+        //public ActionResult<Kursevi> editCourse(string id) => View(_kurseviServices.Find(id));
+        [HttpGet]
+        public ActionResult<Kursevi> editCourse(string id, Kursevi kursevi)
+        {
+            var kod = kursevi;
+
+            kod = _kurseviServices.Find(id);
+            List<Kategorije> listKategorije = new List<Kategorije>();
+            listKategorije = _kategorijeServices.Read();
+
+            var viewmodel = new AdminViewModel
+            {
+                kurs = kod,
+                kategorije = listKategorije
+            };
+
+            return View(viewmodel);
+        }
         public ActionResult<Kategorije> editCategory(string id) => View(_kategorijeServices.Find(id));
         public ActionResult<Korisnik> editUser(string id) => View(_korisnikServices.Find(id));
 

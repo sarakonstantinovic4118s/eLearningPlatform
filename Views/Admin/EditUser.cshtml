@@ -9,21 +9,20 @@
 
 
 <div class="edit-form user">
-    <i class="fas fa-times-circle closeBtn"></i>
     <form sp-controller="Admin" asp-action="setEditUser" method="post">
         @Html.HiddenFor(m => m.userID)
 
-        @Html.LabelFor(m => m.korisnickoIme)
-        @Html.TextBoxFor(m => m.korisnickoIme)
+        <label>Korisnicko ime </label>
+        <input type="text" asp-for="@Model.korisnickoIme">
 
-        @Html.LabelFor(m => m.password)
-        @Html.TextBoxFor(m => m.password)
+        <label>Password</label>
+        <input type="text" asp-for="@Model.password">
 
-        @Html.LabelFor(m => m.email)
-        @Html.TextBoxFor(m => m.email)
+        <label>Email</label>
+        <input type="text" asp-for="@Model.email">
 
-        @Html.LabelFor(m => m.tip)
-        @Html.TextBoxFor(m => m.tip)
+        <label>Tip</label>
+        <input type="text" asp-for="@Model.tip">
 
         <button>Submit</button>
     </form>

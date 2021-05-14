@@ -1,4 +1,5 @@
 ﻿@model eLearning.ViewModels.AdminViewModel
+@*@model eLearning.Models.Kursevi*@
 
 @{
     ViewBag.Title = "E-learning";
@@ -9,31 +10,37 @@
 
 <!-- EDIT FORM COURSES -->
 <div class="edit-form course">
-    <i class="fas fa-times-circle closeBtn"></i>
     <form asp-controller="Admin" asp-action="setEditCourse" method="post">
-        @Html.HiddenFor(m => m.kursZaEdit.kursID)
 
-        @Html.LabelFor(m => m.kursZaEdit.imekursa)
-        @Html.TextAreaFor(m => m.kursZaEdit.imekursa)
+        @Html.HiddenFor(m => m.kurs.kursID)
 
-        @Html.LabelFor(m => m.kursZaEdit.detaljikursa)
-        @Html.TextAreaFor(m => m.kursZaEdit.detaljikursa)
+        <label>Ime kursa</label>
+        <input type="text" asp-for="@Model.kurs.imekursa">
 
-        @Html.LabelFor(m => m.kursZaEdit.link)
-        @Html.TextBoxFor(m => m.kursZaEdit.link)
+        <label>Detalji kursa</label>
+        <input type="text" asp-for="@Model.kurs.detaljikursa">
 
-        @Html.LabelFor(m => m.kursZaEdit.slika)
-        @Html.TextBoxFor(m => m.kursZaEdit.slika)
+        <label>Link kursa</label>
+        <input type="text" asp-for="@Model.kurs.link">
 
-        @Html.LabelFor(m => m.kursZaEdit.nivoKursa)
-        @Html.TextBoxFor(m => m.kursZaEdit.nivoKursa)
+        <label>Slika kursa</label>
+        <input type="text" asp-for="@Model.kurs.slika">
 
-        <select>
-            @foreach (var kategorija in Model.kategorije)
+        <label>Nivo kursa</label>
+        <input type="text" asp-for="@Model.kurs.slika">
+
+        <label>Kategorije kurseva</label>
+        <select asp-for="@Model.kurs.kategorijaID">
+
+            @foreach (var category in Model.kategorije)
             {
-            <option> @kategorija.imekategorije</option>    
+                <option value="@category.kategorijaID">
+                    @category.imekategorije
+                </option>
             }
+
         </select>
-                <button type="submit">Submit</button>
-</form>
+
+        <button type="submit">Submit</button>
+    </form>
 </div>
