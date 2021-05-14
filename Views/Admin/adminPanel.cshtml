@@ -1,0 +1,321 @@
+﻿@model eLearning.ViewModels.AdminViewModel
+
+@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+<input type="checkbox" id="sidebar-toggle">
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3 class="brand">
+            Panel
+        </h3>
+        <label for="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </label>
+    </div>
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar-menu">
+        <ul>
+            <li data-item="category">
+                <a href="#">
+                    <i class="fas fa-book-open"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li data-item="schools">
+                <a href="#">
+                    <i class="fas fa-school"></i>
+                    <span>Schools</span>
+                </a>
+            </li>
+            <li data-item="courses">
+                <a href="#">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li data-item="users">
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li data-item="insert">
+                <a href="#">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Insert</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-content">
+    <header>
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="search" placeholder="Search..">
+        </div>
+        <div class="social-icons">
+            <i class="far fa-bell"></i>
+            <div></div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="dash-title">Categories</h2>
+        <!-- EDIT FORM OVERLAY -->
+        <div class="edit-overlay hide">
+            <!-- EDIT FORM CATEGORY -->
+            <div class="edit-form category hide">
+                <i class="fas fa-times-circle closeBtn"></i>
+                <form>
+                    <input type="text" placeholder="Category name">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- EDIT FORM SCHOOL -->
+            <div class="edit-form school hide">
+                <i class="fas fa-times-circle closeBtn"></i>
+                <form>
+                    <input type="text" placeholder="School name">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- EDIT FORM COURSES -->
+
+            <!-- EDIT FORM USERS -->
+            <div class="edit-form user hide">
+                <i class="fas fa-times-circle closeBtn"></i>
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <button>Submit</button>
+                    </form>
+            </div>
+        </div>
+        <!-- INSERT FORMS -->
+        <div class="forms-container hidden">
+            <div class="form-options">
+                <a href="#" data-insert="category">
+                    <i class="fas fa-book-open"></i>
+                    <span>Category</span>
+                </a>
+                <a href="#" data-insert="school">
+                    <i class="fas fa-school"></i>
+                    <span>Schools</span>
+                </a>
+                <a href="#" data-insert="course">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" data-insert="user">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </div>
+            <!-- INSERT FORM CATEGORY -->
+            <div class="insert-form category hide">
+                <form asp-controller="Admin" asp-action="insertCategory" method="post">
+                    <input type="text" placeholder="Category name" asp-for="imeKategorije">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- INSERT FORM SCHOOLS -->
+            <div class="insert-form school hide">
+                <form>
+                    <input type="text" placeholder="School name">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- INSERT FORM COURSES -->
+            <div class="insert-form course hide">
+                <form asp-controller="Admin" asp-action="isnertCourse" method="post">
+                    <input type="text" placeholder="Course name" asp-for="imekursa">
+                    <textarea rows="4" cols="50" placeholder="Description..." asp-for="detaljikursa"></textarea>
+                    <select asp-for="kategorijaID">
+                        @foreach (var category in Model.kategorije)
+                        {
+                            <option value="@category.kategorijaID">
+                                @category.imekategorije
+                            </option>
+                        }
+                    </select>
+                    <input type="text" placeholder="Link" asp-for="link">
+                    <input type="text" placeholder="Image URL" asp-for="slika">
+                    <input type="text" placeholder="Level" asp-for="nivoKursa">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- INSERT FORM USERS -->
+            <div class="insert-form user hide">
+                <form asp-controller="Admin" asp-action="insertKorisnik" method="post">
+                    <input type="text" placeholder="Username" asp-for="username">
+                    <input type="text" placeholder="Password" asp-for="password">
+                    <input type="email" placeholder="Email" asp-for="email">
+                    <input type="text" placeholder="User type" asp-for="tip">
+                    <button>Submit</button>
+                </form>
+            </div>
+        </div>
+        <!-- Categories -->
+        <div class="table-scroll category">
+            <table class="data-review">
+                <tr>
+                    <th>Category name</th>
+                    <th>Options</th>
+                </tr>
+                @foreach (var category in Model.kategorije)
+                {
+                    <tr>
+                        <td>@category.imekategorije</td>
+                        <td>
+                            <a class="edit-btn category" asp-controller="Admin" asp-action="editCategory" asp-route-id="@category.kategorijaID">EDIT</a>
+                            <a class="delete-btn" asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@category.kategorijaID">DELETE</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <!-- USERS -->
+        <div class="table-scroll users hidden">
+            @foreach (var user in Model.korisnici)
+            {
+                <div class="user-card">
+                    <div class="user-img">
+                        <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                    </div>
+                    <div class="user-about">
+                        <form>
+                            <input type="text" placeholder="Username" value="@user.korisnickoIme">
+                            <input type="text" placeholder="Password" value="@user.password">
+                            <input type="email" placeholder="Email" value="@user.email">
+                            <input type="text" placeholder="User type" value="@user.tip">
+                            <div class="user-options">
+                                <a class="edit-btn user" asp-controller="Admin" asp-action="editUser" asp-route-id="@user.userID">EDIT</a>
+                                <a class="delete-btn user" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.userID">DELETE</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!-- SCHOOLS -->
+        <div class="table-scroll schools hidden">
+            <table class="data-review">
+                <tr>
+                    <th>School name</th>
+                    <th>Options</th>
+                </tr>
+                <tr>
+                    <td>School 1</td>
+                    <td>
+                        <a class="edit-btn school" href="#">EDIT</a>
+                        <a class="delete-btn school" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 2</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 3</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 4</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 5</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 6</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 3</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 4</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 5</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>School 6</td>
+                    <td>
+                        <a class="edit-btn" href="#">EDIT</a>
+                        <a class="delete-btn" href="#">DELETE</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- COURSES -->
+        <div class="table-scroll courses hidden">
+            <table class="data-review">
+                <tr>
+                    <th>Course name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Link</th>
+                    <th>Image</th>
+                    <th>Course level</th>
+                </tr>
+                @foreach (var course in Model.kursevi)
+                {
+                    <tr>
+                        <td>@course.imekursa</td>
+                        <td>@course.detaljikursa</td>
+                        <td>@course.kategorijaID</td>
+                        <td>@course.link</td>
+                        <td class="course-img">
+                            <img src="@course.slika" alt="">
+                        </td>
+                        <td>@course.nivoKursa</td>
+                        <td class="options">
+                            <a class="edit-btn course" asp-controller="Admin" asp-action="editCourse" asp-route-id="@course.kursID">EDIT</a>
+                            <a class="delete-btn course" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.kursID">DELETE</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </main>
+</div>
+<script src="~/js/admin-panel.js"></script>

@@ -10,6 +10,10 @@ namespace eLearning.Interfaces
     {
         List<Korisnik> Read();
         Korisnik Find(string korisnickoIme);
+        Korisnik FindID(string id);
+
+        void UpdateUser(Korisnik korisnik);
+        void DeleteUser(string id);
         Korisnik Insert(Korisnik k);
     }
 }

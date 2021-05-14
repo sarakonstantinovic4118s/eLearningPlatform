@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "E-learning";
+    
 }
 
 @section skripte{
@@ -20,23 +21,22 @@
         {
             <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
         }
-
     </div>
-
     <div class="course-container">
-        @foreach (var item in Model.kursevis)
-        {
+        @foreach (var item in ViewBag.kursevi) { 
             <div class="course-card">
-                <img class="course-img" src="@item.slika" alt="">
+
+                <img class="course-img" src="" alt="">
                 <div class="course-content">
                     <a class="course-title"> @item.imekursa</a>
                     <p class="course-about">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ut?
+                        @item.detaljikursa
                     </p>
-                    <a class="course-enrol"  asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
+                    <a class="course-enrol">Details</a>
                 </div>
+
             </div>
+
         }
-           
-        </div>
+    </div>
 </div>

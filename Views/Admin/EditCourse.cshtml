@@ -1,0 +1,46 @@
+﻿@model eLearning.ViewModels.AdminViewModel
+@*@model eLearning.Models.Kursevi*@
+
+@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+<!-- EDIT FORM COURSES -->
+<div class="edit-form course">
+    <form asp-controller="Admin" asp-action="setEditCourse" method="post">
+
+        @Html.HiddenFor(m => m.kurs.kursID)
+
+        <label>Ime kursa</label>
+        <input type="text" asp-for="@Model.kurs.imekursa">
+
+        <label>Detalji kursa</label>
+        <input type="text" asp-for="@Model.kurs.detaljikursa">
+
+        <label>Link kursa</label>
+        <input type="text" asp-for="@Model.kurs.link">
+
+        <label>Slika kursa</label>
+        <input type="text" asp-for="@Model.kurs.slika">
+
+        <label>Nivo kursa</label>
+        <input type="text" asp-for="@Model.kurs.slika">
+
+        <label>Kategorije kurseva</label>
+        <select asp-for="@Model.kurs.kategorijaID">
+
+            @foreach (var category in Model.kategorije)
+            {
+                <option value="@category.kategorijaID">
+                    @category.imekategorije
+                </option>
+            }
+
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
