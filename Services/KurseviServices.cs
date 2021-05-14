@@ -56,6 +56,12 @@ namespace eLearning.Services
                 return k.ToList();
             }
         
+
+        public List<Kursevi> FindBySchool(string schoolID)
+        {
+            var k = kursevi.Find(k => k.skolaID == schoolID);
+            return k.ToList();
+        }
     }
 
 

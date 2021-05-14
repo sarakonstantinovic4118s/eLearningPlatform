@@ -6,37 +6,28 @@
     <link rel="stylesheet" href="~/css/style.css">
 }
 
-<!-- Navigation -->
-<nav>
-    <div class="logo">
-        <a href="index.html"><span>e</span>Learning</a>
-    </div>
-    <!-- KORISNIK NIJE REGISTROVAN -->
-    <div class="content">
-        <a href="register.html">Register</a>
-        <a href="login.html">Login</a>
-    </div>
-    <!-- SAMO KADA JE KORISNIK REGISTROVAN  -->
-    <!-- <div class="user">
-        <i class="fas fa-user fa-2x"></i>
-        <p><span>Welcome</span> Jovan Jovanovic</p>
-    </div> -->
-</nav>
-
-
-<!-- INTRO SECTION -->
 <section class="main">
     <div class="main-left">
-        <h1>Best free <br> Online Courses</h1>
-        <!-- KORISNIK NIJE REGISTROVAN -->
-        <a href="register.html">Sign in to see the content we offer</a>
-        <!-- SAMO KADA JE KORISNIK REGISTROVAN (PRIKAZ SKOLA I KURSEVA) -->
-        <!-- <div class="content">
-            <a href="#">Courses</a>
-            <a href="#">Schools</a>
-        </div> -->
+        <h1>Best Free <br> Online Courses</h1>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="btn-wrap">
+                <div class="btn"><a asp-controller="Kursevi" asp-action="Courses">Courses</a></div>
+                <div class="btn btn-white"><a asp-controller="Schools" asp-action="Index">Schools</a></div>
+            </div>
+        }
+        else
+        {
+            <h2>Sign in to see the content we offer</h2>
+            <div class="outer-circle">
+                <div class="inner-circle">
+                </div>
+
+            </div>
+        }
     </div>
     <div class="main-right">
-        <img src="images/slika2.png" alt="">
+        <img class="img1" src="images/slika2.png" alt="">
     </div>
 </section>

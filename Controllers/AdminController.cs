@@ -1,6 +1,7 @@
 ﻿using eLearning.Interfaces;
 using eLearning.Models;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using MongoDB.Driver;
 
 namespace eLearning.Controllers
 {
+    [Authorize(Policy = "Admin", AuthenticationSchemes = "Admin")]
     public class AdminController : Controller
     {
         private readonly IKorisnikServices _korisnikServices;

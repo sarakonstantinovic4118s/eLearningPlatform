@@ -1,19 +1,25 @@
-﻿
-@{
-    ViewBag.Title = "E-learning";
-}
+﻿@model KorisnikLoginViewModel
+@{ ViewBag.Title = "E-learning"; }
 
 @section skripte{
     <link rel="stylesheet" href="~/css/login.css">
 }
-
-<form>
-    <i class="fas fa-user fa-3x" id="user-icon"></i>
-    <label>Username</label>
-    <input type="text" id="user-name" name="user-name">
-    <label>Password</label>
-    <input type="password" name="password">
-    <button>Login</button>
-
-    <a href="#">Don't have an account?</a>
-</form>
+<div class="reg-wrap">
+    <div class="login-wrap">
+        <div class="login">
+            <h1>Login</h1>
+            <div asp-validation-summary="ModelOnly" class="error"></div>
+            <form asp-controller="Learning" asp-action="Login" method="post">
+                <label>Username</label>
+                <input asp-for="korisnickoIme" />
+                <span asp-validation-for="korisnickoIme"></span>
+                <label>Password</label>
+                <input asp-for="password" />
+                <span asp-validation-for="password"></span>
+                <label><input asp-for="remember"> Remember me</label>
+                <input class="signInBtn" type="submit" value="Sign In" />
+            </form>
+            <a asp-controller="Learning" asp-action="Register">Don't have an account?</a>
+        </div>
+    </div>
+</div>

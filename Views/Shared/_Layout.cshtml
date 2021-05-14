@@ -2,11 +2,48 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    @RenderSection("skripte",required: false)
+    <link rel="stylesheet" href="~/css/main.css">
+    @RenderSection("skripte", required: false)
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    @*<link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" />*@
+
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    @RenderBody()
+    <div class="main_container">
+        <nav class="main-nav">
+            <div class="logo">
+                <a asp-controller="Learning" asp-action="Index"><span>e</span>Learning</a>
+            </div>
+            <div class="right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                <div class="right_wrap">
+                    <div class="profile_desc"><span class="wlc">Welcome</span> @User.Claims.First(c => c.Type == "username").Value</div>
+                    <img class="profile_picture" src="~/images/profile.png" />
+                    <ul class="profile_nav">
+                        <li><a>Profile</a></li>
+                        <li><a asp-controller="Learning" asp-action="Logout">Logout</a></li>
+                    </ul>
+                </div>
+                }
+                else
+                {
+                <div class="button_wrap">
+                    <div class="btn"><a asp-controller="Learning" asp-action="Login">Login</a></div>
+                    <div class="btn btn-white"><a asp-controller="Learning" asp-action="Register">Register</a></div>
+                </div>
+                }
+            </div>
+        </nav>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/js/schools.js"></script>
 </body>
 </html>
