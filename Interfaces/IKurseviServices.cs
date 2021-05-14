@@ -9,5 +9,6 @@ namespace eLearning.Interfaces
     public interface IKurseviServices
     {
         List<Kursevi> Read();
+        List<Kursevi> FindBySchool(string schoolID);
     }
 }

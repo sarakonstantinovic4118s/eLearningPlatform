@@ -36,6 +36,7 @@ namespace eLearning.Services
 
         public Korisnik Insert(Korisnik k)
         {
+            // dodavanje novog korisnika
             korisnici.InsertOne(k);
             return k;
         }

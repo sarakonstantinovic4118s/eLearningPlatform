@@ -17,5 +17,7 @@ namespace eLearning.ViewModels
         [DataType(DataType.Password)]
         [Required]
         public string password { get; set; }
+
+        public bool remember { get; set; }
     }
 }
