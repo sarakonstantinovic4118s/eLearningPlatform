@@ -1,0 +1,18 @@
+﻿@model List<Kursevi>
+@{
+    Skola skola = ViewBag.skola;
+}
+
+<h2>@skola.naziv</h2>
+@foreach (var k in Model)
+{
+    <div class="school-course">
+        <div class="course-img">
+            <img src="@k.slika" alt="@k.imekursa" />
+        </div>
+        <div class="course-name">
+            @k.imekursa
+        </div>
+        <a href="@k.link" target="_blank"></a>
+    </div>
+}

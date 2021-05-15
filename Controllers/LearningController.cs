@@ -27,12 +27,12 @@ namespace eLearning.Controllers
         // Pocetna stranica
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string Id = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
-                Korisnik korisnik = _korisnikServices.Find(Id);
-                ViewBag.korisnik = korisnik;
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    string Id = HttpContext.User.Claims.First(c => c.Type == "KorisnikID").Value;
+            //    Korisnik korisnik = _korisnikServices.Find(Id);
+            //    ViewBag.korisnik = korisnik;
+            //}
             return View();
         }
         // Profil stranica
@@ -60,7 +60,7 @@ namespace eLearning.Controllers
                 {
                     password = Security.Hash256(korisnik.password),
                 };
-                _korisnikServices.Update(Id, k);
+                _korisnikServices.UpdateUserPassword(Id, k);
                 Logout();
             }
             return RedirectToAction("Profile");

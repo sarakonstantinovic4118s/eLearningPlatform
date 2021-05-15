@@ -20,11 +20,13 @@ namespace eLearning.Services
             var database = client.GetDatabase(podesavanja.DatabaseName);
             this.korisnici = database.GetCollection<Korisnik>("Korisnici");
         }
+        //FIND
+        public Korisnik FindID(string id) =>
+            korisnici.Find(sub => sub.userID == id).SingleOrDefault();
 
+        // selektovanje svih korisnika
         public List<Korisnik> Read()
         {
-            // selektovanje svih korisnika
-
             var k = korisnici.Find(k => true);
             return k.ToList();
         }
@@ -40,7 +42,7 @@ namespace eLearning.Services
             var k = korisnici.Find(k => k.userID == id).SingleOrDefault();
             return k;
         }
-        public Korisnik Update(string id, Korisnik korisnik)
+        public Korisnik UpdateUserPassword(string id, Korisnik korisnik)
         {
             // update user password-a po ID korisnika
             var k = korisnici.UpdateOne(x => x.userID == id, Builders<Korisnik>.Update.Set(x => x.password, korisnik.password));
@@ -54,5 +56,16 @@ namespace eLearning.Services
             korisnici.InsertOne(k);
             return k;
         }
+        //UPDATE
+        public void UpdateUser(Korisnik korisnik) =>
+                korisnici.ReplaceOne(sub => sub.userID == korisnik.userID, korisnik);
+        //DELETE 
+        public void DeleteUser(string id)
+        {
+            korisnici.DeleteOne(sub => sub.userID == id);
+        }
+
+       
+        
     }
 }

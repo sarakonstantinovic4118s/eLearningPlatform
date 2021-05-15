@@ -39,6 +39,7 @@ namespace eLearning
             services.AddSingleton<IKurseviServices, KurseviServices>();
             //services.AddSingleton<ISchoolServices, SchoolServices>();
 
+            services.AddSingleton<IKategorijeServices, KategorijeServices>();
             services.AddMvc();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 

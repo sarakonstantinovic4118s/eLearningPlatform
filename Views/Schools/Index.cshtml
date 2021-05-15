@@ -1,0 +1,49 @@
+﻿@model List<Skola>
+@{
+    string name = ViewBag.Name;
+    int page = ViewBag.page;
+    int maxPages = (int)ViewBag.maxPages;
+}
+
+@section skripte {
+    <link rel="stylesheet" href="~/css/schools.min.css" />
+}
+
+<h1>Schools</h1>
+<form class="search" method="get" asp-controller="Schools" asp-action="Index">
+    <input name="name" type="search" placeholder="Search..." value="@name" />
+    <input type="submit" value="Search" />
+</form>
+
+@if (Model.Count != 0)
+{
+    <div class="schools">
+        @foreach (var s in Model)
+        {
+            <div class="school" schoolID="@s.skolaID">
+                <img src="@s.logo"/>
+            </div>
+        }
+    </div>
+    <div class="pages">
+        @for (int i = 1; i <= maxPages; i++)
+        {
+            <a class="num @(i == page ? "active" : "")" asp-action="Index" asp-route-page="@i" asp-route-name="@name">@i</a>
+        }
+    </div>
+}
+else
+{
+    <p class="not-found">School not found.</p>
+}
+
+<div id="school-courses">
+</div>
+<div id="bg-wrap">
+    <div class="close">
+        <div class="x">
+            <span class="x1"></span>
+            <span class="x2"></span>
+        </div>
+    </div>
+</div>

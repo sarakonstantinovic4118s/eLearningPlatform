@@ -31,5 +31,6 @@ namespace eLearning.ViewModels
         public string confirmPassword { get; set; }
 
         
+        public string tip { get; set; }
     }
 }

@@ -1,0 +1,29 @@
+﻿@model eLearning.Models.Korisnik
+
+@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+
+<div class="edit-form user">
+    <form sp-controller="Admin" asp-action="setEditUser" method="post">
+        @Html.HiddenFor(m => m.userID)
+
+        <label>Korisnicko ime </label>
+        <input type="text" asp-for="@Model.korisnickoIme">
+
+        <label>Password</label>
+        <input type="text" asp-for="@Model.password">
+
+        <label>Email</label>
+        <input type="text" asp-for="@Model.email">
+
+        <label>Tip</label>
+        <input type="text" asp-for="@Model.tip">
+
+        <button>Submit</button>
+    </form>
+</div>
