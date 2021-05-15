@@ -1,42 +1,61 @@
-﻿@model eLearning.ViewModels.KursKategorijaViewModel
+﻿
+@model eLearning.ViewModels.KursKategorijaViewModel
 
 @{
     ViewBag.Title = "E-learning";
+    string name = ViewBag.Name;
+    int page = ViewBag.page;
+    int maxPages = (int)ViewBag.maxPages;
 }
 
 @section skripte{
     <link rel="stylesheet" href="~/css/courses.css">
 }
 
-<form action="" class="search-form">
-    <input class="search" type="text" placeholder="Type here...">
+<form class="search-form" method="get" asp-controller="Kursevi" asp-action="Courses">
+    <input class="search" name="name" type="text" placeholder="Search..." value="@name" />
     <button>Search</button>
 </form>
-<div class="main-container">
-    <div class="courses-category">
+
+        <div class="main-container">
+        <div class="courses-category">
         <h2>Kategorije</h2>
         <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
-        @foreach (var item in Model.kategorijes)
+        @foreach (var item in Model.kategorije)
         {
-            <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
+        <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
         }
 
     </div>
 
     <div class="course-container">
-        @foreach (var item in Model.kursevis)
+        @if (Model.kursevi.Count != 0)
         {
-            <div class="course-card">
-                <img class="course-img" src="@item.slika" alt="">
-                <div class="course-content">
-                    <a class="course-title"> @item.imekursa</a>
-                    <p class="course-about">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ut?
-                    </p>
-                    <a class="course-enrol"  asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
+            @foreach (var item in Model.kursevi)
+            {
+                <div class="course-card">
+                    <img class="course-img" src="@item.slika" alt="">
+                    <div class="course-content">
+                        <a class="course-title"> @item.imekursa</a>
+                        <p class="course-about">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ut?
+                        </p>
+                        <a class="course-enrol" asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
+                    </div>
                 </div>
+            }
+            <div class="pages">
+                @for (int i = 1; i <= maxPages; i++)
+                {
+                    <a class="num @(i == page ? "active" : "")" asp-action="Courses" asp-route-page="@i" asp-route-name="@name">@i</a>
+                }
             </div>
+
         }
-           
-        </div>
+        else
+        {
+            <p>Course not found.</p>
+        }
+
+    </div>
 </div>

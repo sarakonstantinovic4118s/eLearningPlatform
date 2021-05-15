@@ -39,6 +39,36 @@ namespace eLearning.Services
             var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
             return k.ToList();
         }
+
+        public List<Kursevi> ReadPage(int stranica, int velicinaStranice)
+        {
+            int skip = velicinaStranice * (stranica - 1);
+
+            List<Kursevi> k = kursevi.Find(s => true)
+                .Skip(skip)
+                .Limit(velicinaStranice)
+                .ToList();
+
+            return k;
+        }
+
+        public long Count(string name)
+        {
+            if (name != null)
+                return kursevi.CountDocuments(k => k.imekursa.ToLower().Contains(name.ToLower()));
+            return kursevi.CountDocuments(k => true);
+        }
+
+        public List<Kursevi> CourseSearch(string name, int stranica, int velicinaStranice)
+        {
+            int skip = velicinaStranice * (stranica - 1);
+
+            var k = kursevi.Find(k => k.imekursa.ToLower().Contains(name.ToLower()))
+                .Skip(skip)
+                .Limit(velicinaStranice);
+
+            return k.ToList();
+        }
     }
 
 

@@ -17,7 +17,7 @@
     <div class="courses-category">
         <h2>Kategorije</h2>
         <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
-        @foreach (var item in Model.kategorijes)
+        @foreach (var item in Model.kategorije)
         {
             <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
         }

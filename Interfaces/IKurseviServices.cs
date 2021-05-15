@@ -9,11 +9,24 @@ namespace eLearning.Interfaces
     public interface IKurseviServices
     {
         List<Kursevi> Read();
+    
 
         Kursevi Find(string id);
 
-        List<Kursevi> findCourses(string kategorijaID);
+   
 
+        /// Citanje kurseva sa stranicenjem prema broju i velicini stranice
+        List<Kursevi> ReadPage(int stranica, int velicinaStranice);
+
+        /// Brojanje rezultata upita
+        long Count(string name);
+  
+
+        List<Kursevi> findCourses(string kategorijaID);
+       
+
+        /// Pretraga prema nazivu kursa sa stranicenjem rezultata
+        List<Kursevi> CourseSearch(string name, int stranica, int velicinaStranice);
 
     }
 }
