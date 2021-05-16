@@ -128,8 +128,9 @@
             </div>
             <!-- INSERT FORM SCHOOLS -->
             <div class="insert-form school hide">
-                <form>
-                    <input type="text" placeholder="School name">
+                <form asp-controller="Admin" asp-action="insertSchool" method="post">
+                    <input type="text" placeholder="School name" asp-for="naziv">
+                    <input type="text" placeholder="School logo" asp-for="logo">
                     <button>Submit</button>
                 </form>
             </div>
@@ -143,6 +144,14 @@
                         {
                             <option value="@category.kategorijaID">
                                 @category.imekategorije
+                            </option>
+                        }
+                    </select>
+                    <select asp-for="skolaID">
+                        @foreach (var school in Model.skole)
+                        {
+                            <option value="@school.skolaID">
+                                @school.naziv
                             </option>
                         }
                     </select>
@@ -207,6 +216,7 @@
             }
 
         </div>
+
         <!-- SCHOOLS -->
         <div class="table-scroll schools hidden">
             <table class="data-review">
@@ -214,76 +224,25 @@
                     <th>School name</th>
                     <th>Options</th>
                 </tr>
-                <tr>
-                    <td>School 1</td>
-                    <td>
-                        <a class="edit-btn school" href="#">EDIT</a>
-                        <a class="delete-btn school" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 2</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 3</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 4</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 5</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 6</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 3</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 4</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 5</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 6</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
+                @foreach (var school in Model.skole)
+                {
+                    <tr>
+                        <td>
+                            <div class="school-container">
+                                <div class="school-img">
+                                    <img src="@school.logo" alt="">
+                                </div>
+                                <div class="school-name">
+                                    <h3>@school.naziv</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="edit-btn school" asp-controller="Admin" asp-action="editSchool" asp-route-id="@school.skolaID">EDIT</a>
+                            <a class="delete-btn" asp-controller="Admin" asp-action="DeleteSchool" asp-route-id="@school.skolaID">DELETE</a>
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
         <!-- COURSES -->
@@ -293,6 +252,7 @@
                     <th>Course name</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>School</th>
                     <th>Link</th>
                     <th>Image</th>
                     <th>Course level</th>
@@ -303,6 +263,7 @@
                         <td>@course.imekursa</td>
                         <td>@course.detaljikursa</td>
                         <td>@course.kategorijaID</td>
+                        <td>@course.skolaID</td>
                         <td>@course.link</td>
                         <td class="course-img">
                             <img src="@course.slika" alt="">

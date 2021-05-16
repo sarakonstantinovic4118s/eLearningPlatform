@@ -15,17 +15,21 @@ namespace eLearning.ViewModels
         public string email { get; set; }
         public string tip { get; set; }
 
+        //SKOLE
+        public List<Skola> skole { get; set; }
+        public Skola skola { get; internal set; }
+        public string skolaID { get; set; }
+        public string naziv { get; set; }
+        public string logo { get; set; }
 
         //KURSEVI 
         public List<Kursevi> kursevi { get; set; }
+        public Kursevi kurs { get; internal set; }
         public string imekursa { get; set; }
         public string detaljikursa { get; set; }
         public string link { get; set; }
         public string slika { get; set; }
         public decimal nivoKursa { get; set; }
-        public Kursevi kurs { get; internal set; }
-
-        public Kursevi kursZaEdit { get; set; }
 
         //KATEGORIJE
         public List<Kategorije> kategorije { get; set; }

@@ -25,22 +25,65 @@ namespace eLearning.Controllers
 
         // GET: KurseviController
 
-        public IActionResult Courses()
+        //public IActionResult Courses()
+        //{
+        //    List<Kursevi> listKurseva = new List<Kursevi>();
+        //    listKurseva = _kurseviServices.Read();
+
+        //    List<Kategorije> listKategorija = new List<Kategorije>();
+        //    listKategorija = _kategorijeServices.Read();
+
+        //   var viewmodel = new KursKategorijaViewModel
+        //    {
+        //        kategorijes = listKategorija,
+        //        kursevis = listKurseva
+        //    };
+        //   return View(viewmodel);
+        //}
+        [HttpGet]
+        public IActionResult Courses(string name, int? page, int? size)
         {
-            List<Kursevi> listKurseva = new List<Kursevi>();
-            listKurseva = _kurseviServices.Read();
+            List<Kursevi> kursevi;
+            // prosledjivanje name parametra za pretragu u View radi njegovog pamcenja u formi. 
+            ViewBag.name = name;
 
-            List<Kategorije> listKategorija = new List<Kategorije>();
-            listKategorija = _kategorijeServices.Read();
+            // podrazumevana stranica i broj skola
+            int defaultPage = 1;
+            int defaultSize = 2;
 
-           var viewmodel = new KursKategorijaViewModel
+            // dodeljivanje podrazumevanih vrednosti ako su parametri null
+            if (page == null) page = defaultPage;
+            if (size == null) size = defaultSize;
+
+            // ucitavanje stranice sa skolama
+            // ako je unet parametar za pretragu ucitati skole
+            int courseCount;
+            if (name != null)
             {
-                kategorijes = listKategorija,
-                kursevis = listKurseva
-            };
-           return View(viewmodel);
+                kursevi = _kurseviServices.CourseSearch (name, (int)page, (int)size);
+                courseCount = (int)_kurseviServices.Count(name);
+            }
+            else
+            {
+                kursevi = _kurseviServices.ReadPage((int)page, (int)size);
+                courseCount = (int)_kurseviServices.Count(null);
+            }
+
+            if (courseCount == 0) courseCount++;
+            // odredjivanje maksimalnog broja stranica
+            double maxPages = courseCount / (double)size;
+            maxPages = Math.Ceiling(maxPages);
+
+            // Ako je premasen broj mogucih stranica
+            if (page > maxPages)
+                return NotFound();
+
+            // prosledjivanje u View zbog generisanja menija sa stranicama
+            ViewBag.page = page;
+            ViewBag.maxPages = maxPages;
+
+            return View(kursevi);
         }
-          
 
         [HttpGet]
 
@@ -72,14 +115,6 @@ namespace eLearning.Controllers
         //{
         //    return $"{firstName}:{lastName}:{address}";
         //}
-
-
-
-
-
-
-
-
 
 
 

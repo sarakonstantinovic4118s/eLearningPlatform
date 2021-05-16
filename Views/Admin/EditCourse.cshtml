@@ -1,5 +1,4 @@
 ﻿@model eLearning.ViewModels.AdminViewModel
-@*@model eLearning.Models.Kursevi*@
 
 @{
     ViewBag.Title = "E-learning";
@@ -10,35 +9,37 @@
 
 <!-- EDIT FORM COURSES -->
 <div class="edit-form course">
+    <i class="fas fa-times-circle closeBtn"></i>
     <form asp-controller="Admin" asp-action="setEditCourse" method="post">
 
         @Html.HiddenFor(m => m.kurs.kursID)
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.imekursa">
 
-        <label>Ime kursa</label>
-        <input type="text" asp-for="@Model.kurs.imekursa">
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.detaljikursa">
 
-        <label>Detalji kursa</label>
-        <input type="text" asp-for="@Model.kurs.detaljikursa">
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.link">
 
-        <label>Link kursa</label>
-        <input type="text" asp-for="@Model.kurs.link">
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.slika">
 
-        <label>Slika kursa</label>
-        <input type="text" asp-for="@Model.kurs.slika">
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.nivoKursa">
 
-        <label>Nivo kursa</label>
-        <input type="text" asp-for="@Model.kurs.slika">
-
-        <label>Kategorije kurseva</label>
         <select asp-for="@Model.kurs.kategorijaID">
 
-            @foreach (var category in Model.kategorije)
+            @foreach (var item in Model.kategorije)
             {
-                <option value="@category.kategorijaID">
-                    @category.imekategorije
+                <option value="@item.kategorijaID">
+                    @item.imekategorije
                 </option>
             }
+        </select>
+        <select asp-for="@Model.kurs.skolaID">
 
+            @foreach (var school in Model.skole)
+            {
+                <option value="@school.skolaID">
+                    @school.naziv
+                </option>
+            }
         </select>
 
         <button type="submit">Submit</button>

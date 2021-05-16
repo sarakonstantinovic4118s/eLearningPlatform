@@ -335,6 +335,22 @@ main {
     }
 
 /* SCHOOL TABLE */
+.school-container {
+    width: 100%;
+}
+
+.school-img img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.school-name {
+    width: 100%;
+    padding-left: 1.3em;
+}
+
+
 .course-img img {
     width: 200px;
     height: 200px;
@@ -358,6 +374,7 @@ main {
     font-size: 0.8rem;
     margin: 2px 0;
 }
+
 
 .delete-btn {
     background-color: rgb(219, 39, 39);

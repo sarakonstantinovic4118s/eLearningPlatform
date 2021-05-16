@@ -1,0 +1,21 @@
+﻿@model eLearning.Models.Skola
+
+
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+
+<div class="edit-form school">
+    <form asp-controller="Admin" asp-action="setEditSChool" method="post">
+        @Html.HiddenFor(m => m.skolaID)
+
+        <label>Ime skole</label>
+        <input type="text" asp-for="@Model.naziv">
+
+        <label>Slika skole</label>
+        <input type="text" asp-for="@Model.logo">
+
+        <button>Submit</button>
+    </form>
+</div>
