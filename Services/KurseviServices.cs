@@ -52,6 +52,20 @@ namespace eLearning.Services
             return k;
         }
 
+        public List<Kursevi> ReadPageKat(int stranica, int velicinaStranice,string kategorijaID)
+        {
+            int skip = velicinaStranice * (stranica - 1);
+       
+            
+
+            List<Kursevi> k = kursevi.Find(k => k.kategorijaID == kategorijaID)
+                .Skip(skip)
+                .Limit(velicinaStranice)
+                .ToList();
+
+            return k;
+        }
+
         public long Count(string name)
         {
             if (name != null)
@@ -64,6 +78,18 @@ namespace eLearning.Services
             int skip = velicinaStranice * (stranica - 1);
 
             var k = kursevi.Find(k => k.imekursa.ToLower().Contains(name.ToLower()))
+                .Skip(skip)
+                .Limit(velicinaStranice);
+
+            return k.ToList();
+        }
+
+
+        public List<Kursevi> CourseSearchkat(string name, int stranica, int velicinaStranice, string kategorijaID)
+        {
+            int skip = velicinaStranice * (stranica - 1);
+
+            var k = kursevi.Find(k => k.kategorijaID == kategorijaID &  k.imekursa.ToLower().Contains(name.ToLower())  )
                 .Skip(skip)
                 .Limit(velicinaStranice);
 

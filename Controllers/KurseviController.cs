@@ -25,23 +25,7 @@ namespace eLearning.Controllers
 
 
 
-        // GET: KurseviController
-
-        //public IActionResult Courses()
-        //{
-        //    List<Kursevi> listKurseva = new List<Kursevi>();
-        //    listKurseva = _kurseviServices.Read();
-
-        //    List<Kategorije> listKategorija = new List<Kategorije>();
-        //    listKategorija = _kategorijeServices.Read();
-
-        //   var viewmodel = new KursKategorijaViewModel
-        //    {
-        //        kategorijes = listKategorija,
-        //        kursevis = listKurseva
-        //    };
-        //   return View(viewmodel);
-        //}
+   
 
         [HttpGet]
         public IActionResult Courses(string name, int? page, int? size)
@@ -56,14 +40,14 @@ namespace eLearning.Controllers
 
             // podrazumevana stranica i broj skola
             int defaultPage = 1;
-            int defaultSize = 2;
+            int defaultSize = 9;
 
             // dodeljivanje podrazumevanih vrednosti ako su parametri null
             if (page == null) page = defaultPage;
             if (size == null) size = defaultSize;
 
-            // ucitavanje stranice sa skolama
-            // ako je unet parametar za pretragu ucitati skole
+            // ucitavanje stranice sa kursevima
+            // ako je unet parametar za pretragu ucitati kurseve
             int courseCount;
             if (name != null)
             {
@@ -103,31 +87,61 @@ namespace eLearning.Controllers
             var findKurs = _kurseviServices.Find(id);
            return View(findKurs);
         }
-     
-        public ActionResult<Kategorije> CategoryDetails(string id) {
-            var findKategoriju = _kategorijeServices.Find(id);
+
+       
+        [HttpGet]
+        public ActionResult CategoryDetails(string name, int? page, int? size , string id)
+        {
             List<Kategorije> listKategorija = new List<Kategorije>();
             listKategorija = _kategorijeServices.Read();
+       
 
+            List<Kursevi> kursevi;
+            // prosledjivanje name parametra za pretragu u View radi njegovog pamcenja u formi. 
+            ViewBag.name = name;
+
+            // podrazumevana stranica i broj skola
+            int defaultPage = 1;
+            int defaultSize = 9;
+
+            // dodeljivanje podrazumevanih vrednosti ako su parametri null
+            if (page == null) page = defaultPage;
+            if (size == null) size = defaultSize;
+
+            // ucitavanje stranice sa kursevima prema selektovanoj kategoriji
+            // ako je unet parametar za pretragu ucitati kurseve koji pripadaju datoj kategoriji
+            int courseCount;
+            if (name != null)
+            {
+                kursevi = _kurseviServices.CourseSearchkat(name, (int)page, (int)size, (string) id);
+                courseCount = (int)_kurseviServices.Count(name);
+            }
+            else
+            {
+                kursevi = _kurseviServices.ReadPageKat((int)page, (int)size, (string)id);
+                courseCount = (int)_kurseviServices.Count(null);
+            }
+
+            if (courseCount == 0) courseCount++;
+            // odredjivanje maksimalnog broja stranica
+            double maxPages = courseCount / (double)size;
+            maxPages = Math.Ceiling(maxPages);
+
+            // Ako je premasen broj mogucih stranica
+            if (page > maxPages)
+                return NotFound();
+
+            // prosledjivanje u View zbog generisanja menija sa stranicama
+            ViewBag.page = page;
+            ViewBag.maxPages = maxPages;
             var viewmodel = new KursKategorijaViewModel
             {
-                kategorije = listKategorija,
-               kategorijeSingle = findKategoriju,
-           
+                kursevi = kursevi,
+                kategorije = listKategorija
             };
-            // nalazi kurseve koji imaju odredjen id kategorije
-            ViewBag.kursevi = _kurseviServices.findCourses(id);
-            
+
             return View(viewmodel);
         }
-
-        // search
-        //[HttpGet("{firstName}/{lastName}/{address}")]
-        //public string GetQuery(string id, string firstName, string lastName, string address)
-        //{
-        //    return $"{firstName}:{lastName}:{address}";
-        //}
-
 
 
 
