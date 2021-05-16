@@ -1,0 +1,57 @@
+﻿@model KorisnikProfileViewModel
+
+
+@{ ViewBag.Title = "E-learning"; }
+@section skripte{
+    <link rel="stylesheet" href="~/css/profile.css">
+}
+
+<h1> User profile</h1>
+<div class="profile-container">
+
+    <div class="profile-card">
+        <div class="profile-content">
+        
+
+
+            <form asp-controller="Learning" asp-action="ChangePassword" method="post">
+                @if (User.Identity.IsAuthenticated)
+                {
+                <div>
+                    <label>User name</label>
+                    <div class="col-md-10">
+                        <p class="profile-username" href="#"> @User.Claims.First(c => c.Type == "username").Value</p>
+                    </div>
+                </div>
+                <div>
+                    <label>User email</label>
+                    <div class="col-md-10">
+                        <p class="profile-email">@User.Claims.First(c => c.Type == "email").Value</p>
+                    </div>
+                </div>
+                }
+                <div>
+                    <label asp-for="password"></label>
+                    <div class="profile-password" class="col-md-10">
+                        <input asp-for="password" />
+                        <span asp-validation-for="password"></span>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for="confirmPassword"></label>
+                    <div class="profile-password" class="col-md-10">
+                        <input asp-for="confirmPassword" />
+                        <span asp-validation-for="confirmPassword"></span>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <button type="submit">Change password</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
