@@ -10,6 +10,8 @@
 
 @section skripte{
     <link rel="stylesheet" href="~/css/courses.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 }
 
 <form class="search-form" method="get" asp-controller="Kursevi" asp-action="Courses">
@@ -17,13 +19,13 @@
     <button>Search</button>
 </form>
 
-        <div class="main-container">
-        <div class="courses-category">
+<div class="main-container">
+    <div class="courses-category">
         <h2>Kategorije</h2>
         <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
         @foreach (var item in Model.kategorije)
         {
-        <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
+            <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
         }
 
     </div>
@@ -44,12 +46,16 @@
                     </div>
                 </div>
             }
-            <div class="pages">
-                @for (int i = 1; i <= maxPages; i++)
-                {
-                    <a class="num @(i == page ? "active" : "")" asp-action="Courses" asp-route-page="@i" asp-route-name="@name">@i</a>
-                }
-            </div>
+            <nav class="paginacija">
+                <ul class="pagination pagination-sm">
+                    @for (int i = 1; i <= maxPages; i++)
+                    {
+                        <li class="page-item">
+                            <a class="page-link num @(i == page ? "active" : "")" asp-action="Courses" asp-route-page="@i" asp-route-name="@name">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
 
         }
         else

@@ -54,7 +54,14 @@ namespace eLearning
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Learning}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                     name: "Kategorije",
+                     pattern: "{controller=Kursevi}/{action=CategoryDetails}/{imekategorije}");
+
             });
+
+   
         }
     }
 }

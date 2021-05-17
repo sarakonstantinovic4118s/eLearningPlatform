@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eLearning.Controllers
 {
-    public class KurseviController : Controller
+  
+    public class  KurseviController : Controller
     {
 
         // instanciranje servisa (svih funkcija koje su navedene u IKorisnikServices i implementirane u KorisnikServices) za kontrolu korisnika
@@ -82,19 +84,21 @@ namespace eLearning.Controllers
         }
 
         [HttpGet]
-
+      
         public ActionResult<Kursevi> CourseDetails(string id) {
+            
             var findKurs = _kurseviServices.Find(id);
            return View(findKurs);
         }
 
        
         [HttpGet]
+        [Route("Kursevi/CategoryDetails/{id?}/{imekategorije}")]
         public ActionResult CategoryDetails(string name, int? page, int? size , string id)
         {
             List<Kategorije> listKategorija = new List<Kategorije>();
             listKategorija = _kategorijeServices.Read();
-       
+          
 
             List<Kursevi> kursevi;
             // prosledjivanje name parametra za pretragu u View radi njegovog pamcenja u formi. 
