@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eLearning.Controllers
 {
+    [Authorize]
     public class KurseviController : Controller
     {
 
