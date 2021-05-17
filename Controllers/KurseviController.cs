@@ -23,23 +23,6 @@ namespace eLearning.Controllers
             _kategorijeServices = kategorijeServices;
         }
 
-        // GET: KurseviController
-
-        //public IActionResult Courses()
-        //{
-        //    List<Kursevi> listKurseva = new List<Kursevi>();
-        //    listKurseva = _kurseviServices.Read();
-
-        //    List<Kategorije> listKategorija = new List<Kategorije>();
-        //    listKategorija = _kategorijeServices.Read();
-
-        //   var viewmodel = new KursKategorijaViewModel
-        //    {
-        //        kategorijes = listKategorija,
-        //        kursevis = listKurseva
-        //    };
-        //   return View(viewmodel);
-        //}
         [HttpGet]
         public IActionResult Courses(string name, int? page, int? size)
         {
@@ -49,7 +32,7 @@ namespace eLearning.Controllers
 
             // podrazumevana stranica i broj skola
             int defaultPage = 1;
-            int defaultSize = 2;
+            int defaultSize = 8;
 
             // dodeljivanje podrazumevanih vrednosti ako su parametri null
             if (page == null) page = defaultPage;

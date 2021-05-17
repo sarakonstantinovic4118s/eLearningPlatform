@@ -29,6 +29,30 @@ namespace eLearning.Controllers
             _schoolServices = schoolServices;
         }
 
+        //SEARCH READ (CATEGORY)
+        public IActionResult searchReadCategory(string name)
+        {
+            List<Kategorije> kategorije;
+
+            ViewBag.name = name;
+
+            if (name != null)
+            {
+                kategorije = _kategorijeServices.searchReadCategory(name);
+            }
+            else
+            {
+                kategorije = _kategorijeServices.Read();
+            }
+
+            var viewmodel = new AdminViewModel
+            {
+                kategorije = kategorije
+            };
+
+            return View(viewmodel);
+        }
+
         public IActionResult adminPanel()
         {
             List<Korisnik> listKorisnik = new List<Korisnik>();

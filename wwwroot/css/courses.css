@@ -17,6 +17,13 @@ body {
   overflow-x: hidden;
 }
 
+.paginacija{
+    position:absolute;
+    bottom:0em;
+    left:50%;
+    transform:translate(-50%,0);
+}
+
 .main-container {
     display: flex;
 }
@@ -85,6 +92,7 @@ body {
   width: 60%;
   height: 100%;
   margin: 0 auto;
+  padding:1em 0 4em 0;
   background-color: rgba(255, 255, 255, 0.7);
 }
 
