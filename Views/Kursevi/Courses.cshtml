@@ -1,4 +1,4 @@
-﻿@model eLearning.ViewModels.KursKategorijaViewModel
+﻿@model KursKategorijaViewModel
 
 @{
     ViewBag.Title = "E-learning";
@@ -29,10 +29,10 @@
         </div>
         <div class="courses-categories crs">
             <h2>Categories</h2>
-            <a asp-controller="Kursevi" asp-action="Courses">All courses</a>
+            <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="">All courses</a>
             @foreach (var item in Model.kategorijes)
             {
-                <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
+                <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="@item.imekategorije">@item.imekategorije</a>
             }
         </div>
     </div>

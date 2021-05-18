@@ -9,39 +9,24 @@
 <h1>Your profile</h1>
 <div class="profile">
     <form asp-controller="Learning" asp-action="ChangePassword" method="post">
-        @if (User.Identity.IsAuthenticated) // ????????????????????????????????????????????????????????????????????????????????
-        {
-        <div>
+        <div class="profile-input">
             <label>User name</label>
-            <div class="col-md-10">
-                <p class="profile-username" href="#"> @User.Claims.First(c => c.Type == "username").Value</p>
-            </div>
+            <input name="username" type="text" value="@User.Claims.First(c => c.Type == "username").Value" disabled/>
         </div>
-        <div>
+        <div class="profile-input">
             <label>User email</label>
-            <div class="col-md-10">
-                <p class="profile-email">@User.Claims.First(c => c.Type == "email").Value</p>
-            </div>
+            <input name="email" type="text" value="@User.Claims.First(c => c.Type == "email").Value" disabled/>
         </div>
-        }
-        <div>
+        <div class="profile-input">
             <label asp-for="password"></label>
-            <div class="profile-password" class="col-md-10">
-                <input asp-for="password" />
-                <span asp-validation-for="password"></span>
-            </div>
+            <input asp-for="password" />
+            <span asp-validation-for="password"></span>
         </div>
-        <div>
+        <div class="profile-input">
             <label asp-for="confirmPassword"></label>
-            <div class="profile-password" class="col-md-10">
-                <input asp-for="confirmPassword" />
-                <span asp-validation-for="confirmPassword"></span>
-            </div>
+            <input asp-for="confirmPassword" />
+            <span asp-validation-for="confirmPassword"></span>
         </div>
-        <div>
-            <div>
-                <button type="submit">Change password</button>
-            </div>
-        </div>
+        <button type="submit">Change password</button>
     </form>
 </div>
