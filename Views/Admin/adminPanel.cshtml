@@ -124,6 +124,8 @@
             <div class="insert-form category hide">
                 <form asp-controller="Admin" asp-action="insertCategory" method="post">
                     <input type="text" placeholder="Category name" asp-for="imeKategorije">
+                    <span asp-validation-for="imeKategorije" class="text-danger"></span>
+           
                     <button>Submit</button>
                 </form>
             </div>
@@ -131,7 +133,11 @@
             <div class="insert-form school hide">
                 <form asp-controller="Admin" asp-action="insertSchool" method="post">
                     <input type="text" placeholder="School name" asp-for="naziv">
+                    <span asp-validation-for="naziv" class="text-danger"></span>
+
                     <input type="text" placeholder="School logo" asp-for="logo">
+                    <span asp-validation-for="logo" class="text-danger"></span>
+
                     <button>Submit</button>
                 </form>
             </div>
@@ -139,7 +145,11 @@
             <div class="insert-form course hide">
                 <form asp-controller="Admin" asp-action="isnertCourse" method="post">
                     <input type="text" placeholder="Course name" asp-for="imekursa">
+                    <span asp-validation-for="imekursa" class="text-danger"></span>
+
                     <textarea rows="4" cols="50" placeholder="Description..." asp-for="detaljikursa"></textarea>
+                    <span asp-validation-for="detaljikursa" class="text-danger"></span>
+
                     <select asp-for="kategorijaID">
                         @foreach (var category in Model.kategorije)
                         {
@@ -157,8 +167,14 @@
                         }
                     </select>
                     <input type="text" placeholder="Link" asp-for="link">
-                    <input type="text" placeholder="Image URL" asp-for="slika">
+                    <span asp-validation-for="link" class="text-danger"></span>
+
+                    <input type="text" placeholder="Image" asp-for="slika">
+                    @*<span asp-validation-for="slika" class="text-danger"></span>*@
+
                     <input type="text" placeholder="Level" asp-for="nivoKursa">
+                    <span asp-validation-for="nivoKursa" class="text-danger"></span>
+
                     <button>Submit</button>
                 </form>
             </div>

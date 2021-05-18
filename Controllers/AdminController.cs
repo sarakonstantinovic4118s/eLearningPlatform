@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using eLearning.Services;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace eLearning.Controllers
 {
@@ -74,7 +76,7 @@ namespace eLearning.Controllers
                 skole = listSkole
             };
 
-            return View(viewmodel);
+            return View();
         }
 
         public ActionResult<Kategorije> editCategory(string id) => View(_kategorijeServices.Find(id));
@@ -82,14 +84,22 @@ namespace eLearning.Controllers
 
 
         //CREATE CATEGORY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult insertCategory(AdminViewModel categoryVM)
         {
-            Kategorije kategorija = new()
+            if (ModelState.IsValid)
             {
-                imekategorije = categoryVM.imeKategorije
-            };
-            _kategorijeServices.Insert(kategorija);
+                Kategorije kategorija = new()
+                {
+                    imekategorije = categoryVM.imeKategorije
+                };
+                _kategorijeServices.Insert(kategorija);
+                return RedirectToAction("adminPanel");
+            }
+            //Zajebava view jer ti je sve na jednoj stranici proveri to
             return RedirectToAction("adminPanel");
+
         }
 
         //SET EDIT CATEGORY
@@ -109,19 +119,38 @@ namespace eLearning.Controllers
         }
 
         //CREATE COURSE
-        public IActionResult isnertCourse(AdminViewModel kursVM)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult isnertCourse(AdminViewModel kursVM/*, IFormFile slika*/)
         {
-            Kursevi kurs = new()
+
+            //if (slika != null)
+            //{
+            //    MemoryStream memoryStream = new MemoryStream();
+            //    slika.OpenReadStream().CopyTo(memoryStream);
+            //    kursVM.slika = Convert.ToBase64String(memoryStream.ToArray());
+            //}
+            //else
+            //{
+            //    kursVM.slika = "";
+            //}
+
+            if (ModelState.IsValid)
             {
-                imekursa = kursVM.imekursa,
-                detaljikursa = kursVM.detaljikursa,
-                link = kursVM.link,
-                slika = kursVM.slika,
-                nivoKursa = kursVM.nivoKursa,
-                kategorijaID = kursVM.kategorijaID,
-                skolaID = kursVM.skolaID
-            };
-            _kurseviServices.Insert(kurs);
+                Kursevi kurs = new()
+                {
+                    imekursa = kursVM.imekursa,
+                    detaljikursa = kursVM.detaljikursa,
+                    link = kursVM.link,
+                    slika = kursVM.slika,
+                    nivoKursa = kursVM.nivoKursa,
+                    kategorijaID = kursVM.kategorijaID,
+                    skolaID = kursVM.skolaID
+                };
+                _kurseviServices.Insert(kurs);
+                return RedirectToAction("adminPanel");
+
+            }
             return RedirectToAction("adminPanel");
         }
 
@@ -201,15 +230,22 @@ namespace eLearning.Controllers
         //GET SCHOOL ID
         public ActionResult<Korisnik> editSChool(string id) => View(_schoolServices.FindID(id));
 
+
         //CREATE Schooll
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult insertSchool(AdminViewModel kursVM)
         {
-            Skola skola = new()
+            if (ModelState.IsValid)
             {
-                naziv = kursVM.naziv,
-                logo = kursVM.logo
-            };
-            _schoolServices.Insert(skola);
+                Skola skola = new()
+                {
+                    naziv = kursVM.naziv,
+                    logo = kursVM.logo
+                };
+                _schoolServices.Insert(skola);
+                return RedirectToAction("adminPanel");
+            }
             return RedirectToAction("adminPanel");
         }
 

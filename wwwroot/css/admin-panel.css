@@ -18,6 +18,9 @@
 body {
     background-color: #3333;
 }
+.text-danger{
+    color:rgb(179, 3, 3);
+}
 
 .sidebar {
     height: 100%;
