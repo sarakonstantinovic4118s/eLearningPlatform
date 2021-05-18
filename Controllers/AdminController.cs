@@ -9,8 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using eLearning.Services;
-using Microsoft.AspNetCore.Http;
-using System.IO;
+using eLearning.ViewModels.Admin;
 
 namespace eLearning.Controllers
 {
@@ -76,6 +75,8 @@ namespace eLearning.Controllers
                 skole = listSkole
             };
 
+            ViewBag.adminViewModel = viewmodel;
+
             return View();
         }
 
@@ -84,28 +85,25 @@ namespace eLearning.Controllers
 
 
         //CREATE CATEGORY
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult insertCategory(AdminViewModel categoryVM)
+        public IActionResult insertCategory(CategoryViewModel c)
         {
-            if (ModelState.IsValid)
-            {
-                Kategorije kategorija = new()
-                {
-                    imekategorije = categoryVM.imeKategorije
-                };
-                _kategorijeServices.Insert(kategorija);
-                return RedirectToAction("adminPanel");
-            }
-            //Zajebava view jer ti je sve na jednoj stranici proveri to
-            return RedirectToAction("adminPanel");
+            if (!ModelState.IsValid)
+                return View();
 
+            Kategorije kategorija = new()
+            {
+                imekategorije = c.naziv
+            };
+            _kategorijeServices.Insert(kategorija);
+            return RedirectToAction("adminPanel");
         }
+
+        
 
         //SET EDIT CATEGORY
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult setEditCategory(Kategorije kategorija)
+        public IActionResult SetEditCategory(Kategorije kategorija)
         {
             _kategorijeServices.UpdateCategory(kategorija);
             return RedirectToAction("adminPanel");
@@ -234,14 +232,14 @@ namespace eLearning.Controllers
         //CREATE Schooll
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult insertSchool(AdminViewModel kursVM)
+        public IActionResult insertSchool(SchoolViewModel s)
         {
             if (ModelState.IsValid)
             {
                 Skola skola = new()
                 {
-                    naziv = kursVM.naziv,
-                    logo = kursVM.logo
+                    naziv = s.nazivSkole,
+                    logo = s.logoSkole
                 };
                 _schoolServices.Insert(skola);
                 return RedirectToAction("adminPanel");
@@ -258,7 +256,6 @@ namespace eLearning.Controllers
             _schoolServices.UpdateSchool(skola);
             return RedirectToAction("adminPanel");
         }
-
 
         //DELETE SCHOOL
         public IActionResult DeleteSchool(string id)

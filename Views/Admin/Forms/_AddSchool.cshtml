@@ -1,0 +1,12 @@
+﻿@model SchoolViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<form asp-controller="Admin" asp-action="insertSchool">
+    <input asp-for="nazivSkole">
+    <span asp-validation-for="nazivSkole"></span>
+    <button>Submit</button>
+</form>

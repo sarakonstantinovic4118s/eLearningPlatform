@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.content {
+    position: relative;
+    background: #1a1a21;
+    min-height: 100vh;
+    color: #fff;
+    text-align: center;
+    border-radius: 15px;
+    padding-bottom: 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.content h1 {
+    display: inline-block;
+    width: auto;
+    text-align: center;
+    margin: 100px 0;
+    margin-bottom: 60px;
+    cursor: default;
+    font-size: 2.2em;
+}
+
+.content h1::after {
+    content: '';
+    display: block;
+    width: 30%;
+    height: 6px;
+    background: #1ea0ff;
+    margin: 0 auto;
+    margin-top: 20px;
+    transition: .4s ease all;
+}
+
+.content h1:hover::after {
+    width: 70%;
+}
+
+.profile {
+    position: relative;
+    display: block;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 40px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.profile form {
+    width: 100%;
+}
+
+.profile-input {
+    display: block;
+    width: 100%;
+    margin: 14px 0;
+}
+
+.profile-input label {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.profile-input input {
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    background: #30303c;
+    border: none;
+    color: #c1c1c1;
+    text-indent: 1em;
+}
+
+.profile-input input:disabled {
+    background: #262630;
+}
+
+.profile form button {
+    margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background: #1ea0ff;
+    color: #fff;
+}
+
+.profile form button:hover {
+    background: #fff;
+    color: #484848;
+}
+
+.profile-input span {
+    font-size: 14px;
+}

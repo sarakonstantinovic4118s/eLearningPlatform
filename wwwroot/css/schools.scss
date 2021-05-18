@@ -102,6 +102,10 @@ $min: 800px;
 
         &:hover {
             border-color: $plava;
+
+            img {
+                width: 25%;
+            }
         }
     }
 }

@@ -7,10 +7,9 @@ namespace eLearning.Interfaces
 {
     public interface IKategorijeServices
     {
-       public List<Kategorije> Read();
-
+        public List<Kategorije> Read();
         Kategorije Find(string id);
-
+        Kategorije FindByName(string name);
         void UpdateCategory(Kategorije kategorija);
         void DeleteCategory(string id);
         Kategorije Insert(Kategorije kategorija);

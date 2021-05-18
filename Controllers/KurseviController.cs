@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eLearning.Controllers
 {
+    [Authorize]
     public class KurseviController : Controller
     {
 
@@ -23,74 +25,62 @@ namespace eLearning.Controllers
             _kategorijeServices = kategorijeServices;
         }
 
-        [HttpGet]
-        public IActionResult Courses(string name, int? page, int? size)
+        // GET: KurseviController
+
+        [HttpGet("/courses/{naziv?}")]
+        public IActionResult Courses(string naziv)
         {
-            List<Kursevi> kursevi;
-            // prosledjivanje name parametra za pretragu u View radi njegovog pamcenja u formi. 
-            ViewBag.name = name;
+            // search
+            // stranicenje
 
-            // podrazumevana stranica i broj skola
-            int defaultPage = 1;
-            int defaultSize = 8;
+            List<Kursevi> listKurseva;
+            List<Kategorije> listKategorija;
 
-            // dodeljivanje podrazumevanih vrednosti ako su parametri null
-            if (page == null) page = defaultPage;
-            if (size == null) size = defaultSize;
+            listKategorija = _kategorijeServices.Read();
 
-            // ucitavanje stranice sa skolama
-            // ako je unet parametar za pretragu ucitati skole
-            int courseCount;
-            if (name != null)
+            if (String.IsNullOrEmpty(naziv))
             {
-                kursevi = _kurseviServices.CourseSearch (name, (int)page, (int)size);
-                courseCount = (int)_kurseviServices.Count(name);
+                listKurseva = _kurseviServices.Read();
             }
             else
             {
-                kursevi = _kurseviServices.ReadPage((int)page, (int)size);
-                courseCount = (int)_kurseviServices.Count(null);
+                var kategorija = _kategorijeServices.FindByName(naziv);
+                if (kategorija == null) return NotFound();
+                listKurseva = _kurseviServices.findCourses(kategorija.kategorijaID);
             }
 
-            if (courseCount == 0) courseCount++;
-            // odredjivanje maksimalnog broja stranica
-            double maxPages = courseCount / (double)size;
-            maxPages = Math.Ceiling(maxPages);
-
-            // Ako je premasen broj mogucih stranica
-            if (page > maxPages)
-                return NotFound();
-
-            // prosledjivanje u View zbog generisanja menija sa stranicama
-            ViewBag.page = page;
-            ViewBag.maxPages = maxPages;
-
-            return View(kursevi);
+            var viewmodel = new KursKategorijaViewModel
+            {
+                kategorijes = listKategorija,
+                kursevis = listKurseva
+            };
+            return View(viewmodel);
         }
+          
 
         [HttpGet]
 
         public ActionResult<Kursevi> CourseDetails(string id) {
             var findKurs = _kurseviServices.Find(id);
-           return View(findKurs);
+            return View(findKurs);
         }
      
+/*
         public ActionResult<Kategorije> CategoryDetails(string id) {
-            var findKategoriju = _kategorijeServices.Find(id);
+            var kategorija = _kategorijeServices.Find(id);
             List<Kategorije> listKategorija = new List<Kategorije>();
             listKategorija = _kategorijeServices.Read();
 
             var viewmodel = new KursKategorijaViewModel
             {
                 kategorijes = listKategorija,
-               kategorijeSingle = findKategoriju,
-           
+                kategorijeSingle = kategorija,
             };
             // nalazi kurseve koji imaju odredjen id kategorije
             ViewBag.kursevi = _kurseviServices.findCourses(id);
             
             return View(viewmodel);
-        }
+        }*/
 
         // search
         //[HttpGet("{firstName}/{lastName}/{address}")]
