@@ -1,26 +1,36 @@
-﻿
-@{
-    ViewBag.Title = "E-learning";
-}
+﻿@model KorisnikRegViewModel
+
+@{ ViewBag.Title = "E-learning"; }
 @section skripte{
+    <link rel="stylesheet" href="~/css/login.css">
     <link rel="stylesheet" href="~/css/register.css">
 }
 
-<div class="register-container">
-    <form>
-        <i class="fas fa-user fa-3x" id="user-icon"></i>
-        <label>Username</label>
-        <input type="text" id="user-name" name="user-name">
-        <span class="focus-input"></span>
-        <label>Email</label>
-        <input type="email" name="email">
-        <label>Password</label>
-        <input type="password" name="password">
-        <label>Confirm password</label>
-        <input type="password" name="confirm-password">
-        <button>Register</button>
-    </form>
-    <div class="register-banner">
-        <img src="https://www.kofa.de/fileadmin/Dateiliste/Bilder/Sonstige/E-Learning_gr.jpg" alt="register-slika">
+<div class="reg-wrap">
+    <div class="login-wrap">
+        <div class="login">
+            <h1>Register</h1>
+            <div asp-validation-summary="ModelOnly" class="error"></div>
+            <form asp-controller="Learning" asp-action="Registracija" method="post">
+                <label asp-for="korisnickoIme"></label>
+                <input asp-for="korisnickoIme" />
+                <span asp-validation-for="korisnickoIme"></span>
+
+                <label asp-for="email"></label>
+                <input asp-for="email" />
+                <span asp-validation-for="email"></span>
+
+                <label asp-for="password"></label>
+                <input asp-for="password" />
+                <span asp-validation-for="password"></span>
+
+                <label asp-for="confirmPassword"></label>
+                <input asp-for="confirmPassword" />
+                <span asp-validation-for="confirmPassword"></span>
+
+                <input class="signInBtn" type="submit" value="Sign Up" />
+            </form>
+            <a asp-controller="Learning" asp-action="Login">Already have an account?</a>
+        </div>
     </div>
 </div>

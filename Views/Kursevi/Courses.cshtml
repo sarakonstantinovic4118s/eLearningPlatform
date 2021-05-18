@@ -14,54 +14,56 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 }
 
-<form class="search-form" method="get" asp-controller="Kursevi" asp-action="Courses">
-    <input class="search" name="name" type="text" placeholder="Search..." value="@name" />
-    <button>Search</button>
-</form>
 
-<div class="main-container">
-    <div class="courses-category">
-        <h2>Kategorije</h2>
-        <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
-        @foreach (var item in Model.kategorije)
-        {
-            <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
-        }
 
-    </div>
-
-    <div class="course-container">
-        @if (Model.kursevi.Count != 0)
-        {
-            @foreach (var item in Model.kursevi)
+<div class="courses-wrap">
+    <div class="courses-nav-wrap">
+        <div class="courses-filter crs">
+            <h2>Search</h2>
+            <form action="" class="search-form">
+                <input class="search" type="text" placeholder="Name...">
+                <select>
+                    <option value="">All levels</option>
+                    <option value="">Begginer</option>
+                    <option value="">Intermediate</option>
+                    <option value="">Expert</option>
+                </select>
+                <button>Search</button>
+            </form>
+        </div>
+        <div class="courses-categories crs">
+            <h2>Categories</h2>
+            <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="">All courses</a>
+            @foreach (var item in Model.kategorijes)
             {
-                <div class="course-card">
-                    <img class="course-img" src="@item.slika" alt="">
-                    <div class="course-content">
-                        <a class="course-title"> @item.imekursa</a>
-                        <p class="course-about">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ut?
-                        </p>
-                        <a class="course-enrol" asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
-                    </div>
-                </div>
+                <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="@item.imekategorije">@item.imekategorije</a>
             }
-            <nav class="paginacija">
-                <ul class="pagination pagination-sm">
-                    @for (int i = 1; i <= maxPages; i++)
-                    {
-                        <li class="page-item">
-                            <a class="page-link num @(i == page ? "active" : "")" asp-action="Courses" asp-route-page="@i" asp-route-name="@name">@i</a>
-                        </li>
-                    }
-                </ul>
-            </nav>
-
-        }
-        else
-        {
-            <p>Course not found.</p>
-        }
-
+        </div>
+    </div>
+    <div class="courses-list-wrap">
+        <div class="courses-list crs">
+            <h2>Courses</h2>
+            <div class="courses-grid">
+                @foreach (var item in Model.kursevis)
+                {
+                    <div class="course">
+                        <div class="course-thumb">
+                            <img src="@item.slika" />
+                        </div>
+                        <div class="course-desc">
+                            <h3 class="course-title">@item.imekursa <span class="course-lvl">Advanced</span></h3>
+                            <p>@item.detaljikursa</p>
+                        </div>
+                        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID"></a>
+                    </div>
+                }
+            </div>
+            <div class="pages">
+                @for (int i = 1; i <= maxPages; i++)
+                {
+                    <a class="num @(i == page ? "active" : "")" asp-action="Index" asp-route-page="@i">@i</a>
+                }
+            </div>
+        </div>
     </div>
 </div>

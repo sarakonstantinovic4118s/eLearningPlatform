@@ -1,0 +1,20 @@
+﻿@model eLearning.Models.Kategorije
+
+@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+<!-- EDIT FORM CATEGORY -->
+<div class="edit-form course">
+    <form asp-controller="Admin" asp-action="setEditCategory" method="post">
+        @Html.HiddenFor(m => m.kategorijaID)
+
+        <label>Ime kategorije</label>
+        <input type="text" asp-for="@Model.imekategorije">
+
+        <button type="submit">Submit</button>
+    </form>
+</div>

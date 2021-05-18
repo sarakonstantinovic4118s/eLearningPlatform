@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace eLearning.Controllers
 {
+    [Authorize]
+    public class KurseviController : Controller
   
     public class  KurseviController : Controller
     {
@@ -25,15 +27,29 @@ namespace eLearning.Controllers
             _kategorijeServices = kategorijeServices;
         }
 
+        // GET: KurseviController
 
-
-   
-
-        [HttpGet]
-        public IActionResult Courses(string name, int? page, int? size)
+        [HttpGet("/courses/{naziv?}")]
+        public IActionResult Courses(string naziv)
         {
-            List<Kategorije> listKategorija = new List<Kategorije>();
+            // search
+            // stranicenje
+
+            List<Kursevi> listKurseva;
+            List<Kategorije> listKategorija;
+
             listKategorija = _kategorijeServices.Read();
+
+            if (String.IsNullOrEmpty(naziv))
+            {
+                listKurseva = _kurseviServices.Read();
+            }
+            else
+            {
+                var kategorija = _kategorijeServices.FindByName(naziv);
+                if (kategorija == null) return NotFound();
+                listKurseva = _kurseviServices.findCourses(kategorija.kategorijaID);
+            }
 
 
             List<Kursevi> kursevi;
@@ -88,7 +104,7 @@ namespace eLearning.Controllers
         public ActionResult<Kursevi> CourseDetails(string id) {
             
             var findKurs = _kurseviServices.Find(id);
-           return View(findKurs);
+            return View(findKurs);
         }
 
        
@@ -145,7 +161,7 @@ namespace eLearning.Controllers
             };
 
             return View(viewmodel);
-        }
+        }*/
 
 
 

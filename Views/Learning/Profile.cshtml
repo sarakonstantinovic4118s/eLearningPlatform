@@ -1,0 +1,32 @@
+﻿@model KorisnikProfileViewModel
+
+
+@{ ViewBag.Title = "E-learning"; }
+@section skripte{
+    <link rel="stylesheet" href="~/css/profile.css">
+}
+
+<h1>Your profile</h1>
+<div class="profile">
+    <form asp-controller="Learning" asp-action="ChangePassword" method="post">
+        <div class="profile-input">
+            <label>User name</label>
+            <input name="username" type="text" value="@User.Claims.First(c => c.Type == "username").Value" disabled/>
+        </div>
+        <div class="profile-input">
+            <label>User email</label>
+            <input name="email" type="text" value="@User.Claims.First(c => c.Type == "email").Value" disabled/>
+        </div>
+        <div class="profile-input">
+            <label asp-for="password"></label>
+            <input asp-for="password" />
+            <span asp-validation-for="password"></span>
+        </div>
+        <div class="profile-input">
+            <label asp-for="confirmPassword"></label>
+            <input asp-for="confirmPassword" />
+            <span asp-validation-for="confirmPassword"></span>
+        </div>
+        <button type="submit">Change password</button>
+    </form>
+</div>
