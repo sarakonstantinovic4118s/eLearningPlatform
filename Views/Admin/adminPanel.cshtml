@@ -1,5 +1,4 @@
-﻿@model eLearning.ViewModels.AdminViewModel
-
+﻿
 @{
     ViewBag.Title = "E-learning";
 }
@@ -120,26 +119,32 @@
                 </a>
             </div>
             <!-- INSERT FORM CATEGORY -->
-            <div class="insert-form category hide">
+            @*<div class="insert-form category hide">
                 <form asp-controller="Admin" asp-action="insertCategory" method="post">
                     <input type="text" placeholder="Category name" asp-for="imeKategorije">
                     <button>Submit</button>
                 </form>
+            </div>*@
+            <div class="insert-form category hide">
+                <partial name="Forms/_AddCategory" />
             </div>
             <!-- INSERT FORM SCHOOLS -->
-            <div class="insert-form school hide">
+            @*<div class="insert-form school hide">
                 <form>
                     <input type="text" placeholder="School name">
                     <button>Submit</button>
                 </form>
+            </div>*@
+            <div class="insert-form school hide">
+                <partial name="Forms/_AddSchool" />
             </div>
             <!-- INSERT FORM COURSES -->
-            <div class="insert-form course hide">
+            @*<div class="insert-form course hide">
                 <form asp-controller="Admin" asp-action="isnertCourse" method="post">
                     <input type="text" placeholder="Course name" asp-for="imekursa">
                     <textarea rows="4" cols="50" placeholder="Description..." asp-for="detaljikursa"></textarea>
                     <select asp-for="kategorijaID">
-                        @foreach (var category in Model.kategorije)
+                        @foreach (var category in ViewBag.adminViewModel.kategorije)
                         {
                             <option value="@category.kategorijaID">
                                 @category.imekategorije
@@ -151,9 +156,9 @@
                     <input type="text" placeholder="Level" asp-for="nivoKursa">
                     <button>Submit</button>
                 </form>
-            </div>
+            </div>*@
             <!-- INSERT FORM USERS -->
-            <div class="insert-form user hide">
+            @*<div class="insert-form user hide">
                 <form asp-controller="Admin" asp-action="insertKorisnik" method="post">
                     <input type="text" placeholder="Username" asp-for="username">
                     <input type="text" placeholder="Password" asp-for="password">
@@ -161,7 +166,7 @@
                     <input type="text" placeholder="User type" asp-for="tip">
                     <button>Submit</button>
                 </form>
-            </div>
+            </div>*@
         </div>
         <!-- Categories -->
         <div class="table-scroll category">
@@ -170,7 +175,7 @@
                     <th>Category name</th>
                     <th>Options</th>
                 </tr>
-                @foreach (var category in Model.kategorije)
+                @foreach (var category in ViewBag.adminViewModel.kategorije)
                 {
                     <tr>
                         <td>@category.imekategorije</td>
@@ -185,7 +190,7 @@
 
         <!-- USERS -->
         <div class="table-scroll users hidden">
-            @foreach (var user in Model.korisnici)
+            @foreach (var user in ViewBag.adminViewModel.korisnici)
             {
                 <div class="user-card">
                     <div class="user-img">
@@ -297,7 +302,7 @@
                     <th>Image</th>
                     <th>Course level</th>
                 </tr>
-                @foreach (var course in Model.kursevi)
+                @foreach (var course in ViewBag.adminViewModel.kursevi)
                 {
                     <tr>
                         <td>@course.imekursa</td>

@@ -1,0 +1,7 @@
+﻿@model CategoryViewModel
+
+<form asp-controller="Admin" asp-action="insertCategory" method="post">
+    <input type="text" placeholder="Category name" asp-for="naziv">
+    <span asp-validation-for="naziv"></span>
+    <button>Submit</button>
+</form>
