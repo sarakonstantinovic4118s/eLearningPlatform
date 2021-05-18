@@ -36,6 +36,7 @@ namespace eLearning.Services
         }
 
         public Kategorije Find(string id) => kategorije.Find(sub => sub.kategorijaID == id).SingleOrDefault();
+        public Kategorije FindByName(string name) => kategorije.Find(sub => sub.imekategorije == name).SingleOrDefault();
 
         //DELETE
         public void DeleteCategory(string id)

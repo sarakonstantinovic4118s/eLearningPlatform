@@ -6,52 +6,27 @@
     <link rel="stylesheet" href="~/css/profile.css">
 }
 
-<h1> User profile</h1>
-<div class="profile-container">
-
-    <div class="profile-card">
-        <div class="profile-content">
-        
-
-
-            <form asp-controller="Learning" asp-action="ChangePassword" method="post">
-                @if (User.Identity.IsAuthenticated)
-                {
-                <div>
-                    <label>User name</label>
-                    <div class="col-md-10">
-                        <p class="profile-username" href="#"> @User.Claims.First(c => c.Type == "username").Value</p>
-                    </div>
-                </div>
-                <div>
-                    <label>User email</label>
-                    <div class="col-md-10">
-                        <p class="profile-email">@User.Claims.First(c => c.Type == "email").Value</p>
-                    </div>
-                </div>
-                }
-                <div>
-                    <label asp-for="password"></label>
-                    <div class="profile-password" class="col-md-10">
-                        <input asp-for="password" />
-                        <span asp-validation-for="password"></span>
-                    </div>
-                </div>
-                <div>
-                    <label asp-for="confirmPassword"></label>
-                    <div class="profile-password" class="col-md-10">
-                        <input asp-for="confirmPassword" />
-                        <span asp-validation-for="confirmPassword"></span>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <button type="submit">Change password</button>
-                    </div>
-                </div>
-            </form>
+<h1>Your profile</h1>
+<div class="profile">
+    <form asp-controller="Learning" asp-action="ChangePassword" method="post">
+        <div class="profile-input">
+            <label>User name</label>
+            <input name="username" type="text" value="@User.Claims.First(c => c.Type == "username").Value" disabled/>
         </div>
-    </div>
-
-
+        <div class="profile-input">
+            <label>User email</label>
+            <input name="email" type="text" value="@User.Claims.First(c => c.Type == "email").Value" disabled/>
+        </div>
+        <div class="profile-input">
+            <label asp-for="password"></label>
+            <input asp-for="password" />
+            <span asp-validation-for="password"></span>
+        </div>
+        <div class="profile-input">
+            <label asp-for="confirmPassword"></label>
+            <input asp-for="confirmPassword" />
+            <span asp-validation-for="confirmPassword"></span>
+        </div>
+        <button type="submit">Change password</button>
+    </form>
 </div>

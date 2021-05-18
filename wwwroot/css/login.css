@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+
 .reg-wrap {
+    margin-top: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 130px);
 }
 

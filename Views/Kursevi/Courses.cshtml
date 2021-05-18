@@ -1,42 +1,65 @@
-﻿@model eLearning.ViewModels.KursKategorijaViewModel
+﻿@model KursKategorijaViewModel
 
 @{
     ViewBag.Title = "E-learning";
+    int maxPages = 2; // zameniti
+    int page = 1;
 }
 
 @section skripte{
     <link rel="stylesheet" href="~/css/courses.css">
 }
 
-<form action="" class="search-form">
-    <input class="search" type="text" placeholder="Type here...">
-    <button>Search</button>
-</form>
-<div class="main-container">
-    <div class="courses-category">
-        <h2>Kategorije</h2>
-        <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
-        @foreach (var item in Model.kategorijes)
-        {
-            <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
-        }
 
-    </div>
 
-    <div class="course-container">
-        @foreach (var item in Model.kursevis)
-        {
-            <div class="course-card">
-                <img class="course-img" src="@item.slika" alt="">
-                <div class="course-content">
-                    <a class="course-title"> @item.imekursa</a>
-                    <p class="course-about">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ut?
-                    </p>
-                    <a class="course-enrol"  asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID">Details</a>
-                </div>
-            </div>
-        }
-           
+<div class="courses-wrap">
+    <div class="courses-nav-wrap">
+        <div class="courses-filter crs">
+            <h2>Search</h2>
+            <form action="" class="search-form">
+                <input class="search" type="text" placeholder="Name...">
+                <select>
+                    <option value="">All levels</option>
+                    <option value="">Begginer</option>
+                    <option value="">Intermediate</option>
+                    <option value="">Expert</option>
+                </select>
+                <button>Search</button>
+            </form>
         </div>
+        <div class="courses-categories crs">
+            <h2>Categories</h2>
+            <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="">All courses</a>
+            @foreach (var item in Model.kategorijes)
+            {
+                <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="@item.imekategorije">@item.imekategorije</a>
+            }
+        </div>
+    </div>
+    <div class="courses-list-wrap">
+        <div class="courses-list crs">
+            <h2>Courses</h2>
+            <div class="courses-grid">
+                @foreach (var item in Model.kursevis)
+                {
+                    <div class="course">
+                        <div class="course-thumb">
+                            <img src="@item.slika" />
+                        </div>
+                        <div class="course-desc">
+                            <h3 class="course-title">@item.imekursa <span class="course-lvl">Advanced</span></h3>
+                            <p>@item.detaljikursa</p>
+                        </div>
+                        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID"></a>
+                    </div>
+                }
+            </div>
+            <div class="pages">
+                @for (int i = 1; i <= maxPages; i++)
+                {
+                    <a class="num @(i == page ? "active" : "")" asp-action="Index" asp-route-page="@i">@i</a>
+                }
+            </div>
+        </div>
+    </div>
 </div>

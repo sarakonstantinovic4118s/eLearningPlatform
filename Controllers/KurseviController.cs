@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eLearning.Controllers
 {
+    [Authorize]
     public class KurseviController : Controller
     {
 
@@ -25,20 +27,34 @@ namespace eLearning.Controllers
 
         // GET: KurseviController
 
-        public IActionResult Courses()
+        [HttpGet("/courses/{naziv?}")]
+        public IActionResult Courses(string naziv)
         {
-            List<Kursevi> listKurseva = new List<Kursevi>();
-            listKurseva = _kurseviServices.Read();
+            // search
+            // stranicenje
 
-            List<Kategorije> listKategorija = new List<Kategorije>();
+            List<Kursevi> listKurseva;
+            List<Kategorije> listKategorija;
+
             listKategorija = _kategorijeServices.Read();
 
-           var viewmodel = new KursKategorijaViewModel
+            if (String.IsNullOrEmpty(naziv))
+            {
+                listKurseva = _kurseviServices.Read();
+            }
+            else
+            {
+                var kategorija = _kategorijeServices.FindByName(naziv);
+                if (kategorija == null) return NotFound();
+                listKurseva = _kurseviServices.findCourses(kategorija.kategorijaID);
+            }
+
+            var viewmodel = new KursKategorijaViewModel
             {
                 kategorijes = listKategorija,
                 kursevis = listKurseva
             };
-           return View(viewmodel);
+            return View(viewmodel);
         }
           
 
@@ -46,25 +62,25 @@ namespace eLearning.Controllers
 
         public ActionResult<Kursevi> CourseDetails(string id) {
             var findKurs = _kurseviServices.Find(id);
-           return View(findKurs);
+            return View(findKurs);
         }
      
+/*
         public ActionResult<Kategorije> CategoryDetails(string id) {
-            var findKategoriju = _kategorijeServices.Find(id);
+            var kategorija = _kategorijeServices.Find(id);
             List<Kategorije> listKategorija = new List<Kategorije>();
             listKategorija = _kategorijeServices.Read();
 
             var viewmodel = new KursKategorijaViewModel
             {
                 kategorijes = listKategorija,
-               kategorijeSingle = findKategoriju,
-           
+                kategorijeSingle = kategorija,
             };
             // nalazi kurseve koji imaju odredjen id kategorije
             ViewBag.kursevi = _kurseviServices.findCourses(id);
             
             return View(viewmodel);
-        }
+        }*/
 
         // search
         //[HttpGet("{firstName}/{lastName}/{address}")]

@@ -75,6 +75,8 @@
       object-fit: contain; }
     .schools .school:hover {
       border-color: #1ea0ff; }
+      .schools .school:hover img {
+        width: 25%; }
 
 #school-courses {
   position: fixed;
