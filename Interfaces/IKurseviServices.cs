@@ -16,10 +16,10 @@ namespace eLearning.Interfaces
         void UpdateCourse(Kursevi kurs);
 
         /// Citanje skola sa stranicenjem prema broju i velicini stranice
-        List<Kursevi> ReadPage(int stranica, int velicinaStranice);
+        //List<Kursevi> ReadPage(int stranica, int velicinaStranice);
 
         /// Brojanje rezultata upita
-        long Count(string name);
+        //long Count(string name);
         void DeleteCourse(string id);
 
         List<Kursevi> findCourses(string kategorijaID);

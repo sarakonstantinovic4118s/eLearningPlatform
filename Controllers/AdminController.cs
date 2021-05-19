@@ -148,7 +148,7 @@ namespace eLearning.Controllers
                     detaljikursa = c.detaljikursa,
                     link = c.link,
                     slika = Request.Form["imekursa"].ToString() + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png",
-                    nivoKursa = c.nivoKursa,
+                    nivoKursa = (int)c.nivoKursa,
                     kategorijaID = c.kategorijaID,
                     skolaID = c.skolaID
                 };

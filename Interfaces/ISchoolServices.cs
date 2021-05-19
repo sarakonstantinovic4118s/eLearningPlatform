@@ -27,14 +27,14 @@ namespace eLearning.Interfaces
         void UpdateSchool(Skola skola);
 
         /// Brojanje rezultata upita
-        long Count(string name);
+        //long Count(string name);
 
 
         /// Pretraga prema ID od skole
         Skola Find(string skolaID);
 
         /// Pretraga prema nazivu skole sa stranicenjem rezultata
-        List<Skola> FindByName(string name, int stranica, int velicinaStranice);
+        //List<Skola> FindByName(string name, int stranica, int velicinaStranice);
         /// </summary>
         (List<Skola>, int) GetSchools(string name, int page, int pageSize);
     }

@@ -33,7 +33,7 @@ namespace eLearning.ViewModels
 
         //KURSEVI 
         public List<CourseDetailsViewModel> kursevi { get; set; }
-        public List<Kursevi> kursevi { get; set; }
+        public List<Kursevi> kursevi2 { get; set; }
         public string imekursa { get; set; }
         public string detaljikursa { get; set; }
         public string link { get; set; }
