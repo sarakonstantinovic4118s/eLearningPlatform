@@ -2,27 +2,29 @@
 
 @{
     ViewBag.Title = "E-learning";
-    int maxPages = 2; // zameniti
-    int page = 1;
+    int maxPages = ViewBag.maxPages;
+    int page = ViewBag.page;
+    string schoolID = null;
+    if (ViewBag.school != null)
+        schoolID = ViewBag.school.skolaID;
 }
 
 @section skripte{
     <link rel="stylesheet" href="~/css/courses.css">
 }
 
-
-
 <div class="courses-wrap">
     <div class="courses-nav-wrap">
         <div class="courses-filter crs">
             <h2>Search</h2>
-            <form action="" class="search-form">
-                <input class="search" type="text" placeholder="Name...">
-                <select>
+            <form method="get" asp-controller="Kursevi" asp-action="Courses" class="search-form">
+                <input name="schoolID" type="hidden" value="@schoolID"/>
+                <input class="search" name="search" type="text" placeholder="Name..." value="@ViewBag.search">
+                <select name="level" id="levelList">
                     <option value="">All levels</option>
-                    <option value="">Begginer</option>
-                    <option value="">Intermediate</option>
-                    <option value="">Expert</option>
+                    <option value="1">Begginer</option>
+                    <option value="2">Intermediate</option>
+                    <option value="3">Expert</option>
                 </select>
                 <button>Search</button>
             </form>
@@ -38,7 +40,7 @@
     </div>
     <div class="courses-list-wrap">
         <div class="courses-list crs">
-            <h2>Courses</h2>
+            <h2><span class="schoolName">@(ViewBag.school != null ? ViewBag.school.naziv + " " : "")</span>Courses <span class="totalCourses">(@ViewBag.total)</span></h2>
             <div class="courses-grid">
                 @foreach (var item in Model.kursevis)
                 {
@@ -50,16 +52,25 @@
                             <h3 class="course-title">@item.imekursa <span class="course-lvl">Advanced</span></h3>
                             <p>@item.detaljikursa</p>
                         </div>
-                        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID"></a>
+                        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID" target="_blank"></a>
                     </div>
                 }
             </div>
             <div class="pages">
                 @for (int i = 1; i <= maxPages; i++)
                 {
-                    <a class="num @(i == page ? "active" : "")" asp-action="Index" asp-route-page="@i">@i</a>
+                    <a class="num @(i == page ? "active" : "")" 
+                       asp-action="Courses" 
+                       asp-route-search="@ViewBag.search" 
+                       asp-route-level="@ViewBag.level" 
+                       asp-route-schoolID="@schoolID" 
+                       asp-route-page="@i">@i</a>
                 }
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $("#levelList").val(@ViewBag.level);
+</script>

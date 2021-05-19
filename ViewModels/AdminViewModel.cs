@@ -22,7 +22,7 @@ namespace eLearning.ViewModels
         public string detaljikursa { get; set; }
         public string link { get; set; }
         public string slika { get; set; }
-        public decimal nivoKursa { get; set; }
+        public Int32 nivoKursa { get; set; }
         public Kursevi kurs { get; internal set; }
 
         public Kursevi kursZaEdit { get; set; }

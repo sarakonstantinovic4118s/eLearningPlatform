@@ -1,5 +1,6 @@
 ﻿using eLearning.Interfaces;
 using eLearning.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -37,28 +38,25 @@ namespace eLearning.Services
             return s;
         }
 
-        public long Count(string name)
-        {
-            if (name != null)
-                return skole.CountDocuments(s => s.naziv.ToLower().Contains(name.ToLower()));
-            return skole.CountDocuments(s => true);
-        }
-
         public Skola Find(string skolaID)
         {
             Skola s = skole.Find(s => s.skolaID == skolaID).SingleOrDefault();
             return s;
         }
 
-        public List<Skola> FindByName(string name, int stranica, int velicinaStranice)
+        public (List<Skola>, int) GetSchools(string name, int page, int pageSize)
         {
-            int skip = velicinaStranice * (stranica - 1);
+            var builder = Builders<Skola>.Filter;
 
-            var s = skole.Find(s => s.naziv.ToLower().Contains(name.ToLower()))
-                .Skip(skip)
-                .Limit(velicinaStranice);
+            var filter = builder.Empty;
+            if (!String.IsNullOrEmpty(name))
+                filter &= builder.Regex("naziv", new BsonRegularExpression(name));
 
-            return s.ToList();
+            int skip = pageSize * (page - 1);
+            var count = skole.CountDocuments(filter);
+            var s = skole.Find(filter).Skip(skip).Limit(pageSize);
+
+            return (s.ToList(), (int)count);
         }
     }
 }

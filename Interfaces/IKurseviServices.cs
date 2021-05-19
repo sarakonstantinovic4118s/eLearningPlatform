@@ -19,5 +19,7 @@ namespace eLearning.Interfaces
 
         List<Kursevi> findCourses(string kategorijaID);
         List<Kursevi> FindBySchool(string schoolID);
+
+        (List<Kursevi>, int) GetCourses(string categoryID, string search, int level, int page, int pageSize, string schoolID);
     }
 }

@@ -63,7 +63,26 @@ namespace eLearning.Services
             return k.ToList();
         }
 
+        public (List<Kursevi>, int) GetCourses(string categoryID, string search, int level, int page, int pageSize, string schoolID)
+        {
+            var builder = Builders<Kursevi>.Filter;
+
+            var filter = builder.Empty;
+            if (categoryID != null)
+                filter &= builder.Eq(k => k.kategorijaID, categoryID);
+            if (search != null)
+                filter &= builder.Regex("imekursa", new BsonRegularExpression(search));
+            if (level > 0)
+                filter &= builder.Eq(k => k.nivoKursa, (int)level);
+            if (schoolID != null)
+                filter &= builder.Eq(k => k.skolaID, schoolID);
+
+            int skip = pageSize * (page - 1);
+            var count = kursevi.CountDocuments(filter);
+            var k = kursevi.Find(filter).Skip(skip).Limit(pageSize);
+
+
+            return (k.ToList(), (int)count);
+        }
     }
-
-
 }

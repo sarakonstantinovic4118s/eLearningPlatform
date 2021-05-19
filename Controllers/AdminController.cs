@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using eLearning.Services;
+using eLearning.ViewModels.Admin;
 
 namespace eLearning.Controllers
 {
@@ -45,7 +46,9 @@ namespace eLearning.Controllers
                 kursevi = listKursevi
             };
 
-            return View(viewmodel);
+            ViewBag.adminViewModel = viewmodel;
+
+            return View();
         }
 
         //GET EDIT KURS/KATEGORIJA/KORISNIK
@@ -71,13 +74,16 @@ namespace eLearning.Controllers
         public ActionResult<Korisnik> editUser(string id) => View(_korisnikServices.FindID(id));
 
         //CREATE CATEGORY
-        public IActionResult insertCategory(AdminViewModel categoryVM)
+        public IActionResult insertCategory(CategoryViewModel c)
         {
-            Kategorije kategorija = new()
-            {
-                imekategorije = categoryVM.imeKategorije
-            };
-            _kategorijeServices.Insert(kategorija);
+            if (!ModelState.IsValid)
+                return View();
+
+            //Kategorije kategorija = new()
+            //{
+            //    imekategorije = categoryVM.imeKategorije
+            //};
+            //_kategorijeServices.Insert(kategorija);
             return RedirectToAction("adminPanel");
         }
 
@@ -171,6 +177,15 @@ namespace eLearning.Controllers
         public IActionResult DeleteUser(string id)
         {
             _korisnikServices.DeleteUser(id);
+            return RedirectToAction("adminPanel");
+        }
+
+        public IActionResult InsertSchool(SchoolViewModel s)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             return RedirectToAction("adminPanel");
         }
 
