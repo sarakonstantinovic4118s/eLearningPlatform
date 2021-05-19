@@ -5,8 +5,11 @@
 }
 
 
-<form asp-controller="Admin" asp-action="InsertSchool">
-    <input asp-for="nazivSkole">
-    <span asp-validation-for="nazivSkole"></span>
+<form asp-controller="Admin" asp-action="insertSchool" enctype="multipart/form-data" class="school-form">
+    <input asp-for="naziv" placeholder="School name">
+    <span asp-validation-for="naziv"></span>
+
+    <input class="img-upload" type="file" name="logo" asp-for="logo" />
+
     <button>Submit</button>
 </form>

@@ -13,5 +13,7 @@ namespace eLearning.Interfaces
         void UpdateCategory(Kategorije kategorija);
         void DeleteCategory(string id);
         Kategorije Insert(Kategorije kategorija);
+        List<Kategorije> searchReadCategory(string name);
+
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using eLearning.Services;
 using eLearning.ViewModels.Admin;
+using System.IO;
 
 namespace eLearning.Controllers
 {
@@ -19,31 +20,80 @@ namespace eLearning.Controllers
         private readonly IKorisnikServices _korisnikServices;
         private readonly IKurseviServices _kurseviServices;
         private readonly IKategorijeServices _kategorijeServices;
+        private readonly ISchoolServices _schoolServices;
 
-        public AdminController(IKorisnikServices korisnikServices, IKurseviServices kurseviServices, IKategorijeServices kategorijeServices)
+        public object CourseViewModel { get; private set; }
+
+        public AdminController(IKorisnikServices korisnikServices, IKurseviServices kurseviServices,
+                                IKategorijeServices kategorijeServices, ISchoolServices schoolServices)
         {
             _korisnikServices = korisnikServices;
             _kurseviServices = kurseviServices;
             _kategorijeServices = kategorijeServices;
+            _schoolServices = schoolServices;
         }
 
+        //SEARCH READ (CATEGORY)
+        public IActionResult searchReadCategory(string name)
+        {
+            List<Kategorije> kategorije;
+
+            ViewBag.name = name;
+
+            if (name != null)
+            {
+                kategorije = _kategorijeServices.searchReadCategory(name);
+            }
+            else
+            {
+                kategorije = _kategorijeServices.Read();
+            }
+
+            var viewmodel = new AdminViewModel
+            {
+                kategorije = kategorije
+            };
+
+            return View(viewmodel);
+        }
 
         public IActionResult adminPanel()
         {
             List<Korisnik> listKorisnik = new List<Korisnik>();
             List<Kategorije> listKategorije = new List<Kategorije>();
             List<Kursevi> listKursevi = new List<Kursevi>();
+            List<Skola> listSkole = new List<Skola>();
 
             //READ
             listKorisnik = _korisnikServices.Read();
             listKategorije = _kategorijeServices.Read();
             listKursevi = _kurseviServices.Read();
+            listSkole = _schoolServices.Read();
+
+            CourseViewModel courseViewModel= new();
+            courseViewModel.kategorije = listKategorije;
+            courseViewModel.skole = listSkole;
+
+            List<CourseDetailsViewModel> list = new List<CourseDetailsViewModel>();
+
+            foreach(var course in listKursevi)
+            {
+                CourseDetailsViewModel cd = new()
+                {
+                    kurs = course,
+                    kategorija = _kategorijeServices.Find(course.kategorijaID),
+                    skola = _schoolServices.Find(course.skolaID)
+                };
+                list.Add(cd);    
+            }
 
             var viewmodel = new AdminViewModel
             {
                 korisnici = listKorisnik,
                 kategorije = listKategorije,
-                kursevi = listKursevi
+                kursevi = list,
+                skole = listSkole,
+                courseViewModel = courseViewModel
             };
 
             ViewBag.adminViewModel = viewmodel;
@@ -51,27 +101,9 @@ namespace eLearning.Controllers
             return View();
         }
 
-        //GET EDIT KURS/KATEGORIJA/KORISNIK
-
-        [HttpGet]
-        public ActionResult<Kursevi> editCourse(string id, Kursevi kursevi)
-        {
-            var kod = kursevi;
-
-            kod = _kurseviServices.Find(id);
-            List<Kategorije> listKategorije = new List<Kategorije>();
-            listKategorije = _kategorijeServices.Read();
-
-            var viewmodel = new AdminViewModel
-            {
-                kurs = kod,
-                kategorije = listKategorije
-            };
-
-            return View(viewmodel);
-        }
         public ActionResult<Kategorije> editCategory(string id) => View(_kategorijeServices.Find(id));
         public ActionResult<Korisnik> editUser(string id) => View(_korisnikServices.FindID(id));
+
 
         //CREATE CATEGORY
         public IActionResult insertCategory(CategoryViewModel c)
@@ -79,18 +111,18 @@ namespace eLearning.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            //Kategorije kategorija = new()
-            //{
-            //    imekategorije = categoryVM.imeKategorije
-            //};
-            //_kategorijeServices.Insert(kategorija);
+            Kategorije kategorija = new()
+            {
+                imekategorije = c.naziv
+            };
+            _kategorijeServices.Insert(kategorija);
             return RedirectToAction("adminPanel");
         }
 
         //SET EDIT CATEGORY
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult setEditCategory(Kategorije kategorija)
+        public IActionResult SetEditCategory(Kategorije kategorija)
         {
             _kategorijeServices.UpdateCategory(kategorija);
             return RedirectToAction("adminPanel");
@@ -104,20 +136,65 @@ namespace eLearning.Controllers
         }
 
         //CREATE COURSE
-        public IActionResult isnertCourse(AdminViewModel kursVM)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult isnertCourse(CourseViewModel c)
         {
-
-            Kursevi kurs = new()
+            if (ModelState.IsValid)
             {
-                imekursa = kursVM.imekursa,
-                detaljikursa = kursVM.detaljikursa,
-                link = kursVM.link,
-                slika = kursVM.slika,
-                nivoKursa = kursVM.nivoKursa,
-                kategorijaID = kursVM.kategorijaID
-            };
-            _kurseviServices.Insert(kurs);
+                Kursevi kurs = new()
+                {
+                    imekursa = c.imekursa,
+                    detaljikursa = c.detaljikursa,
+                    link = c.link,
+                    slika = Request.Form["imekursa"].ToString() + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png",
+                    nivoKursa = c.nivoKursa,
+                    kategorijaID = c.kategorijaID,
+                    skolaID = c.skolaID
+                };
+
+                var file = HttpContext.Request.Form.Files["slika"];
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
+                if (!System.IO.Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+                var path = Path.Combine(filePath, kurs.slika);
+                FileStream fs = new FileStream(path, FileMode.Create);
+                file.CopyTo(fs);
+                fs.Close();
+
+
+                _kurseviServices.Insert(kurs);
+                return RedirectToAction("adminPanel");
+
+            }
             return RedirectToAction("adminPanel");
+        }
+
+        //GET EDIT KURS/KATEGORIJA/KORISNIK
+
+        [HttpGet]
+        public ActionResult<Kursevi> editCourse(string id, Kursevi kursevi)
+        {
+            var kod = kursevi;
+
+            kod = _kurseviServices.Find(id);
+            List<Kategorije> listKategorije = new List<Kategorije>();
+            List<Skola> listSkole = new List<Skola>();
+
+            listKategorije = _kategorijeServices.Read();
+            listSkole = _schoolServices.Read();
+
+            var viewmodel = new AdminViewModel
+            {
+                kurs = kod,
+                kategorije = listKategorije,
+                skole = listSkole
+            };
+
+            return View(viewmodel);
         }
 
         //SET EDIT COURSE
@@ -125,19 +202,25 @@ namespace eLearning.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult setEditCourse(Kursevi kurs, string id)
         {
-            List<Kategorije> listKategorije = new List<Kategorije>();
-            listKategorije = _kategorijeServices.Read();
-
-            var kurs1 = _kurseviServices.Find(id);
-
-            var viewmodel = new AdminViewModel
+            kurs.slika = kurs.imekursa.ToString() + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+            var file = HttpContext.Request.Form.Files["slika"];
+            var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
+            if (!Directory.Exists(filePath))
             {
-               kategorije = listKategorije,
-               kursZaEdit = kurs1
-            };
+                Directory.CreateDirectory(filePath);
+            }
+            var deletionPath = Path.Combine(filePath, "slika");
+            if (System.IO.File.Exists(deletionPath))
+            {
+                System.IO.File.Delete(deletionPath);
+            }
+            var path = Path.Combine(filePath, kurs.slika);
+            FileStream fs = new FileStream(path, FileMode.Create);
+            file.CopyTo(fs);
+            fs.Close();
 
             _kurseviServices.UpdateCourse(kurs);
-            return RedirectToAction("adminPanel",viewmodel);
+            return RedirectToAction("adminPanel",kurs);
         }
 
         //DELETE COURSE
@@ -148,15 +231,14 @@ namespace eLearning.Controllers
             return RedirectToAction("adminPanel");
         }
 
-
         // CREATE USER
-        public IActionResult insertKorisnik(AdminViewModel korisnikVM)
+        public IActionResult insertKorisnik(UserViewModel u)
         {
             Korisnik k = new()
             {
-                korisnickoIme = korisnikVM.username,
-                email = korisnikVM.email,
-                password = Security.Hash256(korisnikVM.password),
+                korisnickoIme = u.username,
+                email = u.email,
+                password = Security.Hash256(u.password),
                 tip = 1
             };
             _korisnikServices.Insert(k);
@@ -180,12 +262,72 @@ namespace eLearning.Controllers
             return RedirectToAction("adminPanel");
         }
 
-        public IActionResult InsertSchool(SchoolViewModel s)
+        //GET SCHOOL ID
+        public ActionResult<Korisnik> editSChool(string id) => View(_schoolServices.FindID(id));
+
+    //CREATE Schooll
+    [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult insertSchool(SchoolViewModel s)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View();
+                Skola skola = new()
+                {
+                    naziv = s.naziv,
+                    logo = Request.Form["naziv"] + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png"
+                };
+                var file = HttpContext.Request.Form.Files["logo"];
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+                var path = Path.Combine(filePath, skola.logo);
+                FileStream fs = new FileStream(path, FileMode.Create);
+                file.CopyTo(fs);
+                fs.Close();
+
+                _schoolServices.Insert(skola);
+                return RedirectToAction("adminPanel");
             }
+            return RedirectToAction("adminPanel");
+        }
+
+        //UPDATE SCHOOL
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult setEditSChool(Skola skola)
+        {
+
+            skola.logo = skola.naziv.ToString() + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+            var file = HttpContext.Request.Form.Files["logo"];
+            var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            var deletionPath = Path.Combine(filePath, "logo");
+            if (System.IO.File.Exists(deletionPath))
+            {
+                System.IO.File.Delete(deletionPath);
+            }
+            var path = Path.Combine(filePath, skola.logo);
+            FileStream fs = new FileStream(path, FileMode.Create);
+            file.CopyTo(fs);
+            fs.Close();
+
+
+            _schoolServices.UpdateSchool(skola);
+            return RedirectToAction("adminPanel");
+        }
+
+        //DELETE SCHOOL
+        public IActionResult DeleteSchool(string id)
+        {
+            _schoolServices.DeleteSchool(id);
             return RedirectToAction("adminPanel");
         }
 

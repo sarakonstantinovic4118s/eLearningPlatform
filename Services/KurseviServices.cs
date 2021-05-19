@@ -51,12 +51,11 @@ namespace eLearning.Services
 
         //trazi sve kurseve koji imaju odredjen id kategorije
         public List<Kursevi> findCourses(string kategorijaID)
-            {
+        {
                 var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
                 return k.ToList();
-            }
+        }
         
-
         public List<Kursevi> FindBySchool(string schoolID)
         {
             var k = kursevi.Find(k => k.skolaID == schoolID);

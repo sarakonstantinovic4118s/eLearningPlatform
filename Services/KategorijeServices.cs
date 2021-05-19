@@ -21,6 +21,14 @@ namespace eLearning.Services
             this.kategorije = database.GetCollection<Kategorije>("Kategorije");
         }
 
+        //SEARCH 
+        public List<Kategorije> searchReadCategory(string name)
+        {
+            var kategorija = kategorije.Find(kategorija => kategorija.imekategorije.ToLower().Contains(name.ToLower()));
+
+            return kategorija.ToList();
+        }
+
         //READ
         public List<Kategorije> Read()
         {

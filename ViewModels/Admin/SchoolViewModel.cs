@@ -9,6 +9,9 @@ namespace eLearning.ViewModels.Admin
     public class SchoolViewModel
     {
         [Required]
+        public string naziv{ get; set; }
+
+        public string logo { get; set; }
         public string nazivSkole { get; set; }
     }
 }

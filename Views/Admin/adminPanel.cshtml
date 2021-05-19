@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "E-learning";
+    string name = ViewBag.Name;
 }
 @section skripte{
     <link rel="stylesheet" href="~/css/admin-panel.css">
@@ -54,10 +55,10 @@
 </div>
 <div class="main-content">
     <header>
-        <div class="search-wrapper">
+        <form class="search-wrapper" asp-controller="Admin" asp-action="searchReadCategory" method="get">
             <i class="fas fa-search"></i>
-            <input type="search" placeholder="Search..">
-        </div>
+            <input type="search" placeholder="Search.." value="@name">
+        </form>
         <div class="social-icons">
             <i class="far fa-bell"></i>
             <div></div>
@@ -119,54 +120,21 @@
                 </a>
             </div>
             <!-- INSERT FORM CATEGORY -->
-            @*<div class="insert-form category hide">
-                <form asp-controller="Admin" asp-action="insertCategory" method="post">
-                    <input type="text" placeholder="Category name" asp-for="imeKategorije">
-                    <button>Submit</button>
-                </form>
-            </div>*@
             <div class="insert-form category hide">
                 <partial name="Forms/_AddCategory" />
             </div>
             <!-- INSERT FORM SCHOOLS -->
-            @*<div class="insert-form school hide">
-                <form>
-                    <input type="text" placeholder="School name">
-                    <button>Submit</button>
-                </form>
-            </div>*@
             <div class="insert-form school hide">
                 <partial name="Forms/_AddSchool" />
             </div>
             <!-- INSERT FORM COURSES -->
-            @*<div class="insert-form course hide">
-                <form asp-controller="Admin" asp-action="isnertCourse" method="post">
-                    <input type="text" placeholder="Course name" asp-for="imekursa">
-                    <textarea rows="4" cols="50" placeholder="Description..." asp-for="detaljikursa"></textarea>
-                    <select asp-for="kategorijaID">
-                        @foreach (var category in ViewBag.adminViewModel.kategorije)
-                        {
-                            <option value="@category.kategorijaID">
-                                @category.imekategorije
-                            </option>
-                        }
-                    </select>
-                    <input type="text" placeholder="Link" asp-for="link">
-                    <input type="text" placeholder="Image URL" asp-for="slika">
-                    <input type="text" placeholder="Level" asp-for="nivoKursa">
-                    <button>Submit</button>
-                </form>
-            </div>*@
+            <div class="insert-form course hide">
+                <partial name="Forms/_AddCourse" model="ViewBag.adminViewModel.courseViewModel" />
+            </div>
             <!-- INSERT FORM USERS -->
-            @*<div class="insert-form user hide">
-                <form asp-controller="Admin" asp-action="insertKorisnik" method="post">
-                    <input type="text" placeholder="Username" asp-for="username">
-                    <input type="text" placeholder="Password" asp-for="password">
-                    <input type="email" placeholder="Email" asp-for="email">
-                    <input type="text" placeholder="User type" asp-for="tip">
-                    <button>Submit</button>
-                </form>
-            </div>*@
+            <div class="insert-form user hide">
+                <partial name="Forms/_AddUser" />
+            </div>
         </div>
         <!-- Categories -->
         <div class="table-scroll category">
@@ -212,6 +180,7 @@
             }
 
         </div>
+
         <!-- SCHOOLS -->
         <div class="table-scroll schools hidden">
             <table class="data-review">
@@ -219,76 +188,25 @@
                     <th>School name</th>
                     <th>Options</th>
                 </tr>
-                <tr>
-                    <td>School 1</td>
-                    <td>
-                        <a class="edit-btn school" href="#">EDIT</a>
-                        <a class="delete-btn school" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 2</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 3</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 4</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 5</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 6</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 3</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 4</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 5</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>School 6</td>
-                    <td>
-                        <a class="edit-btn" href="#">EDIT</a>
-                        <a class="delete-btn" href="#">DELETE</a>
-                    </td>
-                </tr>
+                @foreach (var school in ViewBag.adminViewModel.skole)
+                {
+                    <tr>
+                        <td>
+                            <div class="school-container">
+                                <div class="school-name">
+                                    <h3>@school.naziv</h3>
+                                </div>
+                                <div class="school-img">
+                                    <img src="~/images/Skole/@school.logo">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="edit-btn school" asp-controller="Admin" asp-action="editSchool" asp-route-id="@school.skolaID">EDIT</a>
+                            <a class="delete-btn" asp-controller="Admin" asp-action="DeleteSchool" asp-route-id="@school.skolaID">DELETE</a>
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
         <!-- COURSES -->
@@ -298,6 +216,7 @@
                     <th>Course name</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>School</th>
                     <th>Link</th>
                     <th>Image</th>
                     <th>Course level</th>
@@ -305,17 +224,18 @@
                 @foreach (var course in ViewBag.adminViewModel.kursevi)
                 {
                     <tr>
-                        <td>@course.imekursa</td>
-                        <td>@course.detaljikursa</td>
-                        <td>@course.kategorijaID</td>
-                        <td>@course.link</td>
+                        <td>@course.kurs.imekursa</td>
+                        <td>@course.kurs.detaljikursa</td>
+                        <td>@course.kategorija.imekategorije</td>
+                        <td>@course.skola.naziv</td>
+                        <td>@course.kurs.link</td>
                         <td class="course-img">
-                            <img src="@course.slika" alt="">
+                            <img src="~/images/Kursevi/@course.kurs.slika" alt="">
                         </td>
-                        <td>@course.nivoKursa</td>
+                        <td>@course.kurs.nivoKursa</td>
                         <td class="options">
-                            <a class="edit-btn course" asp-controller="Admin" asp-action="editCourse" asp-route-id="@course.kursID">EDIT</a>
-                            <a class="delete-btn course" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.kursID">DELETE</a>
+                            <a class="edit-btn course" asp-controller="Admin" asp-action="editCourse" asp-route-id="@course.kurs.kursID">EDIT</a>
+                            <a class="delete-btn course" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.kurs.kursID">DELETE</a>
                         </td>
                     </tr>
                 }

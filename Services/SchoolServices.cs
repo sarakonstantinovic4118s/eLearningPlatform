@@ -20,6 +20,8 @@ namespace eLearning.Services
             this.skole = database.GetCollection<Skola>("Skole");
         }
 
+        public Skola FindID(string id) =>
+                skole.Find(sub => sub.skolaID == id).SingleOrDefault();
         public List<Skola> Read()
         {
             List<Skola> s = skole.Find(s => true).ToList();
@@ -57,6 +59,24 @@ namespace eLearning.Services
             var s = skole.Find(filter).Skip(skip).Limit(pageSize);
 
             return (s.ToList(), (int)count);
+        }
+
+
+        //INSERT
+        public Skola Insert(Skola skola)
+        {
+            skole.InsertOne(skola);
+            return skola;
+        }
+
+        //UPDATE
+        public void UpdateSchool(Skola skola) =>
+                    skole.ReplaceOne(sub => sub.skolaID == skola.skolaID, skola);
+
+        //DELETE
+        public void DeleteSchool(string id)
+        {
+            skole.DeleteOne(sub => sub.skolaID == id);
         }
     }
 }

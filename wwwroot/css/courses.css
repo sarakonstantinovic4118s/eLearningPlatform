@@ -73,6 +73,7 @@
 
 
 .course-container {
+    position:relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, 300px);
   justify-content: center;
@@ -80,24 +81,22 @@
   width: 60%;
   height: 100%;
   margin: 0 auto;
+  padding:1em 0 4em 0;
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.course-card {
-  width: 250px;
-  height: 330px;
-  border-radius: 7px;
-  margin: 1em;
-  background: rgb(5, 99, 154);
-  background: linear-gradient(
-    0deg,
-    rgba(5, 99, 154, 1) 0%,
-    rgba(255, 255, 255, 1) 87%
-  );
-  -webkit-box-shadow: 0px 0px 16px 7px rgba(255, 255, 255, 1);
-  -moz-box-shadow: 0px 0px 16px 7px rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px 16px 7px rgba(255, 255, 255, 1);
-}
+
+    .course-card {
+        width: 250px;
+        height: 330px;
+        border-radius: 7px;
+        margin: 1em;
+        background: rgb(5, 99, 154);
+        background: linear-gradient( 0deg, rgba(5, 99, 154, 1) 0%, rgba(255, 255, 255, 1) 87% );
+        -webkit-box-shadow: 0px 0px 16px 7px rgba(255, 255, 255, 1);
+        -moz-box-shadow: 0px 0px 16px 7px rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 16px 7px rgba(255, 255, 255, 1);
+    }
 .course-img {
   padding-top: 5px;
   width: 100%;
