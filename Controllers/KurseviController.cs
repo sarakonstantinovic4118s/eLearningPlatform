@@ -18,21 +18,28 @@ namespace eLearning.Controllers
         // instanciranje servisa (svih funkcija koje su navedene u IKorisnikServices i implementirane u KorisnikServices) za kontrolu korisnika
         private readonly IKurseviServices _kurseviServices;
         private readonly IKategorijeServices _kategorijeServices;
+        private readonly ISchoolServices _schoolServices;
         // 
-        public KurseviController(IKurseviServices kurseviServices, IKategorijeServices kategorijeServices)
+        public KurseviController(IKurseviServices kurseviServices, IKategorijeServices kategorijeServices, ISchoolServices schoolServices)
         {
             _kurseviServices = kurseviServices;
             _kategorijeServices = kategorijeServices;
+            _schoolServices = schoolServices;
         }
 
         // GET: KurseviController
 
         [HttpGet("/courses/{naziv?}")]
-        public IActionResult Courses(string naziv, string search, int? level, int? page)
+        public IActionResult Courses(string naziv, string search, int? level, int? page, string schoolID)
         {
             // search
             ViewBag.search = search;
             ViewBag.level = level;
+
+            if (schoolID != null)
+                ViewBag.school = _schoolServices.Find(schoolID);
+            else
+                ViewBag.school = null;
 
             List<Kursevi> listKurseva;
             List<Kategorije> listKategorija;
@@ -56,7 +63,7 @@ namespace eLearning.Controllers
                 level = 0; // svi nivoi
 
             int courseCount;
-            (listKurseva, courseCount) = _kurseviServices.GetCourses(kategorijaID, search, (int)level, (int)page, pageSize);
+            (listKurseva, courseCount) = _kurseviServices.GetCourses(kategorijaID, search, (int)level, (int)page, pageSize, schoolID);
 
 
             double maxPages = (double)courseCount / pageSize;

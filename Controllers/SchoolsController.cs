@@ -20,42 +20,23 @@ namespace eLearning.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string name, int? page, int? size)
+        public IActionResult Index(string name, int? page)
         {
             List<Skola> skole;
             // prosledjivanje name parametra za pretragu u View radi njegovog pamcenja u formi. 
             ViewBag.name = name;
 
-            // podrazumevana stranica i broj skola
-            int defaultPage = 1;
-            int defaultSize = 8;
-
             // dodeljivanje podrazumevanih vrednosi ako su parametri null
-            if (page == null) page = defaultPage;
-            if (size == null) size = defaultSize;
+            if (page == null) page = 1;
+            int pageSize = 8;
 
-            // ucitavanje stranice sa skolama
-            // ako je unet parametar za pretragu ucitati skole
+            // popunjavanje liste sa skolama i popunjavanje promenjive za cuvanje ukupnog broja skola prema zadatim parametrima
             int schoolCount;
-            if (name != null)
-            {
-                skole = _schoolServices.FindByName(name, (int)page, (int)size);
-                schoolCount = (int)_schoolServices.Count(name);
-            }
-            else
-            {
-                skole = _schoolServices.ReadPage((int)page, (int)size);
-                schoolCount = (int)_schoolServices.Count(null);
-            }
+            (skole, schoolCount) = _schoolServices.GetSchools(name, (int)page, pageSize);
 
-            if (schoolCount == 0) schoolCount++;
             // odredjivanje maksimalnog broja stranica
-            double maxPages = schoolCount / (double)size;
+            double maxPages = schoolCount / (double)pageSize;
             maxPages = Math.Ceiling(maxPages);
-
-            // Ako je premasen broj mogucih stranica
-            if (page > maxPages)
-                return NotFound();
 
             // prosledjivanje u View zbog generisanja menija sa stranicama
             ViewBag.page = page;

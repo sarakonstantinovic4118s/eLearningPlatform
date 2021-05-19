@@ -142,6 +142,10 @@
       display: block;
       width: 100%;
       height: 100%; }
+  #school-courses .full-view {
+    display: inline-block;
+    color: #1ea0ff;
+    margin-bottom: 20px; }
   #school-courses h2 {
     margin-bottom: 30px; }
   #school-courses::-webkit-scrollbar {

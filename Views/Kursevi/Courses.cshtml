@@ -4,6 +4,9 @@
     ViewBag.Title = "E-learning";
     int maxPages = ViewBag.maxPages;
     int page = ViewBag.page;
+    string schoolID = null;
+    if (ViewBag.school != null)
+        schoolID = ViewBag.school.skolaID;
 }
 
 @section skripte{
@@ -15,6 +18,7 @@
         <div class="courses-filter crs">
             <h2>Search</h2>
             <form method="get" asp-controller="Kursevi" asp-action="Courses" class="search-form">
+                <input name="schoolID" type="hidden" value="@schoolID"/>
                 <input class="search" name="search" type="text" placeholder="Name..." value="@ViewBag.search">
                 <select name="level" id="levelList">
                     <option value="">All levels</option>
@@ -36,7 +40,7 @@
     </div>
     <div class="courses-list-wrap">
         <div class="courses-list crs">
-            <h2>Courses <span class="totalCourses">(@ViewBag.total)</span></h2>
+            <h2><span class="schoolName">@(ViewBag.school != null ? ViewBag.school.naziv + " " : "")</span>Courses <span class="totalCourses">(@ViewBag.total)</span></h2>
             <div class="courses-grid">
                 @foreach (var item in Model.kursevis)
                 {
@@ -59,6 +63,7 @@
                        asp-action="Courses" 
                        asp-route-search="@ViewBag.search" 
                        asp-route-level="@ViewBag.level" 
+                       asp-route-schoolID="@schoolID" 
                        asp-route-page="@i">@i</a>
                 }
             </div>

@@ -19,11 +19,6 @@ namespace eLearning.Interfaces
         List<Skola> ReadPage(int stranica, int velicinaStranice);
 
         /// <summary>
-        /// Brojanje rezultata upita
-        /// </summary>
-        long Count(string name);
-
-        /// <summary>
         /// Pretraga prema ID od skole
         /// </summary>
         Skola Find(string skolaID);
@@ -31,6 +26,6 @@ namespace eLearning.Interfaces
         /// <summary>
         /// Pretraga prema nazivu skole sa stranicenjem rezultata
         /// </summary>
-        List<Skola> FindByName(string name, int stranica, int velicinaStranice);
+        (List<Skola>, int) GetSchools(string name, int page, int pageSize);
     }
 }
