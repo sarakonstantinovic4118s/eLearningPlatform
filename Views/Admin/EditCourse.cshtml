@@ -10,18 +10,18 @@
 <!-- EDIT FORM COURSES -->
 <div class="edit-form course">
     <i class="fas fa-times-circle closeBtn"></i>
-    <form asp-controller="Admin" asp-action="setEditCourse" method="post">
+    <form asp-controller="Admin" asp-action="setEditCourse" method="post" enctype="multipart/form-data">
 
         @Html.HiddenFor(m => m.kurs.kursID)
         <input type="text" placeholder="Course name" asp-for="@Model.kurs.imekursa">
 
-        <input type="text" placeholder="Course name" asp-for="@Model.kurs.detaljikursa">
+        <input type="text" placeholder="About name" asp-for="@Model.kurs.detaljikursa">
 
-        <input type="text" placeholder="Course name" asp-for="@Model.kurs.link">
+        <input type="text" placeholder="Course link" asp-for="@Model.kurs.link">
 
-        <input type="text" placeholder="Course name" asp-for="@Model.kurs.slika">
+        <input type="file" placeholder="Course image" name="slika" asp-for="@Model.kurs.slika" class="img-upload">
 
-        <input type="text" placeholder="Course name" asp-for="@Model.kurs.nivoKursa">
+        <input type="text" placeholder="Course level" asp-for="@Model.kurs.nivoKursa">
 
         <select asp-for="@Model.kurs.kategorijaID">
 

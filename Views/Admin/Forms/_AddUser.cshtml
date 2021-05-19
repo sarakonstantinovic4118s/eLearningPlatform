@@ -1,0 +1,20 @@
+﻿@model UserViewModel
+
+
+<!-- INSERT FORM USERS -->
+<form asp-controller="Admin" asp-action="insertKorisnik" method="post">
+    <input type="text" placeholder="Username" asp-for="username">
+    <span asp-validation-for="username"></span>
+
+    <input type="text" placeholder="Password" asp-for="password">
+    <span asp-validation-for="password"></span>
+
+    <input type="email" placeholder="Email" asp-for="email">
+    <span asp-validation-for="email"></span>
+
+    <input type="text" placeholder="User type" asp-for="tip">
+    <span asp-validation-for="tip"></span>
+
+    <button>Submit</button>
+
+</form>

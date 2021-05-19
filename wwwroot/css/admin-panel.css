@@ -345,12 +345,14 @@ main {
 .school-img img {
     width: 120px;
     height: 120px;
+    margin: 0.5em 0;
     object-fit: contain;
 }
 
 .school-name {
     width: 100%;
     padding-left: 1.3em;
+    margin:0.5em 0;
 }
 
 
@@ -452,6 +454,15 @@ main {
 .hide {
     display: none;
 }
+
+.img-upload {
+    padding: 1em;
+    height: 40px !important;
+}
+
+/*.school-form input {
+    height: 70px !important;
+}*/
 
 @media only screen and (max-width: 890px) {
     .insert-form {

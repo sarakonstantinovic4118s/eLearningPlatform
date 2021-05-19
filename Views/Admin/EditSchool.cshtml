@@ -7,14 +7,14 @@
 
 
 <div class="edit-form school">
-    <form asp-controller="Admin" asp-action="setEditSChool" method="post">
+    <form asp-controller="Admin" asp-action="setEditSChool" method="post" enctype="multipart/form-data">
         @Html.HiddenFor(m => m.skolaID)
 
         <label>Ime skole</label>
         <input type="text" asp-for="@Model.naziv">
 
         <label>Slika skole</label>
-        <input type="text" asp-for="@Model.logo">
+        <input type="file" name="logo" asp-for="@Model.logo" class="img-upload">
 
         <button>Submit</button>
     </form>

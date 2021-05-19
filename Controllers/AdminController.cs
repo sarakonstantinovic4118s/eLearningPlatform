@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using eLearning.Services;
 using eLearning.ViewModels.Admin;
+using System.IO;
 
 namespace eLearning.Controllers
 {
@@ -20,6 +21,8 @@ namespace eLearning.Controllers
         private readonly IKurseviServices _kurseviServices;
         private readonly IKategorijeServices _kategorijeServices;
         private readonly ISchoolServices _schoolServices;
+
+        public object CourseViewModel { get; private set; }
 
         public AdminController(IKorisnikServices korisnikServices, IKurseviServices kurseviServices,
                                 IKategorijeServices kategorijeServices, ISchoolServices schoolServices)
@@ -67,12 +70,30 @@ namespace eLearning.Controllers
             listKursevi = _kurseviServices.Read();
             listSkole = _schoolServices.Read();
 
+            CourseViewModel courseViewModel= new();
+            courseViewModel.kategorije = listKategorije;
+            courseViewModel.skole = listSkole;
+
+            List<CourseDetailsViewModel> list = new List<CourseDetailsViewModel>();
+
+            foreach(var course in listKursevi)
+            {
+                CourseDetailsViewModel cd = new()
+                {
+                    kurs = course,
+                    kategorija = _kategorijeServices.Find(course.kategorijaID),
+                    skola = _schoolServices.Find(course.skolaID)
+                };
+                list.Add(cd);    
+            }
+
             var viewmodel = new AdminViewModel
             {
                 korisnici = listKorisnik,
                 kategorije = listKategorije,
-                kursevi = listKursevi,
-                skole = listSkole
+                kursevi = list,
+                skole = listSkole,
+                courseViewModel = courseViewModel
             };
 
             ViewBag.adminViewModel = viewmodel;
@@ -98,8 +119,6 @@ namespace eLearning.Controllers
             return RedirectToAction("adminPanel");
         }
 
-        
-
         //SET EDIT CATEGORY
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,32 +138,34 @@ namespace eLearning.Controllers
         //CREATE COURSE
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult isnertCourse(AdminViewModel kursVM/*, IFormFile slika*/)
+        public IActionResult isnertCourse(CourseViewModel c)
         {
-
-            //if (slika != null)
-            //{
-            //    MemoryStream memoryStream = new MemoryStream();
-            //    slika.OpenReadStream().CopyTo(memoryStream);
-            //    kursVM.slika = Convert.ToBase64String(memoryStream.ToArray());
-            //}
-            //else
-            //{
-            //    kursVM.slika = "";
-            //}
-
             if (ModelState.IsValid)
             {
                 Kursevi kurs = new()
                 {
-                    imekursa = kursVM.imekursa,
-                    detaljikursa = kursVM.detaljikursa,
-                    link = kursVM.link,
-                    slika = kursVM.slika,
-                    nivoKursa = kursVM.nivoKursa,
-                    kategorijaID = kursVM.kategorijaID,
-                    skolaID = kursVM.skolaID
+                    imekursa = c.imekursa,
+                    detaljikursa = c.detaljikursa,
+                    link = c.link,
+                    slika = Request.Form["imekursa"].ToString() + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png",
+                    nivoKursa = c.nivoKursa,
+                    kategorijaID = c.kategorijaID,
+                    skolaID = c.skolaID
                 };
+
+                var file = HttpContext.Request.Form.Files["slika"];
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
+                if (!System.IO.Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+                var path = Path.Combine(filePath, kurs.slika);
+                FileStream fs = new FileStream(path, FileMode.Create);
+                file.CopyTo(fs);
+                fs.Close();
+
+
                 _kurseviServices.Insert(kurs);
                 return RedirectToAction("adminPanel");
 
@@ -181,6 +202,22 @@ namespace eLearning.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult setEditCourse(Kursevi kurs, string id)
         {
+            kurs.slika = kurs.imekursa.ToString() + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+            var file = HttpContext.Request.Form.Files["slika"];
+            var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            var deletionPath = Path.Combine(filePath, "slika");
+            if (System.IO.File.Exists(deletionPath))
+            {
+                System.IO.File.Delete(deletionPath);
+            }
+            var path = Path.Combine(filePath, kurs.slika);
+            FileStream fs = new FileStream(path, FileMode.Create);
+            file.CopyTo(fs);
+            fs.Close();
 
             _kurseviServices.UpdateCourse(kurs);
             return RedirectToAction("adminPanel",kurs);
@@ -195,13 +232,13 @@ namespace eLearning.Controllers
         }
 
         // CREATE USER
-        public IActionResult insertKorisnik(AdminViewModel korisnikVM)
+        public IActionResult insertKorisnik(UserViewModel u)
         {
             Korisnik k = new()
             {
-                korisnickoIme = korisnikVM.username,
-                email = korisnikVM.email,
-                password = Security.Hash256(korisnikVM.password),
+                korisnickoIme = u.username,
+                email = u.email,
+                password = Security.Hash256(u.password),
                 tip = 1
             };
             _korisnikServices.Insert(k);
@@ -228,9 +265,8 @@ namespace eLearning.Controllers
         //GET SCHOOL ID
         public ActionResult<Korisnik> editSChool(string id) => View(_schoolServices.FindID(id));
 
-
-        //CREATE Schooll
-        [HttpPost]
+    //CREATE Schooll
+    [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult insertSchool(SchoolViewModel s)
         {
@@ -238,9 +274,22 @@ namespace eLearning.Controllers
             {
                 Skola skola = new()
                 {
-                    naziv = s.nazivSkole,
-                    logo = s.logoSkole
+                    naziv = s.naziv,
+                    logo = Request.Form["naziv"] + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png"
                 };
+                var file = HttpContext.Request.Form.Files["logo"];
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+                var path = Path.Combine(filePath, skola.logo);
+                FileStream fs = new FileStream(path, FileMode.Create);
+                file.CopyTo(fs);
+                fs.Close();
+
                 _schoolServices.Insert(skola);
                 return RedirectToAction("adminPanel");
             }
@@ -248,11 +297,29 @@ namespace eLearning.Controllers
         }
 
         //UPDATE SCHOOL
-        //SET EDIT CATEGORY
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult setEditSChool(Skola skola)
         {
+
+            skola.logo = skola.naziv.ToString() + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+            var file = HttpContext.Request.Form.Files["logo"];
+            var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            var deletionPath = Path.Combine(filePath, "logo");
+            if (System.IO.File.Exists(deletionPath))
+            {
+                System.IO.File.Delete(deletionPath);
+            }
+            var path = Path.Combine(filePath, skola.logo);
+            FileStream fs = new FileStream(path, FileMode.Create);
+            file.CopyTo(fs);
+            fs.Close();
+
+
             _schoolServices.UpdateSchool(skola);
             return RedirectToAction("adminPanel");
         }
