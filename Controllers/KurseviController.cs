@@ -27,6 +27,11 @@ namespace eLearning.Controllers
             _schoolServices = schoolServices;
         }
 
+        public IActionResult CourseMap()
+        {
+            return View();
+        }
+
         // GET: KurseviController
 
         [HttpGet("/courses/{naziv?}")]
