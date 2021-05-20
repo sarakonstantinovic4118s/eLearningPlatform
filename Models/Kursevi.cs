@@ -24,7 +24,8 @@ namespace eLearning.Models
      
         public string link { get; set; }
         public string slika { get; set; }
-        public decimal nivoKursa { get; set; }
+        public Int32 nivoKursa { get; set; }
+        
     
         public string  kategorijaID { get; set; }
         public string skolaID { get; set; }

@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "E-learning";
-    string name = ViewBag.Name;
+    string name = ViewBag.name;
     int page = ViewBag.page;
     int maxPages = (int)ViewBag.maxPages;
+
 }
 }
 
@@ -22,14 +23,14 @@
     <div class="courses-category">
         <h2>Kategorije</h2>
         <a asp-controller="Kursevi" asp-action="Courses">Svi kursevi</a>
-        @foreach (var item in Model.kategorije)
+        @*@foreach (var item in Model.kategorije)
         {
             <a asp-controller="Kursevi" asp-action="CategoryDetails" asp-route-id="@item.kategorijaID">@item.imekategorije</a>
-        }
+        }*@
     </div>
     <div class="course-container">
 
-        @if (Model.kursevi.Count != 0)
+        @*@if (Model.kursevi.Count != 0)
         {
             @foreach (var item in Model.kursevi)
             {
@@ -48,19 +49,20 @@
 
             } <nav class="paginacija">
                 <ul class="pagination pagination-sm">
-                    @for (int i = 1; i <= maxPages; i++)
-                    {
-                        <li class="page-item">
-                            <a class="page-link num @(i == page ? "active" : "")" asp-action="Courses" asp-route-page="@i" asp-route-name="@name">@i</a>
-                        </li>
-                    }
+                   
+                            @for (int i = 1; i <= maxPages; i++)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link num @(i == page ? "active" : "")" asp-action="Courses" asp-route-page="@i" asp-route-name="@name">@i</a>
+                                </li>
+                            }
                 </ul>
-            </nav>
-
+                </nav>
+              
         }
         else
         {
             <p>Course not found.</p>
-        }
+        }*@
     </div>
 </div>

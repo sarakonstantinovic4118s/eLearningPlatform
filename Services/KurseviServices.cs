@@ -14,7 +14,7 @@ namespace eLearning.Services
     {
         private readonly IMongoCollection<Kursevi> kursevi;
 
-       // KONEKCIJA
+        // KONEKCIJA
         public KurseviServices(IDatabaseSettings podesavanja)
         {
             var client = new MongoClient(podesavanja.ConnectionString);
@@ -50,81 +50,49 @@ namespace eLearning.Services
         }
 
         //trazi sve kurseve koji imaju odredjen id kategorije
-      public List<Kursevi> findCourses(string kategorijaID)
+        public List<Kursevi> findCourses(string kategorijaID)
         {
             var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
             return k.ToList();
         }
-
-        public List<Kursevi> ReadPage(int stranica, int velicinaStranice)
-        {
-            int skip = velicinaStranice * (stranica - 1);
-
-            List<Kursevi> k = kursevi.Find(s => true)
-                .Skip(skip)
-                .Limit(velicinaStranice)
-                .ToList();
-
-            return k;
-        }
-
-        public List<Kursevi> ReadPageKat(int stranica, int velicinaStranice,string kategorijaID)
-        {
-            int skip = velicinaStranice * (stranica - 1);
-       
-            
-
-            List<Kursevi> k = kursevi.Find(k => k.kategorijaID == kategorijaID)
-                .Skip(skip)
-                .Limit(velicinaStranice)
-                .ToList();
-
-            return k;
-        }
-
-        public long Count(string name)
-        {
-            if (name != null)
-                return kursevi.CountDocuments(k => k.imekursa.ToLower().Contains(name.ToLower()));
-            return kursevi.CountDocuments(k => true);
-        }
-
-        public List<Kursevi> CourseSearch(string name, int stranica, int velicinaStranice)
-        {
-            int skip = velicinaStranice * (stranica - 1);
-
-            var k = kursevi.Find(k => k.imekursa.ToLower().Contains(name.ToLower()))
-                .Skip(skip)
-                .Limit(velicinaStranice);
-
-            return k.ToList();
-        }
-
-
-        public List<Kursevi> CourseSearchkat(string name, int stranica, int velicinaStranice, string kategorijaID)
-        {
-            int skip = velicinaStranice * (stranica - 1);
-
-            var k = kursevi.Find(k => k.kategorijaID == kategorijaID &  k.imekursa.ToLower().Contains(name.ToLower())  )
-                .Skip(skip)
-                .Limit(velicinaStranice);
-
-            return k.ToList();
-        }
-        public List<Kursevi> findCourses(string kategorijaID)
-            {
-                var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
-                return k.ToList();
-            }
-        
 
         public List<Kursevi> FindBySchool(string schoolID)
         {
             var k = kursevi.Find(k => k.skolaID == schoolID);
             return k.ToList();
         }
+       
+        public string  getLevel(int level)
+        {
+            string strLevel = "";
+            if (level == 1)
+                strLevel = "Beginner";
+            else if (level == 2)
+                strLevel = "Intermediate";
+            else if (level == 3)
+                strLevel = "Expert";
+            return strLevel;
+        }
+        public (List<Kursevi>, int) GetCourses(string categoryID, string search, int level, int page, int pageSize, string schoolID)
+        {
+            var builder = Builders<Kursevi>.Filter;
 
+            var filter = builder.Empty;
+            if (categoryID != null)
+                filter &= builder.Eq(k => k.kategorijaID, categoryID);
+            if (search != null)
+                filter &= builder.Regex("imekursa", new BsonRegularExpression(search));
+            if (level > 0)
+                filter &= builder.Eq(k => k.nivoKursa, (int)level);
+            if (schoolID != null)
+                filter &= builder.Eq(k => k.skolaID, schoolID);
+
+            int skip = pageSize * (page - 1);
+            var count = kursevi.CountDocuments(filter);
+            var k = kursevi.Find(filter).Skip(skip).Limit(pageSize);
+
+
+            return (k.ToList(), (int)count);
+        }
     }
-
-
 }

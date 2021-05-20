@@ -13,27 +13,20 @@ namespace eLearning.Interfaces
 
         Kursevi Find(string id);
 
-   
-
-        /// Citanje kurseva sa stranicenjem prema broju i velicini stranice
-        List<Kursevi> ReadPage(int stranica, int velicinaStranice);
-        List<Kursevi> ReadPageKat(int stranica, int velicinaStranice, string kategorijaID);
-
-        /// Brojanje rezultata upita
-        long Count(string name);
-  
-
-        List<Kursevi> findCourses(string kategorijaID);
-       
-
-        /// Pretraga prema nazivu kursa sa stranicenjem rezultata
-        List<Kursevi> CourseSearch(string name, int stranica, int velicinaStranice);
-        List<Kursevi> CourseSearchkat(string name, int stranica, int velicinaStranice, string kategorijaID);
         void UpdateCourse(Kursevi kurs);
 
+        /// Citanje skola sa stranicenjem prema broju i velicini stranice
+        //List<Kursevi> ReadPage(int stranica, int velicinaStranice);
+
+        /// Brojanje rezultata upita
+        //long Count(string name);
         void DeleteCourse(string id);
 
         List<Kursevi> findCourses(string kategorijaID);
         List<Kursevi> FindBySchool(string schoolID);
+        
+       string getLevel(int level);
+
+        (List<Kursevi>, int) GetCourses(string categoryID, string search, int level, int page, int pageSize, string schoolID);
     }
 }

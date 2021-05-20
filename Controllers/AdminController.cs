@@ -107,7 +107,7 @@ namespace eLearning.Controllers
                 detaljikursa = kursVM.detaljikursa,
                 link = kursVM.link,
                 slika = kursVM.slika,
-                nivoKursa = kursVM.nivoKursa,
+                nivoKursa = (int)kursVM.nivoKursa,
                 kategorijaID = kursVM.kategorijaID
             };
             _kurseviServices.Insert(kurs);
