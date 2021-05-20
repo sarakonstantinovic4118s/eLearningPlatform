@@ -57,6 +57,10 @@ namespace eLearning.Controllers
             return View(viewmodel);
         }
           
+        public IActionResult CourseMap()
+        {
+            return View();
+        }
 
         [HttpGet]
 
