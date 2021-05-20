@@ -72,11 +72,23 @@ namespace eLearning.Controllers
 
             listKategorija = _kategorijeServices.Read();
 
+          
+            var kursevi = new List<DetailsForCourseViewModel>();
+            foreach (var item in listKurseva)
+            {
+                kursevi.Add(new DetailsForCourseViewModel()
+                {
+
+                    kurs = item,
+                    nivo = _kurseviServices.getLevel(item.nivoKursa)
+                });
+            }
             var viewmodel = new KursKategorijaViewModel
             {
                 kategorijes = listKategorija,
-                kursevis = listKurseva
+                kursevis = kursevi,
             };
+            ViewBag.kursevi = kursevi;
             return View(viewmodel);
         }
           
@@ -84,6 +96,11 @@ namespace eLearning.Controllers
         [HttpGet]
         public ActionResult<Kursevi> CourseDetails(string id) {
             var findKurs = _kurseviServices.Find(id);
+            var skola = _schoolServices.Find(findKurs.skolaID);
+            var level = _kurseviServices.getLevel(findKurs.nivoKursa);
+
+            ViewBag.level = level;
+            ViewBag.skola = skola;
             return View(findKurs);
         }
     }

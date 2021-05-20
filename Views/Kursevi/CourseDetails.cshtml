@@ -1,6 +1,11 @@
 ﻿@model Kursevi
 
-@{ViewBag.Title = "E-learning";}
+    @{
+        ViewBag.Title = "E-learning";
+        var skola = ViewBag.skola.naziv;
+        var level = ViewBag.level;
+    }
+
 
 @section skripte{
     <link rel="stylesheet" href="~/css/course.css">
@@ -9,7 +14,8 @@
 <h1>@Model.imekursa</h1>
 <div>
     <div class="course-img">
-        <img src="@Model.slika" alt="">
+        <img src="~/images/Kursevi/@Model.slika" alt="">
+       
     </div>
 
     <div class="about-course">
@@ -25,11 +31,11 @@
             </tr>
             <tr>
                 <th>Level</th>
-                <td>Advanced</td>
+                <td>@level</td>
             </tr>
             <tr>
                 <th>School</th>
-                <td>edX</td>
+                <td>@skola</td>
             </tr>
         </table>
         <a class="course-link" href="@Model.link" target="_blank">Visit course</a>

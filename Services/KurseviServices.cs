@@ -61,7 +61,17 @@ namespace eLearning.Services
             var k = kursevi.Find(k => k.skolaID == schoolID);
             return k.ToList();
         }
-
+        public string getLevel(int level)
+        {
+            string strLevel = "";
+            if (level == 1)
+                strLevel = "Beginner";
+            else if (level == 2)
+                strLevel = "Intermediate";
+            else if (level == 3)
+                strLevel = "Expert";
+            return strLevel;
+        }
         public (List<Kursevi>, int) GetCourses(string categoryID, string search, int level, int page, int pageSize, string schoolID)
         {
             var builder = Builders<Kursevi>.Filter;
