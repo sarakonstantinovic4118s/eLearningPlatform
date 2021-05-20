@@ -9,7 +9,7 @@ namespace eLearning.ViewModels
     public class KursKategorijaViewModel
     {
         public List<Kategorije> kategorijes { get; set; }
-        public List<Kursevi> kursevis { get; set; }
+        public List<DetailsForCourseViewModel> kursevis { get; set; }
 
         public Kategorije kategorijeSingle { get; set; }
         public List<Kursevi> KurseviKategorije { get; set; }

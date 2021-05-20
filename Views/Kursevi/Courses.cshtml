@@ -50,13 +50,15 @@
                 {
                     <div class="course">
                         <div class="course-thumb">
-                            <img src="@item.slika" />
+                         
+                            <img src="~/images/Kursevi/@item.kurs.slika">
+
                         </div>
                         <div class="course-desc">
-                            <h3 class="course-title">@item.imekursa <span class="course-lvl">Advanced</span></h3>
-                            <p>@item.detaljikursa</p>
+                            <h3 class="course-title">@item.kurs.imekursa <span class="course-lvl">@item.nivo</span></h3>
+                            <p>@item.kurs.detaljikursa</p>
                         </div>
-                        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kursID" target="_blank"></a>
+                        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@item.kurs.kursID" target="_blank"></a>
                     </div>
                 }
             </div>
