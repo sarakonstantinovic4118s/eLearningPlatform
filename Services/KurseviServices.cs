@@ -80,7 +80,7 @@ namespace eLearning.Services
             if (categoryID != null)
                 filter &= builder.Eq(k => k.kategorijaID, categoryID);
             if (search != null)
-                filter &= builder.Regex("imekursa", new BsonRegularExpression(search));
+                filter &= builder.Regex("imekursa", new BsonRegularExpression($"/{search}/i"));
             if (level > 0)
                 filter &= builder.Eq(k => k.nivoKursa, (int)level);
             if (schoolID != null)

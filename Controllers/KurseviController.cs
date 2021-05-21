@@ -81,9 +81,12 @@ namespace eLearning.Controllers
             var kursevi = new List<DetailsForCourseViewModel>();
             foreach (var item in listKurseva)
             {
+                // skracivanje opisa kursa
+                if (item.detaljikursa.Length > 50)
+                    item.detaljikursa = item.detaljikursa.Substring(0, 50) + "...";
+
                 kursevi.Add(new DetailsForCourseViewModel()
                 {
-
                     kurs = item,
                     nivo = _kurseviServices.getLevel(item.nivoKursa)
                 });
