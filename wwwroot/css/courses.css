@@ -225,10 +225,10 @@
     margin-top: 40px;
 }
 
-.courses-categories  a {
+.courses-categories a {
     display: block;
     color: #b1b1b1;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 .courses-categories a:hover {
