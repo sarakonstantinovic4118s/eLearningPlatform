@@ -52,7 +52,7 @@ namespace eLearning.Services
 
             var filter = builder.Empty;
             if (!String.IsNullOrEmpty(name))
-                filter &= builder.Regex("naziv", new BsonRegularExpression(name));
+                filter &= builder.Regex("naziv", new BsonRegularExpression($"/{name}/i"));
 
             int skip = pageSize * (page - 1);
             var count = skole.CountDocuments(filter);

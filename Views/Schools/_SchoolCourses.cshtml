@@ -4,7 +4,7 @@
 }
 
 <h2>@skola.naziv</h2>
-<a class="full-view" asp-controller="Kursevi" asp-action="Courses" asp-route-schoolID="@skola.skolaID">Go to full view</a>
+<a class="full-view" asp-controller="Kursevi" asp-action="Courses" asp-route-schoolID="@skola.skolaID" target="_blank">Go to full view</a>
 @foreach (var k in Model)
 {
     <div class="school-course">
