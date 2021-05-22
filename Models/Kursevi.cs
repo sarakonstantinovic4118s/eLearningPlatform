@@ -23,6 +23,7 @@ namespace eLearning.Models
         public string detaljikursa { get; set; }
      
         public string link { get; set; }
+      
         public string slika { get; set; }
         public Int32 nivoKursa { get; set; }
     

@@ -15,7 +15,8 @@
         @Html.HiddenFor(m => m.kurs.kursID)
         <input type="text" placeholder="Course name" asp-for="@Model.kurs.imekursa">
 
-        <input type="text" placeholder="About name" asp-for="@Model.kurs.detaljikursa">
+        <textarea rows="4" cols="50" asp-for="@Model.kurs.detaljikursa">
+        </textarea>
 
         <input type="text" placeholder="Course link" asp-for="@Model.kurs.link">
 

@@ -39,7 +39,7 @@ namespace eLearning.ViewModels
         public string link { get; set; }
         public string slika { get; set; }
         public Int32 nivoKursa { get; set; }
-        public Kursevi kurs { get; internal set; }
+        public Kursevi kurs { get;  set; }
 
         //[DisplayName("Course name")]
         //[Required]

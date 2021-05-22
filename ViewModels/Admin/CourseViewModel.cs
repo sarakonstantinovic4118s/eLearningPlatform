@@ -25,6 +25,8 @@ namespace eLearning.ViewModels.Admin
         [DisplayName("Course link")]
         [Required]
         public string link { get; set; }
+        [DisplayName("Picture")]
+        [Required]
         public string slika { get; set; }
 
         [DisplayName("Course level")]
