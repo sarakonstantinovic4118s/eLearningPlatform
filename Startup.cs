@@ -39,12 +39,12 @@ namespace eLearning
             services.AddSingleton<IKurseviServices, KurseviServices>();
             services.AddSingleton<ISchoolServices, SchoolServices>();
             services.AddSingleton<IProgramServices, ProgramServices>();
-
             services.AddSingleton<IKategorijeServices, KategorijeServices>();
+
             services.AddMvc();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
-            // Cookie autentifikacija i autrorizacija korisnika
+            // Cookie autentifikacija i autorizacija korisnika
             services.AddAuthentication("CookieAuth")
                 .AddCookie("CookieAuth", config => 
                 {
@@ -53,19 +53,6 @@ namespace eLearning
 
             services.AddAuthorization(config =>
             {
-                // Default policy 
-                //AuthorizationPolicyBuilder defaultAuthBuilder = new();
-                //AuthorizationPolicy defaultAuthPolicy = defaultAuthBuilder
-                //    .RequireAuthenticatedUser()
-                //    .Build();
-
-                //config.DefaultPolicy = defaultAuthPolicy;
-
-                // Admin policy
-                //AuthorizationPolicy adminAuthPolicy = defaultAuthBuilder
-                //    .RequireAuthenticatedUser()
-                //    .RequireClaim(ClaimTypes.Role, "Admin")
-                //    .Build();
                 config.AddPolicy("Admin", adminAuthPolicy => {
                     adminAuthPolicy.RequireAuthenticatedUser();
                     adminAuthPolicy.RequireClaim(ClaimTypes.Role, "Admin");

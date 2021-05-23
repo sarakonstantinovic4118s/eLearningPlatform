@@ -52,8 +52,8 @@ namespace eLearning.Services
         //trazi sve kurseve koji imaju odredjen id kategorije
         public List<Kursevi> findCourses(string kategorijaID)
         {
-                var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
-                return k.ToList();
+            var k = kursevi.Find(k => k.kategorijaID == kategorijaID);
+            return k.ToList();
         }
         
         public List<Kursevi> FindBySchool(string schoolID)
@@ -63,7 +63,7 @@ namespace eLearning.Services
         }
         public string getLevel(int level)
         {
-            string strLevel = "";
+            string strLevel = "All levels";
             if (level == 1)
                 strLevel = "Beginner";
             else if (level == 2)
