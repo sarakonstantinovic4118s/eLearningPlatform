@@ -111,6 +111,11 @@
     height: 50px;
 }
 
+.about-course table td {
+    padding: 5px 0;
+    color: #cfcfcf;
+}
+
 .about-course table tr:nth-child(odd) {
     background: #24242e;
 }

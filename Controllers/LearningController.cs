@@ -140,8 +140,10 @@ namespace eLearning.Controllers
             // provera da li je korisnik vec registrovan
             Korisnik stariKorisnik = _korisnikServices.Find(korisnikVM.korisnickoIme);
             if (stariKorisnik != null)
+            {
                 ModelState.AddModelError(string.Empty, $"Username \"{korisnikVM.korisnickoIme}\" is already taken.");
                 return View();
+            }
 
             Korisnik k = new()
             {

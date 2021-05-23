@@ -208,9 +208,9 @@ namespace eLearning.Controllers
         //SET EDIT COURSE
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult setEditCourse(Kursevi kurs, string id)
+        public IActionResult setEditCourse(Kursevi kurs)
         {
-            var file = HttpContext.Request.Form.Files["slika"];
+            var file = HttpContext.Request.Form.Files["slika2"];
             if (file != null)
             {
                 kurs.slika = kurs.imekursa + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
@@ -310,7 +310,7 @@ namespace eLearning.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult setEditSChool(Skola skola)
         {
-            var file = HttpContext.Request.Form.Files["logo"];
+            var file = HttpContext.Request.Form.Files["logo2"];
             if (file != null)
             {
                 skola.logo = skola.naziv + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";

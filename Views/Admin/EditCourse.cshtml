@@ -12,15 +12,17 @@
     <i class="fas fa-times-circle closeBtn"></i>
     <form asp-controller="Admin" asp-action="setEditCourse" method="post" enctype="multipart/form-data">
 
-        @Html.HiddenFor(m => m.kurs.kursID)
-        <input type="text" placeholder="Course name" asp-for="@Model.kurs.imekursa">
+        <input type="hidden" asp-for="@Model.kurs.kursID" />
+        <input type="hidden" asp-for="@Model.kurs.slika" />
+
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.imekursa"/>
 
         <textarea rows="4" cols="50" asp-for="@Model.kurs.detaljikursa">
         </textarea>
 
         <input type="text" placeholder="Course link" asp-for="@Model.kurs.link">
 
-        <input type="file" placeholder="Course image" name="slika" asp-for="@Model.kurs.slika" class="img-upload">
+        <input type="file" placeholder="Course image" name="slika2" class="img-upload">
 
         <input type="text" placeholder="Course level" asp-for="@Model.kurs.nivoKursa">
 
