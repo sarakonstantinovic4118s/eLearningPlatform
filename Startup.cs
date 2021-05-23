@@ -38,6 +38,7 @@ namespace eLearning
             services.AddSingleton<IKorisnikServices, KorisnikServices>();
             services.AddSingleton<IKurseviServices, KurseviServices>();
             services.AddSingleton<ISchoolServices, SchoolServices>();
+            services.AddSingleton<IProgramServices, ProgramServices>();
 
             services.AddSingleton<IKategorijeServices, KategorijeServices>();
             services.AddMvc();

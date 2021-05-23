@@ -66,11 +66,6 @@ namespace eLearning.Controllers
             return RedirectToAction("Profile");
         }
 
-        [HttpGet]
-        public IActionResult Registracija()
-        {
-            return View();
-        }
         // Login stranica
         [HttpGet]
         public IActionResult Login()
@@ -137,9 +132,16 @@ namespace eLearning.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Registracija(KorisnikRegViewModel korisnikVM)
+        public IActionResult Register(KorisnikRegViewModel korisnikVM)
         {
+            if (!ModelState.IsValid)
+                return View(korisnikVM);
+
             // provera da li je korisnik vec registrovan
+            Korisnik stariKorisnik = _korisnikServices.Find(korisnikVM.korisnickoIme);
+            if (stariKorisnik != null)
+                ModelState.AddModelError(string.Empty, $"Username \"{korisnikVM.korisnickoIme}\" is already taken.");
+                return View();
 
             Korisnik k = new()
             {

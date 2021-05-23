@@ -33,6 +33,11 @@ namespace eLearning.Controllers
             _schoolServices = schoolServices;
         }
 
+        public IActionResult Index()
+        {
+            return RedirectToAction("adminPanel");
+        }
+
         //SEARCH READ (CATEGORY)
         public IActionResult searchReadCategory(string name)
         {
