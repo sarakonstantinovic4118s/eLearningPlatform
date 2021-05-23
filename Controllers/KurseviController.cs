@@ -106,12 +106,41 @@ namespace eLearning.Controllers
         [HttpGet]
         public ActionResult<Kursevi> CourseDetails(string id) {
             var findKurs = _kurseviServices.Find(id);
-            var skola = _schoolServices.Find(findKurs.skolaID);
             var level = _kurseviServices.getLevel(findKurs.nivoKursa);
-            ViewBag.Category = _kategorijeServices.Find(findKurs.kategorijaID).imekategorije;
 
+            // provera da li skola postoji
+            string schoolName;
+            if (findKurs.kategorijaID == null)
+            {
+                schoolName = "Uncategorized";
+            }
+            else
+            {
+                var s = _schoolServices.Find(findKurs.skolaID);
+                if (s == null)
+                    schoolName = "Uncategorized";
+                else
+                    schoolName = s.naziv;
+            }
+
+            // provere ako kategorija ne postoji
+            string categoryName;
+            if (findKurs.kategorijaID == null)
+            {
+                categoryName = "Uncategorized";
+            }
+            else
+            {
+                var category = _kategorijeServices.Find(findKurs.kategorijaID);
+                if (category == null)
+                    categoryName = "Uncategorized";
+                else
+                    categoryName = category.imekategorije;
+            }
+
+            ViewBag.skola = schoolName;
+            ViewBag.category = categoryName;
             ViewBag.level = level;
-            ViewBag.skola = skola;
             return View(findKurs);
         }
     }
