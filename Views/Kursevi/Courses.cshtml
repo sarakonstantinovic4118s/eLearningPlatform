@@ -13,8 +13,6 @@
 
 @section skripte{
     <link rel="stylesheet" href="~/css/courses.css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 }
 
 <div class="courses-wrap">
@@ -38,7 +36,9 @@
             <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="">All courses</a>
             @foreach (var item in Model.kategorijes)
             {
-                <a asp-controller="Kursevi" asp-action="Courses" asp-route-naziv="@item.imekategorije">@item.imekategorije</a>
+                <a asp-controller="Kursevi" asp-action="Courses" 
+                   asp-route-naziv="@item.imekategorije"
+                   asp-route-schoolID="@schoolID">@item.imekategorije</a>
             }
         </div>
     </div>

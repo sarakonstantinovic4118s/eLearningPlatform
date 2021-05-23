@@ -33,6 +33,11 @@ namespace eLearning.Controllers
             _schoolServices = schoolServices;
         }
 
+        public IActionResult Index()
+        {
+            return RedirectToAction("adminPanel");
+        }
+
         //SEARCH READ (CATEGORY)
         public IActionResult searchReadCategory(string name)
         {
@@ -70,13 +75,13 @@ namespace eLearning.Controllers
             listKursevi = _kurseviServices.Read();
             listSkole = _schoolServices.Read();
 
-            CourseViewModel courseViewModel= new();
+            CourseViewModel courseViewModel = new();
             courseViewModel.kategorije = listKategorije;
             courseViewModel.skole = listSkole;
 
             List<CourseDetailsViewModel> list = new List<CourseDetailsViewModel>();
 
-            foreach(var course in listKursevi)
+            foreach (var course in listKursevi)
             {
                 CourseDetailsViewModel cd = new()
                 {
@@ -84,7 +89,7 @@ namespace eLearning.Controllers
                     kategorija = _kategorijeServices.Find(course.kategorijaID),
                     skola = _schoolServices.Find(course.skolaID)
                 };
-                list.Add(cd);    
+                list.Add(cd);
             }
 
             var viewmodel = new AdminViewModel
@@ -147,24 +152,27 @@ namespace eLearning.Controllers
                     imekursa = c.imekursa,
                     detaljikursa = c.detaljikursa,
                     link = c.link,
-                    slika = Request.Form["imekursa"].ToString() + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png",
+                    slika = "no-image.jpg",
                     nivoKursa = (int)c.nivoKursa,
                     kategorijaID = c.kategorijaID,
                     skolaID = c.skolaID
                 };
 
-                var file = HttpContext.Request.Form.Files["slika"];
-                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
-                if (!System.IO.Directory.Exists(filePath))
+                var file = c.slika;
+                if (file != null)
                 {
-                    Directory.CreateDirectory(filePath);
+                    kurs.slika = c.imekursa + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+                    var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
+                    if (Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+
+                    var path = Path.Combine(filePath, kurs.slika);
+                    FileStream fs = new FileStream(path, FileMode.Create);
+                    file.CopyTo(fs);
+                    fs.Close();
                 }
-
-                var path = Path.Combine(filePath, kurs.slika);
-                FileStream fs = new FileStream(path, FileMode.Create);
-                file.CopyTo(fs);
-                fs.Close();
-
 
                 _kurseviServices.Insert(kurs);
                 return RedirectToAction("adminPanel");
@@ -202,25 +210,22 @@ namespace eLearning.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult setEditCourse(Kursevi kurs, string id)
         {
-            kurs.slika = kurs.imekursa.ToString() + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
             var file = HttpContext.Request.Form.Files["slika"];
-            var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
-            if (!Directory.Exists(filePath))
+            if (file != null)
             {
-                Directory.CreateDirectory(filePath);
+                kurs.slika = kurs.imekursa + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                var path = Path.Combine(filePath, kurs.slika);
+                FileStream fs = new FileStream(path, FileMode.Create);
+                file.CopyTo(fs);
+                fs.Close();
             }
-            var deletionPath = Path.Combine(filePath, "slika");
-            if (System.IO.File.Exists(deletionPath))
-            {
-                System.IO.File.Delete(deletionPath);
-            }
-            var path = Path.Combine(filePath, kurs.slika);
-            FileStream fs = new FileStream(path, FileMode.Create);
-            file.CopyTo(fs);
-            fs.Close();
-
             _kurseviServices.UpdateCourse(kurs);
-            return RedirectToAction("adminPanel",kurs);
+            return RedirectToAction("adminPanel", kurs);
         }
 
         //DELETE COURSE
@@ -265,21 +270,26 @@ namespace eLearning.Controllers
         //GET SCHOOL ID
         public ActionResult<Korisnik> editSChool(string id) => View(_schoolServices.FindID(id));
 
-    //CREATE Schooll
-    [HttpPost]
+
+            //CREATE Schooll
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult insertSchool(SchoolViewModel s)
         {
-            if (ModelState.IsValid)
-            {
-                Skola skola = new()
-                {
-                    naziv = s.naziv,
-                    logo = Request.Form["naziv"] + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png"
-                };
-                var file = HttpContext.Request.Form.Files["logo"];
-                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
+            if (!ModelState.IsValid)
+                return RedirectToAction("adminPanel");
 
+            Skola skola = new()
+            {
+                naziv = s.naziv,
+                logo = "no-image.jpg"
+            };
+
+            var file = s.logo;
+            if (file != null)
+            {
+                skola.logo = s.naziv + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
@@ -289,10 +299,9 @@ namespace eLearning.Controllers
                 FileStream fs = new FileStream(path, FileMode.Create);
                 file.CopyTo(fs);
                 fs.Close();
-
-                _schoolServices.Insert(skola);
-                return RedirectToAction("adminPanel");
             }
+
+            _schoolServices.Insert(skola);
             return RedirectToAction("adminPanel");
         }
 
@@ -301,24 +310,20 @@ namespace eLearning.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult setEditSChool(Skola skola)
         {
-
-            skola.logo = skola.naziv.ToString() + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
             var file = HttpContext.Request.Form.Files["logo"];
-            var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
-            if (!Directory.Exists(filePath))
+            if (file != null)
             {
-                Directory.CreateDirectory(filePath);
+                skola.logo = skola.naziv + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+                var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Skole";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                var path = Path.Combine(filePath, skola.logo);
+                FileStream fs = new FileStream(path, FileMode.Create);
+                file.CopyTo(fs);
+                fs.Close();
             }
-            var deletionPath = Path.Combine(filePath, "logo");
-            if (System.IO.File.Exists(deletionPath))
-            {
-                System.IO.File.Delete(deletionPath);
-            }
-            var path = Path.Combine(filePath, skola.logo);
-            FileStream fs = new FileStream(path, FileMode.Create);
-            file.CopyTo(fs);
-            fs.Close();
-
 
             _schoolServices.UpdateSchool(skola);
             return RedirectToAction("adminPanel");

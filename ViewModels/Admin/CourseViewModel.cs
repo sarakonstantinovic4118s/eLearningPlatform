@@ -1,4 +1,5 @@
 ﻿using eLearning.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,9 +26,9 @@ namespace eLearning.ViewModels.Admin
         [DisplayName("Course link")]
         [Required]
         public string link { get; set; }
+
         [DisplayName("Picture")]
-        [Required]
-        public string slika { get; set; }
+        public IFormFile slika { get; set; }
 
         [DisplayName("Course level")]
         [Required]

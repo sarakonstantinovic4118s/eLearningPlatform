@@ -61,7 +61,7 @@ namespace eLearning.Controllers
             {
                 page = 1;
             }
-            int pageSize = 6;
+            int pageSize = 9;
             ViewBag.page = page;
 
             if (level == null)
@@ -84,6 +84,8 @@ namespace eLearning.Controllers
                 // skracivanje opisa kursa
                 if (item.detaljikursa.Length > 50)
                     item.detaljikursa = item.detaljikursa.Substring(0, 50) + "...";
+                if (item.imekursa.Length > 46)
+                    item.imekursa = item.imekursa.Substring(0, 44) + "...";
 
                 kursevi.Add(new DetailsForCourseViewModel()
                 {

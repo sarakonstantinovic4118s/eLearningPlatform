@@ -1,0 +1,42 @@
+﻿@model List<SekcijaViewModel>
+@{ 
+    ViewBag.Title = "Program";
+}
+
+@section skripte {
+    <link rel="stylesheet" href="~/css/program.min.css" />
+}
+
+<h1>Program</h1>
+<div class="program-wrap">
+    <div class="program-summary">
+        <h2>Summary: </h2>
+        <p>Ja bih ovo na srpskom</p>
+    </div>
+
+    @foreach (var s in Model)
+    {
+        <div class="program-section">
+            <p>@s.Opis</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>School</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                    </tr>
+                </thead>
+                @foreach (var k in s.Kursevi)
+                {
+                    <tr>
+                        <td><a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@k.Link" target="_blank">@k.Naziv</a></td>
+                        <td>@k.Skola</td>
+                        <td>@k.Kategorija</td>
+                        <td>@k.Nivo</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+</div>
