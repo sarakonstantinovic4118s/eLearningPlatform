@@ -88,7 +88,7 @@ namespace eLearning.Services
 
             int skip = pageSize * (page - 1);
             var count = kursevi.CountDocuments(filter);
-            var k = kursevi.Find(filter).Skip(skip).Limit(pageSize).SortBy(k => k.nivoKursa);
+            var k = kursevi.Find(filter).SortBy(k => k.nivoKursa).ThenBy(k => k.kursID).Skip(skip).Limit(pageSize);
 
 
             return (k.ToList(), (int)count);

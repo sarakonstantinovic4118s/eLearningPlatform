@@ -108,6 +108,7 @@ namespace eLearning.Controllers
             var findKurs = _kurseviServices.Find(id);
             var skola = _schoolServices.Find(findKurs.skolaID);
             var level = _kurseviServices.getLevel(findKurs.nivoKursa);
+            ViewBag.Category = _kategorijeServices.Find(findKurs.kategorijaID).imekategorije;
 
             ViewBag.level = level;
             ViewBag.skola = skola;
