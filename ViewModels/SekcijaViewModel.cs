@@ -17,6 +17,8 @@ namespace eLearning.ViewModels
         public string Skola { get; set; }
         public string Kategorija { get; set; }
         public string Nivo { get; set; }
+        public int NivoID { get; set; }
+        public int Broj { get; set; }
         public string Link { get; set; }
     }
 }

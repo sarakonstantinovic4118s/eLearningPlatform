@@ -57,10 +57,13 @@ namespace eLearning.Controllers
                     {
                         Naziv = dbKurs.imekursa,
                         Nivo = _kurseviServices.getLevel(dbKurs.nivoKursa), 
+                        NivoID = dbKurs.nivoKursa,
+                        Broj = k.Broj,
                         Kategorija = _kategorijeServices.Find(dbKurs.kategorijaID).imekategorije,
                         Skola = _schoolServices.Find(dbKurs.skolaID).naziv,
                         Link = dbKurs.kursID
                     });
+                    kurseviVM = kurseviVM.OrderBy(k => k.NivoID).ThenBy(k => k.Broj).ToList();
                 }
 
                 // popunjavanje liste sa sekcijama
