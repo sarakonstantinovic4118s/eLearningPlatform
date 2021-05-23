@@ -161,7 +161,7 @@ namespace eLearning.Controllers
                 var file = c.slika;
                 if (file != null)
                 {
-                    kurs.slika = c.imekursa + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+                    kurs.slika = kurs.kursID + "-Original-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
                     var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
                     if (Directory.Exists(filePath))
                     {
@@ -213,7 +213,7 @@ namespace eLearning.Controllers
             var file = HttpContext.Request.Form.Files["slika2"];
             if (file != null)
             {
-                kurs.slika = kurs.imekursa + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
+                kurs.slika = kurs.kursID + "-Update-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".png";
                 var filePath = Directory.GetCurrentDirectory() + "/wwwroot/images/Kursevi";
                 if (!Directory.Exists(filePath))
                 {

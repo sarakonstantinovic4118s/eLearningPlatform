@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="~/css/program.min.css" />
 }
 
-<h1>Program</h1>
+<h1>Fullstack Developer Program</h1>
 <div class="program-wrap">
     <div class="program-summary">
-        <h2>Summary: </h2>
-        <p>Ja bih ovo na srpskom</p>
+        <h2>Uvod u plan i program:</h2>
+        <p>Fullstack programer se bavi razvojem aplikacija i na klijentskoj i na serverskoj strani. 
+        Razvoj tehnologije postaje sve složeniji, a stvari više nisu jednostavne kao što su bile pre. 
+        Cilj ovog programa je da se stekne prošireno poznavanje web programiranja. 
+        Nakon toga je preporuka da se dublje nauči <b>jedna</b> tehnologija. 
+        Na ovoj stranici se nalazi korisna putanja za učenje, uz ponuđene besplatne kurseve za ovo zanimanje.</p>
     </div>
 
     @foreach (var s in Model)
     {
         <div class="program-section">
-            <p>@s.Opis</p>
+            <p>@Html.Raw(s.Opis)</p>
             <table>
                 <thead>
                     <tr>

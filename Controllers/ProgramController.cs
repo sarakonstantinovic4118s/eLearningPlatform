@@ -53,17 +53,20 @@ namespace eLearning.Controllers
                     Kursevi dbKurs = _kurseviServices.Find(k.KursID);
 
                     // popunjavanje liste sa kursevima
-                    kurseviVM.Add(new KursSekcijeViewModel
+                    if (dbKurs != null)
                     {
-                        Naziv = dbKurs.imekursa,
-                        Nivo = _kurseviServices.getLevel(dbKurs.nivoKursa), 
-                        NivoID = dbKurs.nivoKursa,
-                        Broj = k.Broj,
-                        Kategorija = _kategorijeServices.Find(dbKurs.kategorijaID).imekategorije,
-                        Skola = _schoolServices.Find(dbKurs.skolaID).naziv,
-                        Link = dbKurs.kursID
-                    });
-                    kurseviVM = kurseviVM.OrderBy(k => k.NivoID).ThenBy(k => k.Broj).ToList();
+                        kurseviVM.Add(new KursSekcijeViewModel
+                        {
+                            Naziv = dbKurs.imekursa,
+                            Nivo = _kurseviServices.getLevel(dbKurs.nivoKursa), 
+                            NivoID = dbKurs.nivoKursa,
+                            Broj = k.Broj,
+                            Kategorija = _kategorijeServices.Find(dbKurs.kategorijaID).imekategorije,
+                            Skola = _schoolServices.Find(dbKurs.skolaID).naziv,
+                            Link = dbKurs.kursID
+                        });
+                        kurseviVM = kurseviVM.OrderBy(k => k.NivoID).ThenBy(k => k.Broj).ToList();
+                    }
                 }
 
                 // popunjavanje liste sa sekcijama

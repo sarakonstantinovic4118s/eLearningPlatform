@@ -211,25 +211,15 @@
             <table class="data-review">
                 <tr>
                     <th>Course name</th>
-                    <th>Description</th>
                     <th>Category</th>
                     <th>School</th>
-                    <th>Link</th>
-                    <th>Image</th>
-                    <th>Course level</th>
                 </tr>
                 @foreach (var course in ViewBag.adminViewModel.kursevi)
                 {
                     <tr>
                         <td>@course.kurs.imekursa</td>
-                        <td>@course.kurs.detaljikursa</td>
                         <td>@course.kategorija.imekategorije</td>
                         <td>@course.skola.naziv</td>
-                        <td>@course.kurs.link</td>
-                        <td class="course-img">
-                            <img src="~/images/Kursevi/@course.kurs.slika" alt="">
-                        </td>
-                        <td>@course.kurs.nivoKursa</td>
                         <td class="options">
                             <a class="edit-btn course" asp-controller="Admin" asp-action="editCourse" asp-route-id="@course.kurs.kursID">EDIT</a>
                             <a class="delete-btn course" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.kurs.kursID">DELETE</a>
